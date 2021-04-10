@@ -79,8 +79,6 @@ public class LoginActivity extends AppCompatActivity {
 
         osi = device.getUserId();
 
-
-
         Log.wtf(TAG, "osi : "+osi);
 
         boolean enabled = device.areNotificationsEnabled();
