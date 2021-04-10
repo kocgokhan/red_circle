@@ -16,7 +16,7 @@ import com.redcircle.Request.VolleyFileUploadRequest
 import java.io.IOException
 
 class Deneme : AppCompatActivity() {
-    // aq
+
     private lateinit var imageView: ImageView
     private lateinit var imageButton: Button
     private lateinit var sendButton: Button
