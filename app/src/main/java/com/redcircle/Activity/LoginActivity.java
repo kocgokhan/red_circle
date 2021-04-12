@@ -22,6 +22,7 @@ import com.onesignal.OSDeviceState;
 import com.onesignal.OneSignal;
 import com.redcircle.Activity.MainActivity;
 import com.redcircle.R;
+import com.redcircle.Request.AqJSONObjectRequest;
 import com.redcircle.Util.MyApplication;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -29,6 +30,9 @@ import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import static com.redcircle.Util.StaticFields.BASE_URL;
 import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
@@ -49,8 +53,8 @@ public class LoginActivity extends AppCompatActivity {
 
     ImageView spotify_login_button;
     String osi;
-    private String token;
-
+    private  String token;
+    private int expired=0;
     private  boolean login = false;
     private  boolean deger = false;
     @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
@@ -89,6 +93,20 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         token = preferences.getString("token", "Error");
+
+
+        Long tsLong = System.currentTimeMillis()/1000;
+
+
+
+
+            if(tsLong + expired > tsLong){
+                spotify_login();
+            }else{
+                requestJson(token, osi);
+            }
+
+
 
 
         spotify_login_button = findViewById(R.id.spotify_login_button);
@@ -136,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Hata", Toast.LENGTH_SHORT).show();
                 }
             };
-            com.redcircle.Request.AqJSONObjectRequest aqJSONObjectRequest = new com.redcircle.Request.AqJSONObjectRequest(TAG, BASE_URL + "signup", params, listener, errorListener);
+            AqJSONObjectRequest aqJSONObjectRequest = new AqJSONObjectRequest(TAG, BASE_URL + "user_login", params, listener, errorListener);
             MyApplication.get().getRequestQueue().add(aqJSONObjectRequest);
         } catch (JSONException e) {
             Log.wtf(TAG, "request params catch e.getMessage() : " + e.getMessage());
@@ -161,11 +179,13 @@ public class LoginActivity extends AppCompatActivity {
                 case TOKEN:
                     SharedPreferences.Editor editor = MyApplication.get().getPreferencesEditor();
                     try {
+                        expired = response.getExpiresIn();
                         editor.putString("loginResponse", response + "");
                         editor.putString("token", response.getAccessToken());
+                        editor.putInt("expired", response.getExpiresIn());
                         editor.apply();
                         if(osi !="Error"){
-                            requestJson(token, osi);
+                          requestJson(response.getAccessToken(), osi);
                         }
                         else{
                             Toast.makeText(LoginActivity.this, "Hata", Toast.LENGTH_SHORT).show();

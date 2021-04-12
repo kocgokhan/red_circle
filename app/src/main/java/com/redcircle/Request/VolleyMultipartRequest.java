@@ -11,16 +11,18 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
- * Created by Belal on 10/24/2017.
+ * Custom request to make multipart header and upload file.
+ *
+ * Virtual Qube Technologies
+ * Created by Ankit Prajapati on 27/0/2018 12.05.
  */
-
 public class VolleyMultipartRequest extends Request<NetworkResponse> {
-
     private final String twoHyphens = "--";
     private final String lineEnd = "\r\n";
     private final String boundary = "apiclient-" + System.currentTimeMillis();
@@ -29,7 +31,31 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
     private Response.ErrorListener mErrorListener;
     private Map<String, String> mHeaders;
 
+    /**
+     * Default constructor with predefined header and post method.
+     *
+     * @param url           request destination
+     * @param headers       predefined custom header
+     * @param listener      on success achieved 200 code from request
+     * @param errorListener on error http or library timeout
+     */
+    public VolleyMultipartRequest(String url, Map<String, String> headers,
+                                  Response.Listener<NetworkResponse> listener,
+                                  Response.ErrorListener errorListener) {
+        super(Method.POST, url, errorListener);
+        this.mListener = listener;
+        this.mErrorListener = errorListener;
+        this.mHeaders = headers;
+    }
 
+    /**
+     * Constructor with option method and default header configuration.
+     *
+     * @param method        method for now accept POST and GET only
+     * @param url           request destination
+     * @param listener      on success event handler
+     * @param errorListener on error event handler
+     */
     public VolleyMultipartRequest(int method, String url,
                                   Response.Listener<NetworkResponse> listener,
                                   Response.ErrorListener errorListener) {
@@ -149,6 +175,7 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
     private void buildTextPart(DataOutputStream dataOutputStream, String parameterName, String parameterValue) throws IOException {
         dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
         dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"" + parameterName + "\"" + lineEnd);
+        //dataOutputStream.writeBytes("Content-Type: text/plain; charset=UTF-8" + lineEnd);
         dataOutputStream.writeBytes(lineEnd);
         dataOutputStream.writeBytes(parameterValue + lineEnd);
     }
@@ -189,31 +216,99 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
         dataOutputStream.writeBytes(lineEnd);
     }
 
+    /**
+     * Simple data container use for passing byte file
+     */
     public class DataPart {
         private String fileName;
         private byte[] content;
         private String type;
 
-        public DataPart() {
+        /**
+         * Default data part
+         * @param name
+         * @param uploads
+         * @param mimeType
+         */
+        public DataPart(String name, File[] uploads, String mimeType) {
         }
 
+        /**
+         * Constructor with data.
+         *
+         * @param name label of data
+         * @param data byte data
+         */
         public DataPart(String name, byte[] data) {
             fileName = name;
             content = data;
         }
 
-        String getFileName() {
+        /**
+         * Constructor with mime data type.
+         *
+         * @param name     label of data
+         * @param data     byte data
+         * @param mimeType mime data like "image/jpeg"
+         */
+        public DataPart(String name, byte[] data, String mimeType) {
+            fileName = name;
+            content = data;
+            type = mimeType;
+        }
+
+        /**
+         * Getter file name.
+         *
+         * @return file name
+         */
+        public String getFileName() {
             return fileName;
         }
 
-        byte[] getContent() {
+        /**
+         * Setter file name.
+         *
+         * @param fileName string file name
+         */
+        public void setFileName(String fileName) {
+            this.fileName = fileName;
+        }
+
+        /**
+         * Getter content.
+         *
+         * @return byte file data
+         */
+        public byte[] getContent() {
             return content;
         }
 
-        String getType() {
+        /**
+         * Setter content.
+         *
+         * @param content byte file data
+         */
+        public void setContent(byte[] content) {
+            this.content = content;
+        }
+
+        /**
+         * Getter mime type.
+         *
+         * @return mime type
+         */
+        public String getType() {
             return type;
         }
 
+        /**
+         * Setter mime type.
+         *
+         * @param type mime type
+         */
+        public void setType(String type) {
+            this.type = type;
+        }
     }
 }
- 

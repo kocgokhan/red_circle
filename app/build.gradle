@@ -23,8 +23,9 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
         manifestPlaceholders = [
                 onesignal_app_id               : 'ea03e363-3132-4a69-a472-80b4e8ccd660',
                 // Project number pulled from dashboard, local value is ignored.
@@ -35,9 +36,9 @@ android {
     buildTypes {
         debug{
 
-            minifyEnabled true
+            minifyEnabled false
             useProguard false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
 
         }
@@ -107,6 +108,11 @@ dependencies {
     compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     // This library handles authentication and authorization
     implementation 'com.spotify.android:auth:1.0.0-alpha'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.karumi:dexter:5.0.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+
+    implementation 'id.zelory:compressor:2.1.0'
     implementation project(':spotify-app-remote')
     // This library handles music playback
     implementation "com.google.code.gson:gson:2.8.5"

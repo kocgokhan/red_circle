@@ -1,17 +1,16 @@
 package com.redcircle.Fragment;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,27 +23,37 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.loader.content.CursorLoader;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
+import com.android.volley.toolbox.StringRequest;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.DexterError;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.PermissionRequestErrorListener;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.redcircle.Activity.MainActivity;
 import com.redcircle.R;
-import com.redcircle.Request.VolleyMultipartRequest;
-import com.redcircle.Util.StaticFields;
+import com.redcircle.Request.AqJSONObjectRequest;
+import com.redcircle.Request.MySingleton;
+import com.redcircle.Util.MyApplication;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import static com.redcircle.Util.StaticFields.BASE_URL;
+import static com.redcircle.Util.StaticFields.UPLOAD_URL;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,14 +71,14 @@ public class PostFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private ImageButton gallery_btn;
-    ImageView IVPreviewImage,search_content,song_image,posted_image,post_bt;
+    ImageView IVPreviewImages,search_content,song_image,posted_image,post_bt;
     private String songs_name,songs_artist,songs_image,songs_uri,user_id,posted_text;
     TextView song_name,song_artist;
     EditText post_descr;
     private  boolean send = false;
     private String TAG="PostAct";
-    static final int PICK_IMAGE_REQUEST = 100;
-    String filePath;
+    private final int GALLERY = 1;
+    RequestQueue rQueue;
     Bitmap bitmap;
     public PostFragment() {
     }
@@ -96,14 +105,22 @@ public class PostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post, container, false);
-        IVPreviewImage = view.findViewById(R.id.IVPreviewImage);
+        IVPreviewImages = view.findViewById(R.id.IVPreviewImage);
+
+
+        requestMultiplePermissions();
+
         gallery_btn = (ImageButton) view.findViewById(R.id.camera_btn);
         gallery_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageBrowse();
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(galleryIntent, GALLERY);
             }
         });
+
         TextView search_text = (TextView) view.findViewById(R.id.search_text);
         ImageView search_image = (ImageView) view.findViewById(R.id.search_image);
         search_content = (ImageView) view.findViewById(R.id.search_content);
@@ -146,133 +163,60 @@ public class PostFragment extends Fragment {
             }
         }catch (Exception e){
         }
+
+
         post_descr = (EditText) view.findViewById(R.id.post_descr);
         post_bt = (ImageView )getActivity().findViewById(R.id.post_button);
         post_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                posted_text =  post_descr.getText().toString().trim();
-                if (bitmap != null) {
+               posted_text= post_descr.getText().toString().trim();
+                if(bitmap!=null){
                     requestJson(user_id,songs_name,songs_artist,songs_uri,songs_image,bitmap,posted_text);
-                } else {
-                    Toast.makeText(getContext(), "Image not selected!", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
         return view;
     }
-    private void imageBrowse() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        // Start the Intent
-        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
-    }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == Activity.RESULT_OK) {
-
-            if(requestCode == PICK_IMAGE_REQUEST){
-                Uri picUri = data.getData();
-
-                 bitmap = null;
+        if (resultCode == Activity.RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == GALLERY) {
+            if (data != null) {
+                Uri contentURI = data.getData();
                 try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), picUri);
+
+                    bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), contentURI);
+                    IVPreviewImages.setImageBitmap(bitmap);
+
+
                 } catch (IOException e) {
                     e.printStackTrace();
+                    Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
                 }
-
-                //displaying selected image to imageview
-                IVPreviewImage.setImageBitmap(bitmap);
-
-
             }
-
         }
-
-    }
-    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
-        return byteArrayOutputStream.toByteArray();
     }
 
-    private String getPath(Uri contentUri) {
-        String[] proj = { MediaStore.Images.Media.DATA };
-        CursorLoader loader = new CursorLoader(getContext(), contentUri, proj, null, null, null);
-        Cursor cursor = loader.loadInBackground();
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        String result = cursor.getString(column_index);
-        cursor.close();
-        return result;
-    }
-
-    private void requestJson(String user_id, String name_song,String artist_song, String uri_song, String image_song,final Bitmap bitmap,  String post_texts) {
-        //our custom volley request
-        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, StaticFields.UPLOAD_URL,
-                new Response.Listener<NetworkResponse>() {
-                    @Override
-                    public void onResponse(NetworkResponse response) {
-                        try {
-                            JSONObject obj = new JSONObject(new String(response.data));
-                            Toast.makeText(getContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }) {
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("user_id", user_id);
-                params.put("song_name", name_song);
-                params.put("song_image", image_song);
-                params.put("song_artist", artist_song);
-                params.put("song_uri", uri_song);
-                params.put("post_text", post_texts);
-                return params;
-            }
-
-            /*
-             * Here we are passing image by renaming it with a unique name
-             * */
-            @Override
-            protected Map<String, DataPart> getByteData() {
-                Map<String, DataPart> params = new HashMap<>();
-                long imagename = System.currentTimeMillis();
-                params.put("post_image", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
-                return params;
-            }
-        };
-
-        //adding the request to volley
-        Log.e(TAG,"aaaaa "+volleyMultipartRequest);
-        Volley.newRequestQueue(getContext()).add(volleyMultipartRequest);
-    }
-
-
-
-
-
-    /*private void requestJson(String user_id, String name_song,String artist_song, String uri_song, String image_song,final String post_image,  String post_texts) {
+    private void requestJson(String user_id, String name_song,String artist_song, String uri_song, String image_song,final Bitmap post_image,  String post_texts) {
         JSONObject params = new JSONObject();
-        send=true;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        post_image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        send = true;
         try {
             params.put("user_id", user_id);
             params.put("song_name", name_song);
             params.put("song_image", image_song);
             params.put("song_artist", artist_song);
             params.put("song_uri", uri_song);
-            params.put("post_image", post_image);
+            params.put("post_image", encodedImage);
             params.put("post_text", post_texts);
             Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
                 @Override
@@ -292,11 +236,53 @@ public class PostFragment extends Fragment {
                     Toast.makeText(getContext(), "Hata", Toast.LENGTH_SHORT).show();
                 }
             };
+
             AqJSONObjectRequest aqJSONObjectRequest = new AqJSONObjectRequest(TAG, BASE_URL + "send_post", params, listener, errorListener);
+            aqJSONObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    10000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             MyApplication.get().getRequestQueue().add(aqJSONObjectRequest);
         } catch (JSONException e) {
             Log.wtf(TAG, "request params catch e.getMessage() : " + e.getMessage());
             e.printStackTrace();
             Toast.makeText(getContext(), "Hata", Toast.LENGTH_SHORT).show();
-        }*/
+        }
+
     }
+    private void  requestMultiplePermissions(){
+        Dexter.withActivity(getActivity())
+                .withPermissions(
+
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        // check if all permissions are granted
+                        if (report.areAllPermissionsGranted()) {
+                            Toast.makeText(getContext().getApplicationContext(), "All permissions are granted by user!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        // check for permanent denial of any permission
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+                            // show alert dialog navigating to Settings
+
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).
+                withErrorListener(new PermissionRequestErrorListener() {
+                    @Override
+                    public void onError(DexterError error) {
+                        Toast.makeText(getContext().getApplicationContext(), "Some Error! ", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .onSameThread()
+                .check();
+    }
+}

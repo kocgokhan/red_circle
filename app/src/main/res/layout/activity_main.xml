@@ -46,6 +46,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/white"
         android:textSize="12dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/post_button"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/navigation_top"
