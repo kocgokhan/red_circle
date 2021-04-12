@@ -2,7 +2,6 @@ package com.redcircle.Activity;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -14,26 +13,19 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.onesignal.OSDeviceState;
 import com.onesignal.OneSignal;
-import com.redcircle.Activity.MainActivity;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
 import com.redcircle.Util.MyApplication;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Calendar;
-import java.util.Date;
-
 import static com.redcircle.Util.StaticFields.BASE_URL;
 import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
 
@@ -131,6 +123,8 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(JSONObject response) {
                     Log.wtf(TAG, "onResponse : " + response);
+
+
                     SharedPreferences.Editor editor = MyApplication.get().getPreferencesEditor();
                     try {
                         editor.putString("loginResponse", response + "");

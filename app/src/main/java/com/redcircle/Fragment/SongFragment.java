@@ -121,12 +121,7 @@ public class SongFragment extends Fragment {
                 if(editable.length() > 2){
                     String loginResponse = MyApplication.get().getPreferences().getString("loginResponse", null);
                     if (loginResponse != null) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(loginResponse);
-                            getSongList(String.valueOf(editable),token);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        getSongList(String.valueOf(editable),token);
                     }
                 }
 
@@ -151,7 +146,7 @@ public class SongFragment extends Fragment {
                     songsArrayList.clear();
                     JSONArray jsonArray = null;
                     try {
-                        jsonArray = response.getJSONArray("aqArrayi");
+                        jsonArray = response.getJSONArray("data");
                         JSONObject jsonObject;
 
                         for (int i = 0; i < jsonArray.length(); i++) {
