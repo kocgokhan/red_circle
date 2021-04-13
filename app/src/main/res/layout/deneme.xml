@@ -154,7 +154,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_home" />
 
     <com.github.siyamed.shapeimageview.RoundedImageView
-        android:id="@+id/profile_image"
+        android:id="@+id/set_profile_image"
         android:layout_width="66dp"
         android:layout_height="69dp"
         android:layout_marginStart="20dp"
@@ -177,7 +177,7 @@
         android:layout_marginTop="24dp"
         android:textColor="@color/white"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/profile_image"
+        app:layout_constraintStart_toEndOf="@+id/set_profile_image"
         app:layout_constraintTop_toTopOf="@+id/imageView9" />
 
     <TextView
@@ -189,7 +189,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/profile_image"
+        app:layout_constraintStart_toEndOf="@+id/set_profile_image"
         app:layout_constraintTop_toBottomOf="@+id/profile_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

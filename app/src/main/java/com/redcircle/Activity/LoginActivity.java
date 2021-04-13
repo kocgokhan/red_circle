@@ -24,8 +24,13 @@ import com.redcircle.Util.MyApplication;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 import static com.redcircle.Util.StaticFields.BASE_URL;
 import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
 
@@ -127,10 +132,15 @@ public class LoginActivity extends AppCompatActivity {
 
                     SharedPreferences.Editor editor = MyApplication.get().getPreferencesEditor();
                     try {
+
+
+                        JSONArray jsonArray = response.getJSONArray("data");
+                        JSONObject users_data = jsonArray.getJSONObject(0);
+
                         editor.putString("loginResponse", response + "");
-                        editor.putString("user_id", response.getString("id"));
-                        editor.putString("name", response.getString("display_name"));
-                        editor.putString("images", response.getString("images"));
+                        editor.putString("user_id", users_data.getString("id"));
+                        editor.putString("name", users_data.getString("display_name"));
+                        editor.putString("images", users_data.getString("images"));
                         editor.apply();
                     } catch (JSONException e) {
                         e.printStackTrace();

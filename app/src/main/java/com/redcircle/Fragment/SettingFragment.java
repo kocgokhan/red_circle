@@ -66,7 +66,7 @@ public class SettingFragment extends Fragment {
         my_name.setText(my_account_name);
 
 
-        ImageView image = (ImageView) view.findViewById(R.id.profile_image);
+        ImageView image = (ImageView) view.findViewById(R.id.set_profile_image);
 
         Picasso.get().load(String.valueOf(Html.fromHtml(images))).into(image);
 

@@ -38,6 +38,7 @@ import com.redcircle.Fragment.MusicListFragment;
 import com.redcircle.Fragment.NotificationFragment;
 import com.redcircle.Fragment.PostFragment;
 import com.redcircle.Fragment.ProfileFragment;
+import com.redcircle.Pojo.User;
 import com.redcircle.R;
 import com.redcircle.Util.MyApplication;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -139,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
         loadFragment(new HomeFragment());
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -215,9 +215,9 @@ public class MainActivity extends AppCompatActivity {
                         myTextView.setVisibility(View.VISIBLE);
                         myTextView.setText(String.valueOf(args[0]));
 
-                        /*if(tsLong + expired > tsLong){
+                       if(tsLong + expired > tsLong){
                             spotify_login();
-                        }*/
+                        }
                     }
                 });
             }

@@ -129,7 +129,7 @@ public class DashboardFragment extends Fragment {
                     postsArrayList.clear();
                     JSONArray jsonArray = null;
                     try {
-                        jsonArray = response.getJSONArray("aqArrayi");
+                        jsonArray = response.getJSONArray("data");
                         JSONObject jsonObject;
 
                         for (int i = 0; i < jsonArray.length(); i++) {
@@ -156,7 +156,7 @@ public class DashboardFragment extends Fragment {
                 }
             };
 
-            AqJSONObjectRequest aqJSONObjectRequest = new AqJSONObjectRequest(TAG, BASE_URL + "get_posts", params, listener, errorListener);
+            AqJSONObjectRequest aqJSONObjectRequest = new AqJSONObjectRequest(TAG, BASE_URL + "all_post", params, listener, errorListener);
             MyApplication.get().getRequestQueue().add(aqJSONObjectRequest);
         } catch (JSONException e) {
             Log.wtf(TAG, "request params catch e.getMessage() : " + e.getMessage());

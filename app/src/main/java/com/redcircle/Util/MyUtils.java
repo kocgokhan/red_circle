@@ -6,9 +6,9 @@ import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-import com.redcircle.Pojo.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.redcircle.Pojo.User;
 
 import org.json.JSONArray;
 

@@ -3,6 +3,7 @@ package com.redcircle.Fragment;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,6 +31,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.karumi.dexter.Dexter;
@@ -39,6 +42,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.redcircle.Activity.MainActivity;
+import com.redcircle.Pojo.User;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
 import com.redcircle.Request.MySingleton;
@@ -48,6 +52,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +85,7 @@ public class PostFragment extends Fragment {
     private final int GALLERY = 1;
     RequestQueue rQueue;
     Bitmap bitmap;
+    private ArrayList<User> userArrayList = new ArrayList<>();
     public PostFragment() {
     }
     // TODO: Rename and change types and number of parameters
@@ -99,6 +105,8 @@ public class PostFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        //getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
     @SuppressLint("WrongThread")
     @Override
@@ -209,6 +217,13 @@ public class PostFragment extends Fragment {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         post_image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+
+        final ProgressDialog loading = new ProgressDialog(getContext());
+        loading.setMessage("Lütfen Bekleyin...");
+        loading.show();
+        loading.setCanceledOnTouchOutside(false);
+        RetryPolicy mRetryPolicy = new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+
         send = true;
         try {
             params.put("user_id", user_id);
@@ -221,7 +236,7 @@ public class PostFragment extends Fragment {
             Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    Log.wtf(TAG, "onResponse : " + response);
+                    //Log.wtf(TAG, "onResponse : " + response);
 
                     Intent i = new Intent(getContext(), MainActivity.class);
                     startActivity(i);

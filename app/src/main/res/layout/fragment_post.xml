@@ -6,9 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.redcircle.Fragment.DashboardFragment">
 
+
+
+
+
     <ImageView
         android:id="@+id/search_content"
-        android:layout_width="299dp"
+        android:layout_width="301dp"
         android:layout_height="85dp"
         android:layout_marginTop="56dp"
         android:src="@mipmap/search_area"
@@ -59,8 +63,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="12dp"
         android:text="TextView"
-        android:visibility="invisible"
         android:textColor="@color/white"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/song_image"
         app:layout_constraintTop_toTopOf="@+id/search_content" />
 

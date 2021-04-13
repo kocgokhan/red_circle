@@ -173,7 +173,7 @@ public class SongFragment extends Fragment {
                 }
             };
 
-            AqJSONObjectRequest aqJSONObjectRequest = new AqJSONObjectRequest(TAG, BASE_URL + "myplaylist", params, listener, errorListener);
+            AqJSONObjectRequest aqJSONObjectRequest = new AqJSONObjectRequest(TAG, BASE_URL + "song_list", params, listener, errorListener);
             MyApplication.get().getRequestQueue().add(aqJSONObjectRequest);
         } catch (JSONException e) {
             Log.wtf(TAG, "request params catch e.getMessage() : " + e.getMessage());

@@ -55,13 +55,19 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView productName, productDescription, productArtist;
-        ImageView productImage;
+        TextView productName, set_user_name, set_user_username, productArtist,set_post_text;
+        ImageView productImage,set_profile_image,like_post,set_post_image;
         ConstraintLayout card;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             productImage = (ImageView) itemView.findViewById(R.id.productImage);
+            set_profile_image = (ImageView) itemView.findViewById(R.id.set_profile_image);
+            set_post_image = (ImageView) itemView.findViewById(R.id.set_post_image);
+            like_post = (ImageView) itemView.findViewById(R.id.like_post);
+            set_user_name = (TextView) itemView.findViewById(R.id.set_user_name);
+            set_post_text = (TextView) itemView.findViewById(R.id.set_post_text);
+            set_user_username = (TextView) itemView.findViewById(R.id.set_user_username);
             card = (ConstraintLayout) itemView.findViewById(R.id.cardSong);
 
             card.setOnClickListener(this);
@@ -70,9 +76,22 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         public void setData(Posts selectedProduct, int position) {
 
             String imgResource = "https://spotify.krakersoft.com/upload_post_pic/" +  selectedProduct.getPost_img_url();
-            String song_image =   selectedProduct.getImages();
+            String song_image =   selectedProduct.getSong_image();
+            String profile_photo = selectedProduct.getPost_user_image();
 
+            this.set_user_name.setText(selectedProduct.getPost_user_name());
+            this.set_user_username.setText(selectedProduct.getPost_user_username());
+            this.set_post_text.setText(selectedProduct.getPost_text());
+
+            productImage.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
+            productImage.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            productImage.setAdjustViewBounds(false);
+            productImage.setScaleType(ImageView.ScaleType.FIT_XY);
+
+
+            Picasso.get().load(String.valueOf(Html.fromHtml(profile_photo))).into(this.set_profile_image);
             Picasso.get().load(song_image).into(this.productImage);
+            Picasso.get().load(imgResource).into(this.set_post_image);
         }
 
         @Override

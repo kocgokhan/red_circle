@@ -9,32 +9,134 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="531dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
         android:layout_marginBottom="5dp"
         app:cardBackgroundColor="#00FFFFFF">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardSong"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="870dp">
 
             <ImageView
                 android:id="@+id/productImage"
-                android:layout_width="424dp"
-                android:layout_height="451dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="5dp"
+                android:layout_width="408dp"
+                android:layout_height="510dp"
+                android:layout_marginBottom="360dp"
+                android:adjustViewBounds="true"
                 android:alpha="0.1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.533"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.118"
                 tools:src="@tools:sample/avatars" />
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/set_profile_image"
+                android:layout_width="74dp"
+                android:layout_height="69dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginLeft="36dp"
+                android:layout_marginTop="36dp"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintStart_toStartOf="@+id/productImage"
+                app:layout_constraintTop_toTopOf="@+id/productImage" />
+
+            <TextView
+                android:id="@+id/set_user_name"
+                android:layout_width="166dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="48dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/set_profile_image"
+                app:layout_constraintTop_toTopOf="@+id/productImage" />
+
+            <TextView
+                android:id="@+id/set_user_username"
+                android:layout_width="166dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/set_profile_image"
+                app:layout_constraintTop_toBottomOf="@+id/set_user_name" />
+
+
+            <ImageView
+                android:id="@+id/like_post"
+                android:layout_width="32dp"
+                android:layout_height="33dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginRight="36dp"
+                android:src="@mipmap/like"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/productImage" />
+
+            <TextView
+                android:id="@+id/set_post_text"
+                android:layout_width="336dp"
+                android:layout_height="61dp"
+                android:layout_marginTop="52dp"
+                android:gravity="clip_vertical"
+                android:text="TextView"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.48"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/set_profile_image" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="32dp"
+                android:layout_height="33dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginRight="36dp"
+                android:src="@mipmap/comment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/count_like" />
+
+            <ImageView
+                android:id="@+id/set_post_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/productImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/set_post_text"
+                app:layout_constraintVertical_bias="0.185"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/count_like"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="40dp"
+                android:text="12K"
+                android:textColor="@color/grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/like_post" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="40dp"
+                android:text="149"
+                android:textColor="@color/grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
