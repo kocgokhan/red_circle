@@ -11,7 +11,7 @@ public class Posts {
 
     private static final String TAG = "PostsPojo ";
 
-    private String song_name, song_image,song_artist,song_uri,post_text,post_img_url,post_id,post_user_id,post_user_name,post_user_image,post_user_username,count_like;
+    private String song_name, song_image,song_artist,song_uri,post_text,post_img_url,post_id,post_user_id,post_user_name,post_user_image,post_user_username,count_like,isLike;
 
     public Posts(JSONObject response, boolean isLogin) {
         try {
@@ -27,6 +27,7 @@ public class Posts {
             this.post_user_id = response.getString("user_id");
             this.post_id = response.getString("post_id");
             this.count_like = response.getString("count_like");
+            this.isLike = response.getString("isLike");
             if (isLogin) {
                 this.song_name = response.getString("song_name");
                 this.song_image = response.getString("song_image");
@@ -40,6 +41,7 @@ public class Posts {
                 this.post_user_id = response.getString("user_id");
                 this.post_id = response.getString("post_id");
                 this.count_like = response.getString("count_like");
+                this.isLike = response.getString("isLike");
             }
         } catch (JSONException e) {
             Log.wtf(TAG, "json parse catche dustu : " + e.getMessage());
@@ -49,6 +51,14 @@ public class Posts {
 
     public Posts() {
 
+    }
+
+    public String getIsLike() {
+        return isLike;
+    }
+
+    public void setIsLike(String isLike) {
+        this.isLike = isLike;
     }
 
     public String getCount_like() {
@@ -169,6 +179,7 @@ public class Posts {
             temp.setPost_user_name(ary.get(i).post_user_name);
             temp.setPost_user_username(ary.get(i).post_user_username);
             temp.setCount_like(ary.get(i).count_like);
+            temp.setIsLike(ary.get(i).isLike);
             productList.add(temp);
         }
         return productList;

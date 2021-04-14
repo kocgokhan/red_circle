@@ -127,6 +127,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             productImage.setAdjustViewBounds(false);
             productImage.setScaleType(ImageView.ScaleType.FIT_XY);
 
+            if(selectedProduct.getIsLike().endsWith("1")){
+
+                like_post.setVisibility(View.INVISIBLE);
+                unlike_post.setVisibility(View.VISIBLE);
+            }else{
+
+                like_post.setVisibility(View.VISIBLE);
+                unlike_post.setVisibility(View.INVISIBLE);
+
+            }
 
             Picasso.get().load(String.valueOf(Html.fromHtml(profile_photo))).into(this.set_profile_image);
             Picasso.get().load(song_image).into(this.productImage);
@@ -136,14 +146,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 
         public void  Iliked(Context context){
 
-            like_post.setVisibility(View.INVISIBLE);
-            unlike_post.setVisibility(View.VISIBLE);
+
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             String person_id = preferences.getString("user_id", "");
             String post_id= mProductList.get(getAdapterPosition()).getPost_id();
 
 
+            like_post.setVisibility(View.INVISIBLE);
+            unlike_post.setVisibility(View.VISIBLE);
 
             JSONObject params = new JSONObject();
 
