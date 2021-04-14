@@ -22,6 +22,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -41,6 +43,7 @@ import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.redcircle.Activity.ImagePickerActivity;
 import com.redcircle.Activity.MainActivity;
 import com.redcircle.Pojo.User;
 import com.redcircle.R;
@@ -83,6 +86,7 @@ public class PostFragment extends Fragment {
     private  boolean send = false;
     private String TAG="PostAct";
     private final int GALLERY = 1;
+    public static final int REQUEST_IMAGE = 100;
     RequestQueue rQueue;
     Bitmap bitmap;
     private ArrayList<User> userArrayList = new ArrayList<>();
@@ -122,10 +126,14 @@ public class PostFragment extends Fragment {
         gallery_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent intent = new Intent(getContext(), ImagePickerActivity.class);
+                intent.putExtra(ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION, ImagePickerActivity.REQUEST_GALLERY_IMAGE);
 
-                startActivityForResult(galleryIntent, GALLERY);
+                // setting aspect ratio
+                intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true);
+                intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+                intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
+                startActivityForResult(intent, REQUEST_IMAGE);
             }
         });
 
@@ -188,25 +196,18 @@ public class PostFragment extends Fragment {
         return view;
     }
 
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_CANCELED) {
-            return;
-        }
-        if (requestCode == GALLERY) {
-            if (data != null) {
-                Uri contentURI = data.getData();
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == REQUEST_IMAGE) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri contentURI = data.getParcelableExtra("path");
                 try {
-
+                    // You can update this bitmap to your server
                     bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), contentURI);
                     IVPreviewImages.setImageBitmap(bitmap);
-
-
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
                 }
             }
         }

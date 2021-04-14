@@ -11,7 +11,7 @@ public class Posts {
 
     private static final String TAG = "PostsPojo ";
 
-    private String song_name, song_image,song_artist,song_uri,post_text,post_img_url,post_user_id,post_user_name,post_user_image,post_user_username;
+    private String song_name, song_image,song_artist,song_uri,post_text,post_img_url,post_id,post_user_id,post_user_name,post_user_image,post_user_username,count_like;
 
     public Posts(JSONObject response, boolean isLogin) {
         try {
@@ -25,6 +25,8 @@ public class Posts {
             this.post_user_username = response.getString("username");
             this.post_user_image = response.getString("images");
             this.post_user_id = response.getString("user_id");
+            this.post_id = response.getString("post_id");
+            this.count_like = response.getString("count_like");
             if (isLogin) {
                 this.song_name = response.getString("song_name");
                 this.song_image = response.getString("song_image");
@@ -36,6 +38,8 @@ public class Posts {
                 this.post_user_username = response.getString("username");
                 this.post_user_image = response.getString("images");
                 this.post_user_id = response.getString("user_id");
+                this.post_id = response.getString("post_id");
+                this.count_like = response.getString("count_like");
             }
         } catch (JSONException e) {
             Log.wtf(TAG, "json parse catche dustu : " + e.getMessage());
@@ -45,6 +49,22 @@ public class Posts {
 
     public Posts() {
 
+    }
+
+    public String getCount_like() {
+        return count_like;
+    }
+
+    public void setCount_like(String count_like) {
+        this.count_like = count_like;
+    }
+
+    public String getPost_id() {
+        return post_id;
+    }
+
+    public void setPost_id(String post_id) {
+        this.post_id = post_id;
     }
 
     public String getPost_user_id() {
@@ -137,6 +157,7 @@ public class Posts {
 
         for (int i = 0; i < ary.size(); i++) {
             Posts temp = new Posts();
+            temp.setPost_id(ary.get(i).post_id);
             temp.setPost_img_url(ary.get(i).post_img_url);
             temp.setPost_text(ary.get(i).post_text);
             temp.setSong_name(ary.get(i).song_name);
@@ -147,6 +168,7 @@ public class Posts {
             temp.setPost_user_image(ary.get(i).post_user_image);
             temp.setPost_user_name(ary.get(i).post_user_name);
             temp.setPost_user_username(ary.get(i).post_user_username);
+            temp.setCount_like(ary.get(i).count_like);
             productList.add(temp);
         }
         return productList;

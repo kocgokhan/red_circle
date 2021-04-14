@@ -14,13 +14,14 @@
         android:allowBackup="true"
         android:debuggable="true"
         android:hardwareAccelerated="false"
-        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RedCircle"
         tools:ignore="HardcodedDebugMode">
+        <activity android:name=".Activity.ImagePickerActivity"></activity>
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.MainActivity" />
 
@@ -38,6 +39,20 @@
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.RedCircle.NoActionBar" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/file_paths" />
+        <!-- cache directory file provider paths -->
+        </provider>
     </application>
 
 </manifest>

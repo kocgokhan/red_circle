@@ -1,14 +1,21 @@
 package com.redcircle.Adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Html;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -17,13 +24,29 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.like.LikeButton;
+import com.like.OnAnimationEndListener;
+import com.like.OnLikeListener;
+import com.redcircle.Activity.MainActivity;
 import com.redcircle.Fragment.PostFragment;
 import com.redcircle.Pojo.Posts;
 import com.redcircle.Pojo.Songs;
 import com.redcircle.R;
+import com.redcircle.Request.AqJSONObjectRequest;
+import com.redcircle.Util.MyApplication;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+
+import static com.redcircle.Util.StaticFields.BASE_URL;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder> {
 
@@ -53,11 +76,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         return mProductList.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView productName, set_user_name, set_user_username, productArtist,set_post_text;
-        ImageView productImage,set_profile_image,like_post,set_post_image;
+        TextView productName, set_user_name, set_user_username, productArtist,set_post_text,count_like;
+        ImageView productImage,set_profile_image,like_post,unlike_post,set_post_image;
         ConstraintLayout card;
+
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -65,12 +89,26 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             set_profile_image = (ImageView) itemView.findViewById(R.id.set_profile_image);
             set_post_image = (ImageView) itemView.findViewById(R.id.set_post_image);
             like_post = (ImageView) itemView.findViewById(R.id.like_post);
+            unlike_post = (ImageView) itemView.findViewById(R.id.unlike_post);
             set_user_name = (TextView) itemView.findViewById(R.id.set_user_name);
             set_post_text = (TextView) itemView.findViewById(R.id.set_post_text);
             set_user_username = (TextView) itemView.findViewById(R.id.set_user_username);
+            count_like = (TextView) itemView.findViewById(R.id.count_like);
             card = (ConstraintLayout) itemView.findViewById(R.id.cardSong);
 
-            card.setOnClickListener(this);
+
+            like_post.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Iliked(v.getContext());
+                }
+            });
+            unlike_post.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Idontliked(v.getContext());
+                }
+            });
         }
 
         public void setData(Posts selectedProduct, int position) {
@@ -82,6 +120,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             this.set_user_name.setText(selectedProduct.getPost_user_name());
             this.set_user_username.setText(selectedProduct.getPost_user_username());
             this.set_post_text.setText(selectedProduct.getPost_text());
+            this.count_like.setText(selectedProduct.getCount_like());
 
             productImage.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
             productImage.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -94,13 +133,68 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             Picasso.get().load(imgResource).into(this.set_post_image);
         }
 
-        @Override
-        public void onClick(View v) {
+
+        public void  Iliked(Context context){
+
+            like_post.setVisibility(View.INVISIBLE);
+            unlike_post.setVisibility(View.VISIBLE);
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            String person_id = preferences.getString("user_id", "");
+            String post_id= mProductList.get(getAdapterPosition()).getPost_id();
+
+
+
+            JSONObject params = new JSONObject();
+
+            try {
+                params.put("user_id", person_id);
+                params.put("post_id", post_id);
+                Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //Log.wtf(TAG, "onResponse : " + response);
+
+
+                        MyApplication.get().getRequestQueue().getCache().clear();
+                    }
+                };
+                Response.ErrorListener errorListener = new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.wtf(TAG, "onErrorResponse : " + error);
+                        Toast.makeText(context, "Hata", Toast.LENGTH_SHORT).show();
+                    }
+                };
+
+                AqJSONObjectRequest aqJSONObjectRequest = new AqJSONObjectRequest(TAG, BASE_URL + "like_post", params, listener, errorListener);
+                aqJSONObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                        10000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                MyApplication.get().getRequestQueue().add(aqJSONObjectRequest);
+            } catch (JSONException e) {
+                Log.wtf(TAG, "request params catch e.getMessage() : " + e.getMessage());
+                e.printStackTrace();
+                Toast.makeText(context, "Hata", Toast.LENGTH_SHORT).show();
+            }
+
+
+
 
         }
+        public void  Idontliked(Context context){
 
+            like_post.setVisibility(View.VISIBLE);
+            unlike_post.setVisibility(View.INVISIBLE);
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            String person_id = preferences.getString("user_id", "");
+            String post_id= mProductList.get(getAdapterPosition()).getPost_id();
+        }
 
 
     }
 
-}
+
+    }

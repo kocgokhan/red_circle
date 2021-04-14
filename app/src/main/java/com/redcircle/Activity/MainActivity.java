@@ -3,11 +3,6 @@ package com.redcircle.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,14 +26,12 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
 import com.redcircle.Fragment.DashboardFragment;
 import com.redcircle.Fragment.HomeFragment;
 import com.redcircle.Fragment.MusicListFragment;
 import com.redcircle.Fragment.NotificationFragment;
 import com.redcircle.Fragment.PostFragment;
 import com.redcircle.Fragment.ProfileFragment;
-import com.redcircle.Pojo.User;
 import com.redcircle.R;
 import com.redcircle.Util.MyApplication;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -139,8 +132,7 @@ public class MainActivity extends AppCompatActivity {
         catch (NullPointerException e){}
         setContentView(R.layout.activity_main);
 
-
-        loadFragment(new HomeFragment());
+        loadFragment(new DashboardFragment());
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navView.setItemIconTintList(null);
