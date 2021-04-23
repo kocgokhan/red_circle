@@ -4,7 +4,7 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    tools:context=".Fragment.FindSongFragment">
+    tools:context=".Fragment.SongFragment">
 
 
     <androidx.cardview.widget.CardView
@@ -25,11 +25,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/productImage"
+                app:layout_constraintStart_toEndOf="@+id/sender_image"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/productImage"
+                android:id="@+id/sender_image"
                 android:layout_width="91dp"
                 android:layout_height="79dp"
                 android:layout_marginStart="8dp"
@@ -47,7 +47,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/productImage"
+                app:layout_constraintStart_toEndOf="@+id/sender_image"
                 app:layout_constraintTop_toBottomOf="@+id/productName" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

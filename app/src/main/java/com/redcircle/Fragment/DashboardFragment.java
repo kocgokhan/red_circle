@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -52,6 +54,8 @@ public class DashboardFragment extends Fragment {
     private String mParam2;
     private boolean posters = false;
     private String user_id;
+    private ImageView no_post_image;
+    private TextView no_post_text;
     public DashboardFragment() {
         // Required empty public constructor
     }
@@ -137,7 +141,14 @@ public class DashboardFragment extends Fragment {
                             Posts test = new Posts(jsonObject, false);
                             postsArrayList.add(test);
                         }
-                        drawCart(postsArrayList);
+
+
+                        if (postsArrayList.get(0)==null){
+
+                            no_post_image.setVisibility(View.VISIBLE);
+                            no_post_text.setVisibility(View.VISIBLE);
+
+                        }else{ drawCart(postsArrayList);}
 
                         MyApplication.get().getRequestQueue().getCache().clear();
                     } catch (JSONException e) {

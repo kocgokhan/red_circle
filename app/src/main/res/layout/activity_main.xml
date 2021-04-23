@@ -10,8 +10,8 @@
     <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="413dp"
-        android:layout_height="609dp"
+        android:layout_width="407dp"
+        android:layout_height="739dp"
         android:layout_marginBottom="180dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/nav_view"
@@ -22,8 +22,8 @@
 
     <ImageView
         android:id="@+id/navigation_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="408dp"
+        android:layout_height="59dp"
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,9 +41,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@mipmap/post_icon" />
 
+
     <TextView
         android:id="@+id/playing_song"
-        android:layout_width="158dp"
+        android:layout_width="152dp"
         android:layout_height="32dp"
         android:layout_marginTop="16dp"
         android:ellipsize="marquee"
@@ -61,10 +62,9 @@
         android:textSize="12dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/post_button"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.56"
         app:layout_constraintStart_toStartOf="@+id/navigation_top"
         app:layout_constraintTop_toTopOf="@+id/navigation_top" />
-
 
     <ImageButton
         android:id="@+id/music_list"
@@ -90,5 +90,6 @@
         app:menu="@menu/bottom_nav_menu">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

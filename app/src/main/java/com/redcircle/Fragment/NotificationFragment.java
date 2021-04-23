@@ -1,14 +1,38 @@
 package com.redcircle.Fragment;
 
+import android.app.Notification;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.redcircle.Adapter.NotificationAdapter;
+import com.redcircle.Adapter.PostsAdapter;
+import com.redcircle.Pojo.Notifications;
+import com.redcircle.Pojo.Posts;
 import com.redcircle.R;
+import com.redcircle.Request.AqJSONObjectRequest;
+import com.redcircle.Util.MyApplication;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
+import static com.redcircle.Util.StaticFields.BASE_URL;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +50,9 @@ public class NotificationFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private String user_id;
+    private Boolean notifs=false;
+    private RecyclerView recyclerView;
     public NotificationFragment() {
         // Required empty public constructor
     }
@@ -60,7 +87,80 @@ public class NotificationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notification, container, false);
+        View view = inflater.inflate(R.layout.fragment_notification, container, false);
+
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        user_id = preferences.getString("user_id", "Error");
+
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recylerview);
+
+        getNotification(user_id);
+
+
+        return view;
+    }
+
+    private void getNotification(String id){
+        ArrayList<Notifications> notificationsArrayList = new ArrayList<>();
+        JSONObject params = new JSONObject();
+        notifs=true;
+        try {
+
+            params.put("user_id", id);
+            Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.wtf(TAG, "onResponse : " + response);
+                    notificationsArrayList.clear();
+                    JSONArray jsonArray = null;
+                    try {
+                        jsonArray = response.getJSONArray("data");
+                        JSONObject jsonObject;
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            jsonObject = jsonArray.getJSONObject(i);
+                            Notifications test = new Notifications(jsonObject, false);
+                            notificationsArrayList.add(test);
+                        }
+                        drawCart(notificationsArrayList);
+
+                        MyApplication.get().getRequestQueue().getCache().clear();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+
+                    }
+
+                }
+            };
+            Response.ErrorListener errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.wtf(TAG, "onErrorResponse : " + error);
+                    Toast.makeText(getContext(), "Hata", Toast.LENGTH_SHORT).show();
+                }
+            };
+            AqJSONObjectRequest aqJSONObjectRequest = new AqJSONObjectRequest(TAG, BASE_URL + "my_notification", params, listener, errorListener);
+            MyApplication.get().getRequestQueue().add(aqJSONObjectRequest);
+        } catch (JSONException e) {
+            Log.wtf(TAG, "request params catch e.getMessage() : " + e.getMessage());
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Hata", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    public void drawCart(ArrayList<Notifications> list){
+
+        NotificationAdapter notificationAdapter = new NotificationAdapter(getContext(), Notifications.getData(list));
+        recyclerView.setAdapter(notificationAdapter);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+
     }
 }

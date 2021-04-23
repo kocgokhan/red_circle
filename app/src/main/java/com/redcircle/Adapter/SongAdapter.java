@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -63,7 +62,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
             super(itemView);
             productName = (TextView) itemView.findViewById(R.id.productName);
             productArtist = (TextView) itemView.findViewById(R.id.productArtist);
-            productImage = (ImageView) itemView.findViewById(R.id.productImage);
+            productImage = (ImageView) itemView.findViewById(R.id.sender_image);
             card = (ConstraintLayout) itemView.findViewById(R.id.cardSong);
 
             card.setOnClickListener(this);

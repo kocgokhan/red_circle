@@ -39,8 +39,6 @@ android {
             minifyEnabled false
             useProguard false
             //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-
         }
         release {
             minifyEnabled true
@@ -103,16 +101,20 @@ dependencies {
     implementation('com.github.bumptech.glide:okhttp3-integration:4.0.0') {
         exclude group: 'glide-parent'
     }
+    implementation 'io.socket:socket.io-client:2.0.0'
     implementation 'com.github.yalantis:ucrop:2.2.2'
+    implementation 'com.github.santalu:aspect-ratio-imageview:1.0.9'
+    implementation 'com.github.dmallcott:DismissibleImageView:1.0.1'
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.nkzawa:socket.io-client:0.5.0'
-    compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+    implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     // This library handles authentication and authorization
     implementation 'com.spotify.android:auth:1.0.0-alpha'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.karumi:dexter:5.0.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    implementation 'com.github.chathuralakmal:AndroidImagePopup:1.2.2'
 
     implementation 'id.zelory:compressor:2.1.0'
     implementation project(':spotify-app-remote')

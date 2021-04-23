@@ -10,6 +10,9 @@ import com.android.volley.toolbox.Volley;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.onesignal.OneSignal;
+
+
+
 /**
  * Created by GK
  * on 16.02.2019.
@@ -30,6 +33,8 @@ public class MyApplication extends Application {
         return _instance;
     }
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -40,6 +45,9 @@ public class MyApplication extends Application {
         if (FirebaseCrashlytics.getInstance().didCrashOnPreviousExecution()) {
 
         }
+
+
+
 
         OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
 
@@ -71,5 +79,7 @@ public class MyApplication extends Application {
     public SharedPreferences.Editor getPreferencesEditor() {
         return _preferences.edit();
     }
+
+
 
 }

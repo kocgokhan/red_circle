@@ -22,10 +22,12 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.redcircle.Fragment.ChatFragment;
 import com.redcircle.Fragment.DashboardFragment;
 import com.redcircle.Fragment.HomeFragment;
 import com.redcircle.Fragment.MusicListFragment;
@@ -48,16 +50,6 @@ import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    private Socket socket;
-    {
-        try {
-            socket = IO.socket("https://www.spotisocket.krakersoft.com:3000");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private static final String CLIENT_ID = "eab1006d63ce4dfaa37ade914acc567d";
 
     // TODO: Replace with your redirect URI
@@ -68,6 +60,17 @@ public class MainActivity extends AppCompatActivity {
     private int expired;
     private String TAG="MainAct";
     private Long tsLong;
+
+    private Socket socket;
+    {
+        try {
+            socket = IO.socket("https://www.spotisocket.krakersoft.com:3000");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -92,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_profile:
                     post_btn.setImageResource(R.mipmap.post_icon);
                     fragment = new ProfileFragment();
+                    break;
+                case R.id.navigation_message:
+                    post_btn.setImageResource(R.mipmap.post_icon);
+                    fragment = new ChatFragment();
                     break;
             }
             return loadFragment(fragment);
@@ -123,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);// hide status bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);// hide status bar
         socket.connect();
+
+
         View bView = getWindow().getDecorView();// hide hardware buttons
         bView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);// hide hardware buttons
         try
@@ -162,26 +171,11 @@ public class MainActivity extends AppCompatActivity {
         myTextView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         myTextView.setSelected(true);
 
-        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
-            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
-        }
-        if (Build.VERSION.SDK_INT >= 19) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
-        //make fully Android Transparent Status bar
-        if (Build.VERSION.SDK_INT >= 21) {
-            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         user_id = preferences.getString("user_id", "Error");
         osi = preferences.getString("osi", "Error");
         expired = preferences.getInt("expired", 0);
-
-        tsLong = System.currentTimeMillis()/1000;
-
-
-
 
         socket.on("connect", new Emitter.Listener() {
             @Override
@@ -191,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         socket.emit("register", user_id);
-
                     }
                 });
             }
@@ -207,7 +200,24 @@ public class MainActivity extends AppCompatActivity {
                         myTextView.setVisibility(View.VISIBLE);
                         myTextView.setText(String.valueOf(args[0]));
 
-                       if(tsLong + expired > tsLong){
+
+                    }
+                });
+            }
+        });
+
+        socket.on("get_token", new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                runOnUiThread(new Runnable() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void run() {
+                        Log.wtf(TAG,String.valueOf(args[0]));
+                        Log.wtf(TAG,String.valueOf(args[0]));
+                        Log.wtf(TAG,String.valueOf(args[0]));
+
+                        if(args[0].equals("get token bro")){
                             spotify_login();
                         }
                     }
@@ -215,20 +225,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
     }
 
-    private void getnewTokenJson(String token, String osi) {
+    private void getnewTokenJson(String token, String user_id) {
         JSONObject params = new JSONObject();
         send_token=true;
 
         try {
             params.put("token", token);
-            params.put("osi", osi);
+            params.put("user_id", user_id);
 
 
             Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
@@ -248,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
                    Toast.makeText(MainActivity.this, "Hata", Toast.LENGTH_SHORT).show();
                 }
             };
-            com.redcircle.Request.AqJSONObjectRequest aqJSONObjectRequest = new com.redcircle.Request.AqJSONObjectRequest(TAG, BASE_URL + "signup", params, listener, errorListener);
+            com.redcircle.Request.AqJSONObjectRequest aqJSONObjectRequest = new com.redcircle.Request.AqJSONObjectRequest(TAG, BASE_URL + "update_token", params, listener, errorListener);
             MyApplication.get().getRequestQueue().add(aqJSONObjectRequest);
         } catch (JSONException e) {
             Log.wtf(TAG, "request params catch e.getMessage() : " + e.getMessage());
@@ -258,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void spotify_login(){
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
-        builder.setScopes(new String[]{"user-read-private,user-read-email", "streaming"});
+        builder.setScopes(new String[]{"user-read-private,user-read-email,user-read-currently-playing", "streaming"});
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
@@ -275,12 +280,9 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         editor.putString("loginResponse", response + "");
                         editor.apply();
-                        if(osi !="Error"){
-                            getnewTokenJson(response.getAccessToken(), osi);
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(), "Hata", Toast.LENGTH_SHORT).show();
-                        }
+
+                         getnewTokenJson(response.getAccessToken(), user_id);
+
                         MyApplication.get().getRequestQueue().getCache().clear();
                     } catch (Exception e) {
                         e.printStackTrace();

@@ -7,14 +7,11 @@
     tools:context="com.redcircle.Fragment.DashboardFragment">
 
 
-
-
-
     <ImageView
         android:id="@+id/search_content"
         android:layout_width="301dp"
         android:layout_height="85dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="30dp"
         android:src="@mipmap/search_area"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -118,10 +115,12 @@
         android:id="@+id/IVPreviewImage"
         android:layout_width="371dp"
         android:layout_height="220dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_content" />
+        app:layout_constraintTop_toBottomOf="@+id/search_content"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/camera_btn"
