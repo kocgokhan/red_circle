@@ -86,16 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         boolean subscribed = device.isSubscribed();
         boolean pushDisabled = device.isPushDisabled();
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        token = preferences.getString("token", "Error");
-
-
-        Long tsLong = System.currentTimeMillis()/1000;
-            if(tsLong + expired > tsLong){
-                spotify_login();
-            }else{
-                requestJson(token, osi);
-            }
+        spotify_login();
 
         spotify_login_button = findViewById(R.id.spotify_login_button);
         spotify_login_button.setOnClickListener(new View.OnClickListener() {

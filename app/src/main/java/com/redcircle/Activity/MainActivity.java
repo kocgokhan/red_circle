@@ -205,6 +205,21 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+        socket.on("match_song", new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                runOnUiThread(new Runnable() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void run() {
+
+                        Log.wtf(TAG, String.valueOf(args[0]));
+
+
+                    }
+                });
+            }
+        });
 
         socket.on("get_token", new Emitter.Listener() {
             @Override
@@ -213,10 +228,6 @@ public class MainActivity extends AppCompatActivity {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void run() {
-                        Log.wtf(TAG,String.valueOf(args[0]));
-                        Log.wtf(TAG,String.valueOf(args[0]));
-                        Log.wtf(TAG,String.valueOf(args[0]));
-
                         if(args[0].equals("get token bro")){
                             spotify_login();
                         }

@@ -1,5 +1,6 @@
 package com.redcircle.Util;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -7,10 +8,14 @@ import android.preference.PreferenceManager;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.onesignal.OneSignal;
 
+import java.net.URISyntaxException;
 
 
 /**
@@ -34,7 +39,6 @@ public class MyApplication extends Application {
     }
 
 
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -45,9 +49,6 @@ public class MyApplication extends Application {
         if (FirebaseCrashlytics.getInstance().didCrashOnPreviousExecution()) {
 
         }
-
-
-
 
         OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
 
