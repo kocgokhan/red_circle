@@ -175,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         user_id = preferences.getString("user_id", "Error");
         osi = preferences.getString("osi", "Error");
-        expired = preferences.getInt("expired", 0);
 
         socket.on("connect", new Emitter.Listener() {
             @Override
@@ -229,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if(args[0].equals("get token bro")){
-                            spotify_login();
+                            spotify_logins();
                         }
                     }
                 });
@@ -272,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Hata", Toast.LENGTH_SHORT).show();
         }
     }
-    private void spotify_login(){
+    private void spotify_logins(){
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
         builder.setScopes(new String[]{"user-read-private,user-read-email,user-read-currently-playing", "streaming"});
         AuthenticationRequest request = builder.build();
