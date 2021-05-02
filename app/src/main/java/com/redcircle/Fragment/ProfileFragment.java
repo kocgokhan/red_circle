@@ -23,8 +23,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProfileFragment#newInstance} factory method to
@@ -95,12 +93,12 @@ public class ProfileFragment extends Fragment {
         my_account_name = preferences.getString("name", "Error");
         images = preferences.getString("images", "Error");
 
-        my_name=(TextView) view.findViewById(R.id.name);
+        my_name=(TextView) view.findViewById(R.id.user_name);
 
         my_name.setText(my_account_name);
 
 
-        ImageView image = (ImageView) view.findViewById(R.id.profile_photo);
+        ImageView image = (ImageView) view.findViewById(R.id.user_image);
 
         Picasso.get().load(String.valueOf(Html.fromHtml(images))).into(image);
 

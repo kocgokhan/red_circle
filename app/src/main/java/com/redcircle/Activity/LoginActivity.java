@@ -1,5 +1,6 @@
 package com.redcircle.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -16,6 +17,13 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.onesignal.OSDeviceState;
 import com.onesignal.OneSignal;
 import com.redcircle.R;
@@ -30,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static com.redcircle.Util.StaticFields.BASE_URL;
 import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
@@ -54,6 +63,12 @@ public class LoginActivity extends AppCompatActivity {
     private int expired=0;
     private  boolean login = false;
     private  boolean deger = false;
+    final int random = new Random().nextInt(61) + 20;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+
     @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +93,33 @@ public class LoginActivity extends AppCompatActivity {
         OSDeviceState device = OneSignal.getDeviceState();
 
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String email = preferences.getString("email", "error");
+
+
+
+        firebaseAuth.createUserWithEmailAndPassword(email,"123123123123123123213").addOnCompleteListener(new OnCompleteListener<AuthResult>()
+        {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task)
+            {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(getApplicationContext(),"başarılı",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "başarısız", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
         osi = device.getUserId();
 
         Log.wtf(TAG, "osi : "+osi);
@@ -87,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
         boolean pushDisabled = device.isPushDisabled();
 
         spotify_login();
+
 
         spotify_login_button = findViewById(R.id.spotify_login_button);
         spotify_login_button.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +166,11 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("user_id", users_data.getString("id"));
                         editor.putString("name", users_data.getString("display_name"));
                         editor.putString("images", users_data.getString("images"));
+                        editor.putString("email", users_data.getString("email"));
+
                         editor.apply();
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -191,4 +238,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
+
+
+
+
 }

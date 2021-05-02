@@ -9,8 +9,8 @@
 
 
     <item
-        android:id="@+id/navigation_message"
-        android:icon="@drawable/message_icon"
+        android:id="@+id/navigation_music_list"
+        android:icon="@drawable/spls"
         tools:ignore="MenuTitle" />
 
     <item

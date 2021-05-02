@@ -1,6 +1,7 @@
 package com.redcircle.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
@@ -22,6 +23,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ceylonlabs.imageviewpopup.ImagePopup;
+import com.redcircle.Activity.UserProfileActivity;
 import com.redcircle.Pojo.Posts;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
@@ -109,12 +111,19 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                 }
             });
 
+            set_profile_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    go_profile(view.getContext());
+                }
+            });
+
 
         }
 
         public void setData(Posts selectedProduct, int position) {
 
-            String imgResource = "https://spotify.krakersoft.com/upload_post_pic/" +  selectedProduct.getPost_img_url();
+            String imgResource = "https://spotify.krakersoft.com/upload_post_pic/" +  mProductList.get(getAdapterPosition()).getPost_img_url();
             String song_image =   selectedProduct.getSong_image();
             String profile_photo = selectedProduct.getPost_user_image();
 
@@ -167,6 +176,18 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             });
         }
 
+        public void go_profile(Context context){
+
+            Intent i = new Intent(context.getApplicationContext(), UserProfileActivity.class);
+            String strName = null;
+            i.putExtra("user_name", mProductList.get(getAdapterPosition()).getPost_user_name());
+            i.putExtra("user_image", mProductList.get(getAdapterPosition()).getPost_user_image());
+            i.putExtra("user_username", mProductList.get(getAdapterPosition()).getPost_user_username());
+            i.putExtra("user_user_id", mProductList.get(getAdapterPosition()).getPost_user_id());
+            context.startActivity(i);
+            MyApplication.get().getRequestQueue().getCache().clear();
+
+        }
 
         public void  Iliked(Context context){
 

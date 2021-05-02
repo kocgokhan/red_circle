@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -27,7 +25,6 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.redcircle.Fragment.ChatFragment;
 import com.redcircle.Fragment.DashboardFragment;
 import com.redcircle.Fragment.HomeFragment;
 import com.redcircle.Fragment.MusicListFragment;
@@ -36,6 +33,7 @@ import com.redcircle.Fragment.PostFragment;
 import com.redcircle.Fragment.ProfileFragment;
 import com.redcircle.R;
 import com.redcircle.Util.MyApplication;
+import com.shashank.sony.fancytoastlib.FancyToast;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -96,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
                     post_btn.setImageResource(R.mipmap.post_icon);
                     fragment = new ProfileFragment();
                     break;
-                case R.id.navigation_message:
+                case R.id.navigation_music_list:
                     post_btn.setImageResource(R.mipmap.post_icon);
-                    fragment = new ChatFragment();
+                    fragment = new MusicListFragment();
                     break;
             }
             return loadFragment(fragment);
@@ -120,10 +118,7 @@ public class MainActivity extends AppCompatActivity {
         post_btn.setImageResource(R.mipmap.complete_btn);
         return loadFragment(fragment);
     }
-    public boolean loadMusicListFragment(){
-        Fragment fragment = new MusicListFragment();
-        return loadFragment(fragment);
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,7 +156,11 @@ public class MainActivity extends AppCompatActivity {
         music_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadMusicListFragment();
+
+                Intent i = new Intent(getApplicationContext(), ChatActivity.class);
+               startActivity(i);
+
+
             }
         });
 
@@ -213,6 +212,9 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
 
                         Log.wtf(TAG, String.valueOf(args[0]));
+                        if(args[0].equals("eşleşmen var kardeş !")){
+                            FancyToast.makeText(MainActivity.this, "Eşleşme var", FancyToast.LENGTH_LONG, FancyToast.CONFUSING, R.drawable.spls, false).show();
+                        }
 
 
                     }

@@ -22,6 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RedCircle"
         tools:ignore="HardcodedDebugMode">
+        <activity android:name=".Activity.ConnectUserActivity"></activity>
+        <activity android:name=".Activity.ChatActivity" />
+        <activity android:name=".Activity.UserProfileActivity" />
         <activity android:name=".Activity.ImagePickerActivity" />
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.MainActivity" />

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/man_back"
+    android:orientation="vertical"
+    tools:context="Activity.ChatActivity">
+
+    <RelativeLayout
+        android:id="@+id/linlay"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal">
+
+        <!--<ImageView
+            android:id="@+id/imageView_photo"
+            android:background="@drawable/img"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />-->
+
+        <ImageButton
+            android:id="@+id/back_view"
+            android:layout_width="64dp"
+            android:layout_height="54dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="-2dp"
+            android:background="@color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="-1dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_toStartOf="@+id/imageView_photo"
+            android:layout_toLeftOf="@+id/imageView_photo"
+            android:layout_toEndOf="@+id/back_view"
+            android:layout_toRightOf="@+id/back_view"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="17sp"
+            tools:text="asdasdasd" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView_photo"
+            android:layout_width="50dp"
+            android:layout_height="43dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="21dp"
+            android:layout_marginRight="21dp"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linlay"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        app:srcCompat="@mipmap/song_back" />
+
+    <TextView
+        android:id="@+id/playing_songs"
+        android:layout_width="184dp"
+        android:layout_height="30dp"
+        android:layout_alignTop="@+id/imageView15"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginRight="97dp"
+        android:layout_toEndOf="@+id/song_photo"
+        android:layout_toRightOf="@+id/song_photo"
+        android:gravity="left"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/artist"
+        android:layout_width="185dp"
+        android:layout_height="29dp"
+        android:layout_below="@+id/playing_songs"
+        android:layout_alignStart="@+id/playing_songs"
+        android:layout_alignLeft="@+id/playing_songs"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginRight="95dp"
+        android:gravity="left"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/song_photo"
+        android:layout_width="57dp"
+        android:layout_height="59dp"
+        android:layout_alignTop="@+id/imageView15"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="38dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="520dp"
+        android:layout_below="@+id/imageView15"
+        android:layout_marginTop="3dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/preview_songitem"
+            android:layout_width="407dp"
+            android:layout_height="520dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

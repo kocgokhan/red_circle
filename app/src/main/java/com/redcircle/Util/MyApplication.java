@@ -56,9 +56,11 @@ public class MyApplication extends Application {
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
 
+
         _instance = this;
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         _requestQueue = Volley.newRequestQueue(this);
+
     }
 
     public RequestQueue getRequestQueue() {

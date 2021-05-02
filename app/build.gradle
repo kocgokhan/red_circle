@@ -86,15 +86,23 @@ dependencies {
     implementation 'com.github.MdFarhanRaja:SearchableSpinner:2.0'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
+
     implementation platform('com.google.firebase:firebase-bom:26.6.0')
     implementation 'com.google.firebase:firebase-database:11.8.0'
     implementation 'com.google.firebase:firebase-crashlytics:17.3.1'
     implementation 'com.google.firebase:firebase-analytics:18.0.2'
+
+    implementation 'com.google.firebase:firebase-core:10.0.1'
+    implementation 'com.firebaseui:firebase-ui-auth:7.1.1'
+    implementation 'com.firebaseui:firebase-ui:1.0.1'
+
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'me.wangyuwei:ParticleView:1.0.4'
     implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
     implementation "com.google.android.gms:play-services-location:9.2.1"
-
+    implementation ('io.socket:socket.io-client:2.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
     implementation 'com.jakewharton:butterknife:10.2.3'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'com.github.bumptech.glide:annotations:4.7.1'
@@ -115,6 +123,7 @@ dependencies {
     implementation 'com.karumi:dexter:5.0.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
     implementation 'com.github.chathuralakmal:AndroidImagePopup:1.2.2'
+    implementation 'com.github.Shashank02051997:FancyToast-Android:0.1.8'
 
     implementation 'id.zelory:compressor:2.1.0'
     implementation project(':spotify-app-remote')

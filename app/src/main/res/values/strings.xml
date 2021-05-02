@@ -23,9 +23,11 @@
     <string name="dialog_permission_message">This app needs permission to use this feature. You can grant them in app settings.</string>
     <string name="go_to_settings">GOTO SETTINGS</string>
 
-    <string name="send">SEND</string>
-    <string name="action_send">Send</string>
-    <string name="prompt_message">Message</string>
-    <string name="action_attach">ATTACH</string>
+
+    <string-array name="reply_choices">
+        <item>Okay</item>
+        <item>Llamame</item>
+        <item>No puedo hablar</item>
+    </string-array>
 
 </resources>

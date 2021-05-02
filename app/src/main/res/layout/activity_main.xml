@@ -68,15 +68,15 @@
 
     <ImageButton
         android:id="@+id/music_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
+        android:layout_width="32dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:background="@color/transparent"
         app:layout_constraintEnd_toEndOf="@+id/navigation_top"
         app:layout_constraintTop_toTopOf="@+id/navigation_top"
-        app:srcCompat="@drawable/waves" />
+        app:srcCompat="@drawable/send" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
