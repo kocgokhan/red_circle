@@ -22,7 +22,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RedCircle"
         tools:ignore="HardcodedDebugMode">
-        <activity android:name=".Activity.ConnectUserActivity"></activity>
+        <activity android:name=".Activity.ChatUserActivity"></activity>
+        <activity
+            android:name=".Activity.SongActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity
+            android:name=".Activity.PostActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name=".Activity.ConnectUserActivity" />
         <activity android:name=".Activity.ChatActivity" />
         <activity android:name=".Activity.UserProfileActivity" />
         <activity android:name=".Activity.ImagePickerActivity" />

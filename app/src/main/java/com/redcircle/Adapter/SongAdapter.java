@@ -1,6 +1,7 @@
 package com.redcircle.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -17,9 +18,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.redcircle.Activity.ChatActivity;
+import com.redcircle.Activity.PostActivity;
 import com.redcircle.Fragment.PostFragment;
 import com.redcircle.Pojo.Songs;
 import com.redcircle.R;
+import com.redcircle.Util.MyApplication;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -62,7 +66,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
             super(itemView);
             productName = (TextView) itemView.findViewById(R.id.productName);
             productArtist = (TextView) itemView.findViewById(R.id.productArtist);
-            productImage = (ImageView) itemView.findViewById(R.id.sender_image);
+            productImage = (ImageView) itemView.findViewById(R.id.prev_play);
             card = (ConstraintLayout) itemView.findViewById(R.id.cardSong);
 
             card.setOnClickListener(this);
@@ -77,25 +81,18 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
         @Override
         public void onClick(View v) {
             try {
-                cardSong(v.getContext());
+                Intent i = new Intent(v.getContext().getApplicationContext(), PostActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.putExtra("name", mProductList.get(getAdapterPosition()).getName());
+                i.putExtra("artist", mProductList.get(getAdapterPosition()).getArtists());
+                i.putExtra("images", String.valueOf(Html.fromHtml(mProductList.get(getAdapterPosition()).getImages())));
+                i.putExtra("uri", mProductList.get(getAdapterPosition()).getUri());
+                v.getContext().startActivity(i);
             } catch (Exception e) {
                 Log.wtf("course_images", e);
             }
         }
 
-        private void cardSong(Context context) {
-            Fragment fragment = new PostFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("name", mProductList.get(getAdapterPosition()).getName());
-            bundle.putString("artist", mProductList.get(getAdapterPosition()).getArtists());
-            bundle.putString("images", String.valueOf(Html.fromHtml(mProductList.get(getAdapterPosition()).getImages())));
-            bundle.putString("uri", mProductList.get(getAdapterPosition()).getUri());
-            fragment.setArguments(bundle);
-            FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.nav_host_fragment, fragment);
-            ft.commit();
-        }
 
     }
 

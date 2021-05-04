@@ -1,8 +1,6 @@
 package com.redcircle.Adapter;
 
-import android.app.Notification;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.MyViewHolder>{
 
@@ -62,7 +58,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             super(itemView);
             notif_message = (TextView) itemView.findViewById(R.id.notif_message);
             productDate = (TextView) itemView.findViewById(R.id.productDate);
-            sender_image = (ImageView) itemView.findViewById(R.id.sender_image);
+            sender_image = (ImageView) itemView.findViewById(R.id.prev_play);
 
         }
 

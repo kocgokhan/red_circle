@@ -93,7 +93,7 @@
     <TextView
         android:id="@+id/playing_songs"
         android:layout_width="184dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageView15"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
@@ -106,7 +106,7 @@
         android:layout_toRightOf="@+id/song_photo"
         android:gravity="left"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/artist"
@@ -124,7 +124,7 @@
         android:layout_marginRight="95dp"
         android:gravity="left"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/song_photo"
@@ -147,12 +147,39 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/preview_songitem"
-            android:layout_width="407dp"
-            android:layout_height="520dp"
+            android:layout_width="408dp"
+            android:layout_height="522dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.041" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/connect_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView15"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginRight="57dp"
+        android:background="@color/transparent"
+        app:srcCompat="@mipmap/conect" />
+    <ImageButton
+        android:id="@+id/unconnect_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView15"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:visibility="invisible"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginRight="57dp"
+        android:background="@color/transparent"
+        app:srcCompat="@mipmap/unconnect" />
 
 </RelativeLayout>

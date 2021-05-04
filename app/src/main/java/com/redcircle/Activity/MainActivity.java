@@ -113,11 +113,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-    public boolean loadPostFragment(){
-        Fragment fragment = new PostFragment();
-        post_btn.setImageResource(R.mipmap.complete_btn);
-        return loadFragment(fragment);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +142,10 @@ public class MainActivity extends AppCompatActivity {
         post_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadPostFragment();
+
+                Intent i = new Intent(getApplicationContext(), PostActivity.class);
+                startActivity(i);
+
             }
         });
 
@@ -157,9 +155,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(getApplicationContext(), ChatActivity.class);
-               startActivity(i);
-
+                Intent i = new Intent(getApplicationContext(), ChatUserActivity.class);
+                startActivity(i);
 
             }
         });

@@ -1,9 +1,15 @@
-package com.redcircle.Fragment;
+package com.redcircle.Activity;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -13,9 +19,9 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -24,19 +30,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -44,41 +42,25 @@ import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.redcircle.Activity.ImagePickerActivity;
-import com.redcircle.Activity.MainActivity;
+import com.redcircle.Fragment.SongFragment;
 import com.redcircle.Pojo.User;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
-import com.redcircle.Request.MySingleton;
 import com.redcircle.Util.MyApplication;
 import com.squareup.picasso.Picasso;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.redcircle.Util.StaticFields.BASE_URL;
-import static com.redcircle.Util.StaticFields.UPLOAD_URL;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PostFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class PostFragment extends Fragment {
+public class PostActivity extends AppCompatActivity {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private ImageButton gallery_btn;
     ImageView IVPreviewImages,search_content,song_image,posted_image,post_bt;
     private String songs_name,songs_artist,songs_image,songs_uri,user_id,posted_text;
@@ -88,46 +70,46 @@ public class PostFragment extends Fragment {
     private String TAG="PostAct";
     private final int GALLERY = 1;
     public static final int REQUEST_IMAGE = 100;
+    private ImageButton back_view;
     RequestQueue rQueue;
     Bitmap bitmap;
     private ArrayList<User> userArrayList = new ArrayList<>();
-    public PostFragment() {
-    }
-    // TODO: Rename and change types and number of parameters
-    public static PostFragment newInstance(String param1, String param2) {
-        PostFragment fragment = new PostFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);// hide status bar
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);// hide status bar
+        View bView = getWindow().getDecorView();// hide hardware buttons
+        bView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);// hide hardware buttons
+        try
+        {
+            this.getSupportActionBar().hide();// hide status bar
         }
+        catch (NullPointerException e){}
+        setContentView(R.layout.activity_post);
 
-        //getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-    }
-    @SuppressLint("WrongThread")
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_post, container, false);
-        IVPreviewImages = view.findViewById(R.id.IVPreviewImage);
+        back_view = (ImageButton) findViewById(R.id.back_view);
+
+        back_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
+        IVPreviewImages = findViewById(R.id.IVPreviewImage);
 
 
         requestMultiplePermissions();
 
-        gallery_btn = (ImageButton) view.findViewById(R.id.camera_btn);
+        gallery_btn = (ImageButton) findViewById(R.id.camera_btn);
         gallery_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ImagePickerActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ImagePickerActivity.class);
                 intent.putExtra(ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION, ImagePickerActivity.REQUEST_GALLERY_IMAGE);
 
                 // setting aspect ratio
@@ -138,29 +120,26 @@ public class PostFragment extends Fragment {
             }
         });
 
-        TextView search_text = (TextView) view.findViewById(R.id.search_text);
-        ImageView search_image = (ImageView) view.findViewById(R.id.search_image);
-        search_content = (ImageView) view.findViewById(R.id.search_content);
+        TextView search_text = (TextView) findViewById(R.id.search_text);
+        ImageView search_image = (ImageView) findViewById(R.id.search_image);
+        search_content = (ImageView) findViewById(R.id.search_content);
         search_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SongFragment findSongFragment = new SongFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, findSongFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                Intent intent = new Intent(getApplicationContext(), SongActivity.class);
+                startActivity(intent);
             }
+
         });
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         user_id = preferences.getString("user_id", "Error");
 
-        song_name=(TextView)view.findViewById(R.id.song_name);
-        song_artist=(TextView)view.findViewById(R.id.song_artist);
-        song_image=(ImageView) view.findViewById(R.id.song_image);
+        song_name=(TextView) findViewById(R.id.song_name);
+        song_artist=(TextView)findViewById(R.id.song_artist);
+        song_image=(ImageView) findViewById(R.id.song_image);
 
         try {
-            Bundle bundle = this.getArguments();
+            Bundle bundle =  getIntent().getExtras();
             if (bundle != null) {
                 songs_name = bundle.getString("name", "Error");
                 songs_artist = bundle.getString("artist", "Error");
@@ -182,31 +161,51 @@ public class PostFragment extends Fragment {
         }
 
 
-        post_descr = (EditText) view.findViewById(R.id.post_descr);
-        post_bt = (ImageView )getActivity().findViewById(R.id.post_button);
+        post_descr = (EditText) findViewById(R.id.post_descr);
+        post_bt = (ImageView ) findViewById(R.id.post_send);
         post_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               posted_text= post_descr.getText().toString().trim();
+                posted_text= post_descr.getText().toString().trim();
 
                     requestJson(user_id,songs_name,songs_artist,songs_uri,songs_image,bitmap,posted_text);
 
-
             }
         });
-        return view;
+        post_descr.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+
+
     }
-
-
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 Uri contentURI = data.getParcelableExtra("path");
                 try {
                     // You can update this bitmap to your server
-                    bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), contentURI);
-                    IVPreviewImages.setImageBitmap(bitmap);
+
+                    if(contentURI!=null){
+
+                        bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), contentURI);
+                        IVPreviewImages.setImageBitmap(bitmap);
+                    }
+                    else{
+                        bitmap.equals("path");
+                    }
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -214,13 +213,13 @@ public class PostFragment extends Fragment {
         }
     }
 
-    private void requestJson(String user_id, String name_song,String artist_song, String uri_song, String image_song,final Bitmap post_image,  String post_texts) {
+    private void requestJson(String user_id, String name_song, String artist_song, String uri_song, String image_song, @Nullable Bitmap post_image , String post_texts) {
         JSONObject params = new JSONObject();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         post_image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
 
-        final ProgressDialog loading = new ProgressDialog(getContext());
+        final ProgressDialog loading = new ProgressDialog(getApplicationContext());
         loading.setMessage("Lütfen Bekleyin...");
         loading.show();
         loading.setCanceledOnTouchOutside(false);
@@ -240,7 +239,7 @@ public class PostFragment extends Fragment {
                 public void onResponse(JSONObject response) {
                     //Log.wtf(TAG, "onResponse : " + response);
 
-                    Intent i = new Intent(getContext(), MainActivity.class);
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(i);
 
                     MyApplication.get().getRequestQueue().getCache().clear();
@@ -250,7 +249,7 @@ public class PostFragment extends Fragment {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.wtf(TAG, "onErrorResponse : " + error);
-                    Toast.makeText(getContext(), "Hata", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Hata", Toast.LENGTH_SHORT).show();
                 }
             };
 
@@ -263,12 +262,12 @@ public class PostFragment extends Fragment {
         } catch (JSONException e) {
             Log.wtf(TAG, "request params catch e.getMessage() : " + e.getMessage());
             e.printStackTrace();
-            Toast.makeText(getContext(), "Hata", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Hata", Toast.LENGTH_SHORT).show();
         }
 
     }
     private void  requestMultiplePermissions(){
-        Dexter.withActivity(getActivity())
+        Dexter.withActivity(this)
                 .withPermissions(
 
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -278,7 +277,7 @@ public class PostFragment extends Fragment {
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         // check if all permissions are granted
                         if (report.areAllPermissionsGranted()) {
-                            Toast.makeText(getContext().getApplicationContext(), "All permissions are granted by user!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext().getApplicationContext(), "All permissions are granted by user!", Toast.LENGTH_SHORT).show();
                         }
 
                         // check for permanent denial of any permission
@@ -296,12 +295,10 @@ public class PostFragment extends Fragment {
                 withErrorListener(new PermissionRequestErrorListener() {
                     @Override
                     public void onError(DexterError error) {
-                        Toast.makeText(getContext().getApplicationContext(), "Some Error! ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext().getApplicationContext(), "Some Error! ", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .onSameThread()
                 .check();
     }
-
-
 }

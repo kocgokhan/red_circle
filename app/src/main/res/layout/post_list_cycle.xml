@@ -23,7 +23,7 @@
 
 
             <ImageView
-                android:id="@+id/sender_image"
+                android:id="@+id/prev_play"
                 android:layout_width="401dp"
                 android:layout_height="411dp"
                 android:adjustViewBounds="true"
@@ -44,8 +44,8 @@
                 android:layout_marginTop="48dp"
                 app:civ_border_color="#FF000000"
                 app:civ_border_width="2dp"
-                app:layout_constraintStart_toStartOf="@+id/sender_image"
-                app:layout_constraintTop_toTopOf="@+id/sender_image" />
+                app:layout_constraintStart_toStartOf="@+id/prev_play"
+                app:layout_constraintTop_toTopOf="@+id/prev_play" />
 
             <TextView
                 android:id="@+id/set_user_name"
@@ -56,7 +56,7 @@
                 android:layout_marginTop="48dp"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toEndOf="@+id/set_profile_image"
-                app:layout_constraintTop_toTopOf="@+id/sender_image" />
+                app:layout_constraintTop_toTopOf="@+id/prev_play" />
 
             <TextView
                 android:id="@+id/set_user_username"
@@ -78,7 +78,7 @@
                 android:layout_marginRight="36dp"
                 android:src="@mipmap/like"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/sender_image" />
+                app:layout_constraintTop_toTopOf="@+id/prev_play" />
 
             <TextView
                 android:id="@+id/set_post_text"
@@ -120,7 +120,7 @@
                 android:text="12K"
                 android:textColor="@color/grey"
                 app:layout_constraintEnd_toStartOf="@+id/like_post"
-                app:layout_constraintTop_toTopOf="@+id/sender_image" />
+                app:layout_constraintTop_toTopOf="@+id/prev_play" />
 
             <ImageView
                 android:id="@+id/unlike_post"
@@ -132,7 +132,7 @@
                 android:src="@drawable/liked_btn"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/sender_image" />
+                app:layout_constraintTop_toTopOf="@+id/prev_play" />
 
 
             <com.santalu.aspectratioimageview.AspectRatioImageView

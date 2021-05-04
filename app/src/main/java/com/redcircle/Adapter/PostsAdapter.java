@@ -79,7 +79,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         public MyViewHolder(View itemView) {
             super(itemView);
             play_song_btn = (ImageButton) itemView.findViewById(R.id.play_song_btn);
-            productImage = (ImageView) itemView.findViewById(R.id.sender_image);
+            productImage = (ImageView) itemView.findViewById(R.id.prev_play);
             set_profile_image = (ImageView) itemView.findViewById(R.id.set_profile_image);
             set_post_image = (ImageView) itemView.findViewById(R.id.set_post_image);
             like_post = (ImageView) itemView.findViewById(R.id.like_post);

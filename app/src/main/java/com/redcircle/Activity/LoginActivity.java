@@ -197,7 +197,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void spotify_login(){
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
-        builder.setScopes(new String[]{"user-read-private,user-read-email,user-read-currently-playing", "streaming"});
+        builder.setScopes(new String[]{"user-read-private,user-read-email,user-read-currently-playing,user-modify-playback-state", "streaming"});
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
