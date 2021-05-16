@@ -25,7 +25,7 @@
             android:layout_height="50dp" />-->
 
         <ImageButton
-            android:id="@+id/back_view"
+            android:id="@+id/back_views"
             android:layout_width="64dp"
             android:layout_height="54dp"
             android:layout_alignParentStart="true"
@@ -52,13 +52,35 @@
             android:layout_marginRight="37dp"
             android:layout_toStartOf="@+id/imageView_photo"
             android:layout_toLeftOf="@+id/imageView_photo"
-            android:layout_toEndOf="@+id/back_view"
-            android:layout_toRightOf="@+id/back_view"
+            android:layout_toEndOf="@+id/back_views"
+            android:layout_toRightOf="@+id/back_views"
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="#ffffff"
             android:textSize="17sp"
             tools:text="asdasdasd" />
+
+        <TextView
+            android:id="@+id/chat_user_typing"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="-1dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_toStartOf="@+id/imageView_photo"
+            android:layout_toLeftOf="@+id/imageView_photo"
+            android:layout_toEndOf="@+id/back_views"
+            android:layout_toRightOf="@+id/back_views"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="17sp"
+            tools:text="asdasdasd"
+            tools:visibility="invisible" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView_photo"

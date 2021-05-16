@@ -217,8 +217,12 @@ public class PostFragment extends Fragment {
     private void requestJson(String user_id, String name_song,String artist_song, String uri_song, String image_song,final Bitmap post_image,  String post_texts) {
         JSONObject params = new JSONObject();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        post_image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        String encodedImage=" ";
+        if(post_image!=null){
+
+            post_image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+             encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        }
 
         final ProgressDialog loading = new ProgressDialog(getContext());
         loading.setMessage("Lütfen Bekleyin...");

@@ -153,14 +153,14 @@ public class NotificationFragment extends Fragment {
     }
 
     public void drawCart(ArrayList<Notifications> list){
+        if (getActivity()!=null) {
+            NotificationAdapter notificationAdapter = new NotificationAdapter(getContext(), Notifications.getData(list));
+            recyclerView.setAdapter(notificationAdapter);
 
-        NotificationAdapter notificationAdapter = new NotificationAdapter(getContext(), Notifications.getData(list));
-        recyclerView.setAdapter(notificationAdapter);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
+        }
 
     }
 }

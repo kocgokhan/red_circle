@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.preference.PreferenceManager;
 import android.text.Html;
@@ -18,6 +19,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.tabs.TabLayout;
+import com.redcircle.Adapter.FragmentLayoutAdapter;
 import com.redcircle.R;
 import com.squareup.picasso.Picasso;
 
@@ -34,9 +37,13 @@ public class ProfileFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private String my_account_name,images,user_id;
-    private TextView my_name;
+    private String my_account_name,images,user_id,username,bio;
+    private TextView my_name,user_bio,followers_count,folllowing_count,like_count;
     private ImageButton setting_btn;
+    private String count_of_following,count_of_followers,count_of_like;
+    private FragmentLayoutAdapter adapter;
+    TabLayout tabLayout;
+    ViewPager viewPager;
 
     RecyclerView recyclerView1;
 
@@ -81,7 +88,6 @@ public class ProfileFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,15 +98,27 @@ public class ProfileFragment extends Fragment {
         user_id = preferences.getString("user_id", "Error");
         my_account_name = preferences.getString("name", "Error");
         images = preferences.getString("images", "Error");
+        username = preferences.getString("username", "Error");
+        bio = preferences.getString("bio", "Error");
+        count_of_following = preferences.getString("count_of_following", "Error");
+        count_of_followers = preferences.getString("count_of_followers", "Error");
+        count_of_like = preferences.getString("count_of_like", "Error");
 
         my_name=(TextView) view.findViewById(R.id.user_name);
+        user_bio=(TextView) view.findViewById(R.id.user_bio);
+        followers_count=(TextView) view.findViewById(R.id.followers_count);
+        folllowing_count=(TextView) view.findViewById(R.id.folllowing_count);
+        like_count=(TextView) view.findViewById(R.id.like_count);
 
         my_name.setText(my_account_name);
-
+        user_bio.setText(bio);
+        followers_count.setText(count_of_followers);
+        folllowing_count.setText(count_of_following);
+        like_count.setText(count_of_like);
 
         ImageView image = (ImageView) view.findViewById(R.id.user_image);
 
-        Picasso.get().load(String.valueOf(Html.fromHtml(images))).into(image);
+        Picasso.get().load("https://spotify.krakersoft.com/upload_user_pic/"+images).into(image);
 
         setting_btn = (ImageButton) view.findViewById(R.id.setting_button);
         setting_btn.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +133,36 @@ public class ProfileFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+        tabLayout=(TabLayout) view.findViewById(R.id.tabLayout);
+        viewPager=(ViewPager) view.findViewById(R.id.viewPager);
+
+        tabLayout.addTab(tabLayout.newTab().setText("Dinlediklerim"));
+        tabLayout.addTab(tabLayout.newTab().setText("Gönderilerim"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        adapter = new FragmentLayoutAdapter(getActivity(), getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
 
         return view;
     }

@@ -11,7 +11,9 @@ public class Match {
 
     private static final String TAG = "PostsPojo ";
 
-    private String song_name, song_image,song_artist,song_uri,post_user_name,post_user_image,match_id,isfollow,count_of_following,count_of_followers,status,oneSignal_id,match_user_is;
+    private String song_name, song_image,song_artist,song_uri,post_user_name,
+            post_user_image,match_id,isfollow,count_of_following,count_of_followers,
+            status,oneSignal_id,match_user_is,username;
 
     public Match(JSONObject response, boolean isLogin) {
         try {
@@ -20,6 +22,7 @@ public class Match {
             this.song_artist = response.getString("song_artist");
             this.song_uri = response.getString("song_uri");
             this.post_user_name = response.getString("display_name");
+            this.username = response.getString("username");
             this.post_user_image = response.getString("user_image");
             this.match_id = response.getString("match_id");
             this.isfollow = response.getString("isfollow");
@@ -34,6 +37,7 @@ public class Match {
                 this.song_artist = response.getString("song_artist");
                 this.song_uri = response.getString("song_uri");
                 this.post_user_name = response.getString("display_name");
+                this.username = response.getString("username");
                 this.post_user_image = response.getString("user_image");
                 this.match_id = response.getString("match_id");
                 this.isfollow = response.getString("isfollow");
@@ -51,6 +55,14 @@ public class Match {
 
     public Match() {
 
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getOneSignal_id() {
@@ -171,6 +183,7 @@ public class Match {
             temp.setCount_of_following(ary.get(i).count_of_following);
             temp.setPost_user_image(ary.get(i).post_user_image);
             temp.setPost_user_name(ary.get(i).post_user_name);
+            temp.setUsername(ary.get(i).username);
             temp.setStatus(ary.get(i).status);
             temp.setOneSignal_id(ary.get(i).oneSignal_id);
             temp.setMatch_user_is(ary.get(i).match_user_is);

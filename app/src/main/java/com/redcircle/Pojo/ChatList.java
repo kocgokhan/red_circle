@@ -11,7 +11,9 @@ public class ChatList {
 
     private static final String TAG = "PostsPojo ";
 
-    private String song_name, song_image,song_artist,song_uri,post_user_name,post_user_image,match_id,isfollow,count_of_following,count_of_followers,status,oneSignal_id,match_user_is;
+    private String song_name, song_image,song_artist,song_uri,post_user_name,post_user_image,
+            match_id,isfollow,count_of_following,count_of_followers,
+            status,oneSignal_id,match_user_is,username;
 
     public ChatList(JSONObject response, boolean isLogin) {
         try {
@@ -28,6 +30,7 @@ public class ChatList {
             this.status = response.getString("status");
             this.oneSignal_id = response.getString("osi");
             this.match_user_is = response.getString("user_one");
+            this.username = response.getString("username");
             if (isLogin) {
                 this.song_name = response.getString("song_name");
                 this.song_image = response.getString("song_image");
@@ -42,6 +45,7 @@ public class ChatList {
                 this.status = response.getString("status");
                 this.oneSignal_id = response.getString("osi");
                 this.match_user_is = response.getString("user_one");
+                this.username = response.getString("username");
 
             }
         } catch (JSONException e) {
@@ -52,6 +56,14 @@ public class ChatList {
 
     public ChatList() {
 
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getOneSignal_id() {
@@ -175,6 +187,7 @@ public class ChatList {
             temp.setStatus(ary.get(i).status);
             temp.setOneSignal_id(ary.get(i).oneSignal_id);
             temp.setMatch_user_is(ary.get(i).match_user_is);
+            temp.setUsername(ary.get(i).username);
             productList.add(temp);
         }
         return productList;

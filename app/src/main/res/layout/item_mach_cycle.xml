@@ -18,7 +18,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cardSong"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
 
         <com.santalu.aspectratioimageview.AspectRatioImageView
@@ -26,29 +27,28 @@
             android:layout_width="126dp"
             android:layout_height="260dp"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="36dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/matchphotoback"
-            app:ari_ratio="1.4"
+            app:ari_ratio="1.2"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/set_profile_image"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
             app:siRadius="6dp"
             app:siSquare="true" />
-
 
         <ImageView
             android:id="@+id/imageView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="68dp"
             android:layout_marginEnd="28dp"
-            android:layout_marginRight="28dp"
+            app:layout_constraintBottom_toBottomOf="@+id/photo_user"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/photo_user"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/photo_user"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@mipmap/matchboard" />
 
         <TextView
@@ -56,9 +56,8 @@
             android:layout_width="164dp"
             android:layout_height="28dp"
             android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
             android:layout_marginTop="8dp"
-            android:gravity="center"
+            android:gravity="left"
             android:text="Gökhan Koç"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@+id/imageView10"
@@ -138,6 +137,28 @@
             app:layout_constraintTop_toBottomOf="@+id/textView10"
             app:srcCompat="@mipmap/accept" />
 
+        <ImageButton
+            android:id="@+id/undecline_btn"
+            android:layout_width="98dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/transparent"
+            app:layout_constraintStart_toStartOf="@+id/imageView10"
+            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            app:srcCompat="@mipmap/undecline" />
+
+        <ImageButton
+            android:id="@+id/delete_btn"
+            android:layout_width="98dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/transparent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView10"
+            app:layout_constraintTop_toBottomOf="@+id/textView10"
+            app:srcCompat="@mipmap/delete" />
+
         <TextView
             android:id="@+id/decline_text"
             android:layout_width="wrap_content"
@@ -162,18 +183,41 @@
             app:layout_constraintStart_toStartOf="@+id/accept_btn"
             app:layout_constraintTop_toTopOf="@+id/accept_btn" />
 
-        <ImageButton
-            android:id="@+id/send_message"
+        <TextView
+            android:id="@+id/undecline_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Geri Al"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/undecline_btn"
+            app:layout_constraintEnd_toEndOf="@+id/undecline_btn"
+            app:layout_constraintStart_toStartOf="@+id/undecline_btn"
+            app:layout_constraintTop_toTopOf="@+id/undecline_btn" />
+
+        <TextView
+            android:id="@+id/delete_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sil"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/delete_btn"
+            app:layout_constraintEnd_toEndOf="@+id/delete_btn"
+            app:layout_constraintStart_toStartOf="@+id/delete_btn"
+            app:layout_constraintTop_toTopOf="@+id/delete_btn" />
+
+
+        <ImageButton
+            android:id="@+id/send_message"
+            android:layout_width="98dp"
+            android:layout_height="43dp"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:background="@color/transparent"
             app:layout_constraintStart_toStartOf="@+id/imageView10"
             app:layout_constraintTop_toBottomOf="@+id/textView9"
-            app:srcCompat="@mipmap/sendmessage"
-            tools:visibility="invisible" />
+            app:srcCompat="@mipmap/send_message" />
 
         <TextView
             android:id="@+id/message_text"
@@ -185,8 +229,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/send_message"
             app:layout_constraintEnd_toEndOf="@+id/send_message"
             app:layout_constraintStart_toStartOf="@+id/send_message"
-            app:layout_constraintTop_toTopOf="@+id/send_message"
-            tools:visibility="invisible" />
+            app:layout_constraintTop_toTopOf="@+id/send_message" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

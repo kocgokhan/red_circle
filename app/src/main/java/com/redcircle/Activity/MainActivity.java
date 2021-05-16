@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         post_btn = findViewById(R.id.post_button);
         post_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(getApplicationContext(), ChatUserActivity.class);
+                Intent i = new Intent(getApplicationContext(), ChatListActivity.class);
                 startActivity(i);
 
             }
@@ -172,6 +173,8 @@ public class MainActivity extends AppCompatActivity {
         user_id = preferences.getString("user_id", "Error");
         osi = preferences.getString("osi", "Error");
 
+
+
         socket.on("connect", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
@@ -180,11 +183,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         socket.emit("register", user_id);
+
                     }
                 });
             }
         });
-
         socket.on("event", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
@@ -194,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         myTextView.setVisibility(View.VISIBLE);
                         myTextView.setText(String.valueOf(args[0]));
-
+                        Log.wtf(TAG,String.valueOf(args[0]));
 
                     }
                 });
@@ -207,13 +210,7 @@ public class MainActivity extends AppCompatActivity {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void run() {
-
-                        Log.wtf(TAG, String.valueOf(args[0]));
-                        if(args[0].equals("eşleşmen var kardeş !")){
-                            FancyToast.makeText(MainActivity.this, "Eşleşme var", FancyToast.LENGTH_LONG, FancyToast.CONFUSING, R.drawable.spls, false).show();
-                        }
-
-
+                        FancyToast.makeText(MainActivity.this, "Eşleşme var", FancyToast.LENGTH_LONG, FancyToast.CONFUSING, R.drawable.spls, false).show();
                     }
                 });
             }
@@ -308,18 +305,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
-
-    public static void setWindowFlag(MainActivity activity, final int bits, boolean on) {
-
-        Window win = activity.getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
 }

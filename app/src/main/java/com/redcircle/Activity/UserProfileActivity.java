@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.redcircle.Pojo.Songs;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
 import com.redcircle.Util.MyApplication;
@@ -88,7 +87,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
             ImageView image = (ImageView) findViewById(R.id.user_image);
 
-            Picasso.get().load(String.valueOf(Html.fromHtml(user_image))).into(image);
+            Picasso.get().load("https://spotify.krakersoft.com/upload_user_pic/"+user_image).into(image);
 
         }else{
             Intent i = new Intent(this, MainActivity.class);
@@ -96,7 +95,7 @@ public class UserProfileActivity extends AppCompatActivity {
             MyApplication.get().getRequestQueue().getCache().clear();
         }
 
-        back_view = (ImageButton) findViewById(R.id.back_view);
+        back_view = (ImageButton) findViewById(R.id.back_views);
 
         back_view.setOnClickListener(new View.OnClickListener() {
             @Override

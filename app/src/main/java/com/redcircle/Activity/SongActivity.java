@@ -49,8 +49,8 @@ public class SongActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);// hide status bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);// hide status bar
-        View bView = getWindow().getDecorView();// hide hardware buttons
-        bView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);// hide hardware buttons
+        //View bView = getWindow().getDecorView();// hide hardware buttons
+        //bView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);// hide hardware buttons
         try
         {
             this.getSupportActionBar().hide();// hide status bar
@@ -70,7 +70,7 @@ public class SongActivity extends AppCompatActivity {
 
         recyclerView.setVisibility(View.INVISIBLE);
 
-        back_view = (ImageButton) findViewById(R.id.back_view);
+        back_view = (ImageButton) findViewById(R.id.back_views);
 
         back_view.setOnClickListener(new View.OnClickListener() {
             @Override

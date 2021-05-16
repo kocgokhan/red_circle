@@ -1,14 +1,11 @@
 package com.redcircle.Activity;
 
-import android.content.Context;
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.Html;
-import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -17,16 +14,15 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,41 +34,44 @@ import com.onesignal.OneSignal;
 import com.redcircle.Adapter.ChatActAdapter;
 import com.redcircle.Pojo.Mesaj;
 import com.redcircle.R;
-import com.redcircle.Request.AqJSONObjectRequest;
 import com.redcircle.Util.MyApplication;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import static com.redcircle.Util.StaticFields.BASE_URL;
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReferenceChats;
-    private TextView chat_user_name;
+    private TextView chat_user_name,chat_user_typing;
     private EditText editText;
     private ImageButton buttonSend,back_view;
     private ListView listView;
     private String roomName, oneSignalId = null, webSignalID = null;
     private ImageView imageView_photo;
     private String user_names,user_image,chatId,userId;
-
+    private boolean mTyping = false;
+    private Socket socket;
+    {
+        try {
+            socket = IO.socket("https://www.spotisocket.krakersoft.com:3000");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);// hide status bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);// hide status bar
-
-
+        socket.connect();
 
         View bView = getWindow().getDecorView();// hide hardware buttons
         bView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);// hide hardware buttons
@@ -84,11 +83,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_chat);
 
         chat_user_name = findViewById(R.id.chat_user_name);
+        chat_user_typing = findViewById(R.id.chat_user_typing);
         RelativeLayout linlay = findViewById(R.id.linlay);
         imageView_photo = findViewById(R.id.imageView_photo);
         editText = findViewById(R.id.editText4);
         buttonSend = findViewById(R.id.imageButton);
-        back_view = findViewById(R.id.back_view);
+        back_view = findViewById(R.id.back_views);
         listView = findViewById(R.id.listview);
         listView.setDivider(null);
         buttonSend.setOnClickListener(this);
@@ -105,7 +105,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             user_image= extras.getString("user_image");
             chatId= extras.getString("chatId");
         }
-
         chat_user_name.setText(user_names);
 
         Picasso.get().load(String.valueOf(Html.fromHtml(user_image))).into(imageView_photo);
@@ -113,6 +112,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         userId = preferences.getString("user_id", "Error");
+
+
 
 
         firebaseAuth = FirebaseAuth.getInstance();

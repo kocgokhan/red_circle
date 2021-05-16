@@ -180,14 +180,14 @@ public class MusicListFragment extends Fragment {
     }
 
     public void drawCart(ArrayList<ConnectListVj> list){
+        if (getActivity()!=null) {
+            VjAdapter postsAdapter = new VjAdapter(getContext(), ConnectListVj.getData(list));
+            recyclerView.setAdapter(postsAdapter);
 
-        VjAdapter postsAdapter = new VjAdapter(getContext(), ConnectListVj.getData(list));
-        recyclerView.setAdapter(postsAdapter);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
+        }
 
     }
 

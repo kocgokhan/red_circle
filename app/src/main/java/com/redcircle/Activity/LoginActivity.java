@@ -3,6 +3,8 @@ package com.redcircle.Activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -26,6 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.onesignal.OSDeviceState;
 import com.onesignal.OneSignal;
+import com.redcircle.Pojo.Songs;
+import com.redcircle.Pojo.User;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
 import com.redcircle.Util.MyApplication;
@@ -68,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
+
 
     @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     @Override
@@ -113,22 +118,50 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(), "başarısız", Toast.LENGTH_SHORT).show();
+
+                    firebaseAuth.signInWithEmailAndPassword(email, "123123123123123123213")
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                //Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_LONG).show();
+
+                            }
+                            else {
+                                //Toast.makeText(getApplicationContext(), "Login failed! Please try again later", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
                 }
             }
         });
-
-
-
         osi = device.getUserId();
-
-        Log.wtf(TAG, "osi : "+osi);
+        if(osi==null){
+            osi = " ";
+        }
 
         boolean enabled = device.areNotificationsEnabled();
         boolean subscribed = device.isSubscribed();
         boolean pushDisabled = device.isPushDisabled();
 
-        spotify_login();
+
+        String loginResponse = MyApplication.get().getPreferences().getString("loginResponse", null);
+        if (loginResponse != null) {
+            try {
+                JSONObject jsonObject = new JSONObject(loginResponse);
+                User userFirst = new User(jsonObject,true);
+
+                spotify_login();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+
 
 
         spotify_login_button = findViewById(R.id.spotify_login_button);
@@ -142,8 +175,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void requestJson(String token, String osi) {
         JSONObject params = new JSONObject();
-        login=true;
 
+        ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage("Hoş Geldiniz");
+        progressDialog.show();
         try {
             params.put("token", token);
             params.put("osi", osi);
@@ -157,8 +192,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     SharedPreferences.Editor editor = MyApplication.get().getPreferencesEditor();
                     try {
-
-
                         JSONArray jsonArray = response.getJSONArray("data");
                         JSONObject users_data = jsonArray.getJSONObject(0);
 
@@ -167,19 +200,31 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("name", users_data.getString("display_name"));
                         editor.putString("images", users_data.getString("images"));
                         editor.putString("email", users_data.getString("email"));
-
+                        editor.putString("username",users_data.getString("username") );
+                        editor.putString("bio",users_data.getString("bio") );
+                        editor.putString("count_of_following",users_data.getString("count_of_following") );
+                        editor.putString("count_of_followers",users_data.getString("count_of_followers") );
+                        editor.putString("count_of_like",users_data.getString("count_of_like") );
                         editor.apply();
 
-
+                        if(users_data.getString("username").equals("null")){
+                            login=false;
+                        }else{
+                            login=true;
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
                     finish();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    if(login==true){
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    }else{
+                        startActivity(new Intent(LoginActivity.this, FirstSettingActivity.class));
+                    }
                     MyApplication.get().getRequestQueue().getCache().clear();
                 }
             };
-
             Response.ErrorListener errorListener = new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {

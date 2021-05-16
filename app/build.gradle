@@ -8,19 +8,20 @@ configurations {
     compile.exclude group: 'org.jetbrains' , module:'annotations'
     compile.exclude group: 'com.intellij', module:'annotations'
     compile.exclude group: 'org.intellij', module:'annotations'
+
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.gms.google-services'
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.redcircle"
-        minSdkVersion 16
-        targetSdkVersion 28
+        minSdkVersion 23
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -80,13 +81,14 @@ dependencies {
     implementation 'androidx.browser:browser:1.0.0'
     implementation 'com.lorentzos.swipecards:library:1.0.9'
     implementation 'com.squareup.okio:okio:2.2.2'
-    implementation 'com.squareup.okhttp3:okhttp:4.0.0-alpha01'
-    implementation "androidx.recyclerview:recyclerview:${recyclerViewVersion}"
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
-    implementation 'com.github.MdFarhanRaja:SearchableSpinner:2.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    implementation "androidx.recyclerview:recyclerview:${recyclerViewVersion}"
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.MdFarhanRaja:SearchableSpinner:2.0'
     implementation platform('com.google.firebase:firebase-bom:26.6.0')
     implementation 'com.google.firebase:firebase-database:11.8.0'
     implementation 'com.google.firebase:firebase-crashlytics:17.3.1'

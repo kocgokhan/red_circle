@@ -66,7 +66,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
             this.notif_message.setText(selectedProduct.getMessage());
 
-            Picasso.get().load(selectedProduct.getSender_images()).into(this.sender_image);
+            Picasso.get().load("https://spotify.krakersoft.com/upload_user_pic/"+selectedProduct.getSender_images()).into(this.sender_image);
 
 
             SimpleDateFormat originalFormat = new SimpleDateFormat("hh:mm");

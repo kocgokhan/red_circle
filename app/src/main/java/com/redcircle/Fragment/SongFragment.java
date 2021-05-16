@@ -185,14 +185,14 @@ public class SongFragment extends Fragment {
     }
 
     public void drawCart(ArrayList<Songs> list){
+        if (getActivity()!=null) {
+            SongAdapter songAdapter = new SongAdapter(getContext(), Songs.getData(list));
+            recyclerView.setAdapter(songAdapter);
 
-        SongAdapter songAdapter = new SongAdapter(getContext(), Songs.getData(list));
-        recyclerView.setAdapter(songAdapter);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
+        }
 
     }
 }

@@ -31,6 +31,8 @@ import com.redcircle.Pojo.Posts;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
 import com.redcircle.Util.MyApplication;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -101,11 +103,18 @@ public class VjAdapter extends RecyclerView.Adapter<VjAdapter.MyViewHolder> {
 
         public void setData(ConnectListVj selectedProduct, int position) {
 
-            String profile_photo = selectedProduct.getUser_image();
 
             this.set_user_name.setText(selectedProduct.getDisplay_name());
 
-            Picasso.get().load(String.valueOf(Html.fromHtml(profile_photo))).into(this.productImage);
+
+            Picasso.get().load("https://spotify.krakersoft.com/upload_user_pic/"+selectedProduct.getUser_image()).memoryPolicy(MemoryPolicy.NO_CACHE )
+                    .networkPolicy(NetworkPolicy.NO_CACHE).error(R.mipmap.ic_launcher).memoryPolicy(MemoryPolicy.NO_STORE)
+                    .networkPolicy(NetworkPolicy.NO_STORE).resize(200,250).into(this.productImage);
+            Picasso.get().setLoggingEnabled(true);
+
+
+
+
 
         }
 

@@ -11,14 +11,16 @@ public class User {
 
     private static final String TAG = "UserPojo ";
 
-    private int studentID;
-    private String user_id,display_name , email ,spotify_id, product, country, images, token, osi, regDate,profile_lock,status;
+    private String user_id,display_name ,username , email ,spotify_id,
+            product, country, images, token, osi, regDate,profile_lock,status,
+            bio,count_of_following,count_of_like,count_of_followers;
     // private ArrayList<UserOtherImage> userOtherImageArrayList = new ArrayList<>();
 
     public User(JSONObject response, boolean isLogin) {
         try {
             this.user_id = response.getString("id");
             this.display_name = response.getString("display_name");
+            this.username = response.getString("username");
             this.email = response.getString("email");
             this.spotify_id = response.getString("spotify_id");
             this.product = response.getString("product");
@@ -27,9 +29,16 @@ public class User {
             this.profile_lock = response.getString("profile_lock");
             this.status = response.getString("status");
             this.images = response.getString("images");
+            this.country = response.getString("country");
+            this.bio = response.getString("bio");
+            this.count_of_following = response.getString("count_of_following");
+            this.count_of_like = response.getString("count_of_like");
+            this.count_of_followers = response.getString("count_of_followers");
+
             if (isLogin) {
                 this.user_id = response.getString("id");
                 this.display_name = response.getString("display_name");
+                this.username = response.getString("username");
                 this.email = response.getString("email");
                 this.spotify_id = response.getString("spotify_id");
                 this.product = response.getString("product");
@@ -37,6 +46,12 @@ public class User {
                 this.token = response.getString("token");
                 this.profile_lock = response.getString("profile_lock");
                 this.status = response.getString("status");
+                this.images = response.getString("images");
+                this.country = response.getString("country");
+                this.bio = response.getString("bio");
+                this.count_of_following = response.getString("count_of_following");
+                this.count_of_like = response.getString("count_of_like");
+                this.count_of_followers = response.getString("count_of_followers");
             }
         } catch (JSONException e) {
             Log.wtf(TAG, "json parse catche dustu : " + e.getMessage());
@@ -45,6 +60,45 @@ public class User {
     }
 
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getCount_of_following() {
+        return count_of_following;
+    }
+
+    public void setCount_of_following(String count_of_following) {
+        this.count_of_following = count_of_following;
+    }
+
+    public String getCount_of_like() {
+        return count_of_like;
+    }
+
+    public void setCount_of_like(String count_of_like) {
+        this.count_of_like = count_of_like;
+    }
+
+    public String getCount_of_followers() {
+        return count_of_followers;
+    }
+
+    public void setCount_of_followers(String count_of_followers) {
+        this.count_of_followers = count_of_followers;
+    }
 
     public static String getTAG() {
         return TAG;

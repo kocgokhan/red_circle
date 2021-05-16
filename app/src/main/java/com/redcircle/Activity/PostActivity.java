@@ -2,14 +2,10 @@ package com.redcircle.Activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -19,7 +15,6 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -42,7 +37,6 @@ import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.redcircle.Fragment.SongFragment;
 import com.redcircle.Pojo.User;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
@@ -81,8 +75,8 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);// hide status bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);// hide status bar
-        View bView = getWindow().getDecorView();// hide hardware buttons
-        bView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);// hide hardware buttons
+        //View bView = getWindow().getDecorView();// hide hardware buttons
+        //bView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);// hide hardware buttons
         try
         {
             this.getSupportActionBar().hide();// hide status bar
@@ -90,7 +84,7 @@ public class PostActivity extends AppCompatActivity {
         catch (NullPointerException e){}
         setContentView(R.layout.activity_post);
 
-        back_view = (ImageButton) findViewById(R.id.back_view);
+        back_view = (ImageButton) findViewById(R.id.back_views);
 
         back_view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,27 +161,15 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 posted_text= post_descr.getText().toString().trim();
-
-                    requestJson(user_id,songs_name,songs_artist,songs_uri,songs_image,bitmap,posted_text);
-
-            }
-        });
-        post_descr.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(v);
-                }
+                requestJson(user_id,songs_name,songs_artist,songs_uri,songs_image,bitmap,posted_text);
             }
         });
 
 
 
+
     }
-    public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -197,14 +179,9 @@ public class PostActivity extends AppCompatActivity {
                 try {
                     // You can update this bitmap to your server
 
-                    if(contentURI!=null){
-
                         bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), contentURI);
                         IVPreviewImages.setImageBitmap(bitmap);
-                    }
-                    else{
-                        bitmap.equals("path");
-                    }
+
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -213,13 +190,13 @@ public class PostActivity extends AppCompatActivity {
         }
     }
 
-    private void requestJson(String user_id, String name_song, String artist_song, String uri_song, String image_song, @Nullable Bitmap post_image , String post_texts) {
+    private void requestJson(String user_id, String name_song, String artist_song, String uri_song, String image_song, final Bitmap post_image , String post_texts) {
         JSONObject params = new JSONObject();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         post_image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
 
-        final ProgressDialog loading = new ProgressDialog(getApplicationContext());
+        final ProgressDialog loading = new ProgressDialog(PostActivity.this);
         loading.setMessage("Lütfen Bekleyin...");
         loading.show();
         loading.setCanceledOnTouchOutside(false);
@@ -239,7 +216,7 @@ public class PostActivity extends AppCompatActivity {
                 public void onResponse(JSONObject response) {
                     //Log.wtf(TAG, "onResponse : " + response);
 
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent i = new Intent(PostActivity.this, MainActivity.class);
                     startActivity(i);
 
                     MyApplication.get().getRequestQueue().getCache().clear();

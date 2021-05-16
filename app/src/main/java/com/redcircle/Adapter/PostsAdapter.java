@@ -44,6 +44,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
     private String TAG = "SongAdp";
     private ImagePopup imagePopup;
 
+
     public PostsAdapter(Context context, ArrayList<Posts> products) {
         inflater = LayoutInflater.from(context);
         imagePopup = new ImagePopup(context);
@@ -125,7 +126,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 
             String imgResource = "https://spotify.krakersoft.com/upload_post_pic/" +  mProductList.get(getAdapterPosition()).getPost_img_url();
             String song_image =   selectedProduct.getSong_image();
-            String profile_photo = selectedProduct.getPost_user_image();
+            String profile_photo = "https://spotify.krakersoft.com/upload_user_pic/"+selectedProduct.getPost_user_image();
 
             this.song_name.setText(selectedProduct.getSong_name()+'-'+selectedProduct.getSong_artist());
             this.set_user_name.setText(selectedProduct.getPost_user_name());
@@ -155,7 +156,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 
             }
 
-            Picasso.get().load(String.valueOf(Html.fromHtml(profile_photo))).into(this.set_profile_image);
+            Picasso.get().load(profile_photo).into(this.set_profile_image);
             Picasso.get().load(song_image).into(this.productImage);
             Picasso.get().load(imgResource).into(this.set_post_image);
 

@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RedCircle"
         tools:ignore="HardcodedDebugMode">
-        <activity android:name=".Activity.ChatUserActivity"></activity>
+        <activity android:name=".Activity.FirstSettingActivity"></activity>
+        <activity android:name=".Activity.ChatListActivity" />
         <activity
             android:name=".Activity.SongActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />

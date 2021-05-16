@@ -180,12 +180,15 @@ public class DashboardFragment extends Fragment {
 
     public void drawCart(ArrayList<Posts> list){
 
-        PostsAdapter postsAdapter = new PostsAdapter(getContext(), Posts.getData(list));
-        recyclerView.setAdapter(postsAdapter);
+        if (getActivity()!=null){
+            PostsAdapter postsAdapter = new PostsAdapter(getContext(), Posts.getData(list));
+            recyclerView.setAdapter(postsAdapter);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
+        }
+
 
 
     }

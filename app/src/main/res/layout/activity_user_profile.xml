@@ -37,7 +37,7 @@
         android:layout_marginTop="20dp"
         android:src="@mipmap/profile_photo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/back_view"
+        app:layout_constraintTop_toBottomOf="@+id/back_views"
         app:siBorderColor="@color/white"
         app:siBorderWidth="1dp"
         app:siRadius="6dp"
@@ -144,7 +144,7 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="12dp"
-        app:layout_constraintStart_toEndOf="@+id/back_view"
+        app:layout_constraintStart_toEndOf="@+id/back_views"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -184,7 +184,7 @@
         app:layout_constraintTop_toTopOf="@+id/follow" />
 
     <ImageButton
-        android:id="@+id/back_view"
+        android:id="@+id/back_views"
         android:layout_width="64dp"
         android:layout_height="54dp"
         android:background="@color/transparent"

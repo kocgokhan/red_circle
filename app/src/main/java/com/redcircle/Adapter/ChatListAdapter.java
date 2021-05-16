@@ -50,7 +50,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.chat_list_item, parent, false);
+        View view = inflater.inflate(R.layout.item_chat_list, parent, false);
 
         MyViewHolder holder = new MyViewHolder(view);
         return holder;
@@ -68,29 +68,31 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView follower_count, set_user_name, following_count,decline_text,accept_text,message_text;
+        TextView follower_count, following_count,set_user_name, message_text,username;
         ImageView productImage;
         ConstraintLayout card;
-        ImageButton decline_btn,accept_btn,send_message;
+        ImageButton send_message;
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
             productImage = (ImageView) itemView.findViewById(R.id.photo_user);
             set_user_name = (TextView) itemView.findViewById(R.id.name);
+            username = (TextView) itemView.findViewById(R.id.username);
             following_count = (TextView) itemView.findViewById(R.id.following_count);
             follower_count = (TextView) itemView.findViewById(R.id.follower_count);
             message_text = (TextView) itemView.findViewById(R.id.message_text);
             card = (ConstraintLayout) itemView.findViewById(R.id.cardSong);
 
-            send_message = (ImageButton) itemView.findViewById(R.id.send_message);
+            send_message = (ImageButton) itemView.findViewById(R.id.send_messages);
 
             send_message.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   message(view.getContext());
+                    message(view.getContext());
                 }
             });
+
 
         }
 
@@ -98,8 +100,9 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
             String profile_photo = selectedProduct.getPost_user_image();
 
             this.set_user_name.setText(selectedProduct.getPost_user_name());
-            this.follower_count.setText(selectedProduct.getCount_of_followers());
-            this.following_count.setText(selectedProduct.getCount_of_following());
+            this.username.setText(selectedProduct.getUsername());
+           // this.follower_count.setText(selectedProduct.getCount_of_followers());
+            //this.following_count.setText(selectedProduct.getCount_of_following());
 
             Picasso.get().load(String.valueOf(Html.fromHtml(profile_photo))).into(this.productImage);
         }
@@ -107,6 +110,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
         public void message(Context context){
 
             Intent i = new Intent(context.getApplicationContext(), ChatActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             String strName = null;
             i.putExtra("user_name", mProductList.get(getAdapterPosition()).getPost_user_name());
             i.putExtra("user_image", mProductList.get(getAdapterPosition()).getPost_user_image());

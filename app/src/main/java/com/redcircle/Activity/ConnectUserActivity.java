@@ -24,9 +24,7 @@ import com.android.volley.VolleyError;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
-import com.redcircle.Adapter.MatchAdapter;
 import com.redcircle.Adapter.PreviewSongUserAdapter;
-import com.redcircle.Pojo.Match;
 import com.redcircle.Pojo.UserPreviewSong;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
@@ -42,7 +40,6 @@ import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
 import static com.redcircle.Util.StaticFields.BASE_URL;
-import static java.security.AccessController.getContext;
 
 public class ConnectUserActivity extends AppCompatActivity {
     private Socket socket;
@@ -72,7 +69,7 @@ public class ConnectUserActivity extends AppCompatActivity {
         catch (NullPointerException e){}
         setContentView(R.layout.activity_connect_user);
 
-        ImageButton back_btn= (ImageButton) findViewById(R.id.back_view);
+        ImageButton back_btn= (ImageButton) findViewById(R.id.back_views);
         ImageView imageView_photo = (ImageView) findViewById(R.id.imageView_photo);
         ImageView song_photo = (ImageView) findViewById(R.id.song_photo);
         TextView user_name = (TextView) findViewById(R.id.user_name);
