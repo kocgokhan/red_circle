@@ -13,10 +13,7 @@
         android:icon="@drawable/spls"
         tools:ignore="MenuTitle" />
 
-    <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        tools:ignore="MenuTitle" />
+
 
     <item
         android:id="@+id/navigation_notification"

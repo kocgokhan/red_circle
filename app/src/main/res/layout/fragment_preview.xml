@@ -8,7 +8,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/preview_song_my"
+        android:id="@+id/recycler_album"
         android:layout_width="401dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

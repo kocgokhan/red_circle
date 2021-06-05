@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.redcircle.Activity.ChatActivity;
 import com.redcircle.Activity.PostActivity;
-import com.redcircle.Fragment.PostFragment;
 import com.redcircle.Pojo.Songs;
 import com.redcircle.R;
 import com.redcircle.Util.MyApplication;

@@ -2,45 +2,25 @@ package com.redcircle.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.preference.PreferenceManager;
-import android.text.Html;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.redcircle.Activity.ConnectUserActivity;
-import com.redcircle.Activity.UserProfileActivity;
 import com.redcircle.Pojo.ConnectListVj;
-import com.redcircle.Pojo.Posts;
 import com.redcircle.R;
-import com.redcircle.Request.AqJSONObjectRequest;
 import com.redcircle.Util.MyApplication;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-
-import static com.redcircle.Util.StaticFields.BASE_URL;
 
 public class VjAdapter extends RecyclerView.Adapter<VjAdapter.MyViewHolder> {
 
@@ -83,14 +63,14 @@ public class VjAdapter extends RecyclerView.Adapter<VjAdapter.MyViewHolder> {
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            productImage = (ImageView) itemView.findViewById(R.id.iv);
-            set_user_name = (TextView) itemView.findViewById(R.id.iv_textview);
+            productImage = (ImageView) itemView.findViewById(R.id.content_image_iv);
+            set_user_name = (TextView) itemView.findViewById(R.id.iv_name);
 
             productImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent i = new Intent(view.getContext(), ConnectUserActivity.class);
-                    String strName = null;
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     i.putExtra("user_name", mProductList.get(getAdapterPosition()).getDisplay_name());
                     i.putExtra("user_image", mProductList.get(getAdapterPosition()).getUser_image());
                     i.putExtra("user_username", mProductList.get(getAdapterPosition()).getUser_username());
@@ -110,7 +90,7 @@ public class VjAdapter extends RecyclerView.Adapter<VjAdapter.MyViewHolder> {
             Picasso.get().load("https://spotify.krakersoft.com/upload_user_pic/"+selectedProduct.getUser_image()).memoryPolicy(MemoryPolicy.NO_CACHE )
                     .networkPolicy(NetworkPolicy.NO_CACHE).error(R.mipmap.ic_launcher).memoryPolicy(MemoryPolicy.NO_STORE)
                     .networkPolicy(NetworkPolicy.NO_STORE).resize(200,250).into(this.productImage);
-            Picasso.get().setLoggingEnabled(true);
+            Picasso.get().setLoggingEnabled(false);
 
 
 

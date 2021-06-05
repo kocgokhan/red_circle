@@ -22,7 +22,7 @@
 
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/photo_user"
+            android:id="@+id/match_userphoto"
             android:layout_width="78dp"
             android:layout_height="76dp"
             android:layout_marginStart="8dp"
@@ -45,8 +45,8 @@
             android:gravity="left"
             android:text="Gökhan Koç"
             android:textColor="@color/white"
-            app:layout_constraintStart_toEndOf="@+id/photo_user"
-            app:layout_constraintTop_toTopOf="@+id/photo_user" />
+            app:layout_constraintStart_toEndOf="@+id/match_userphoto"
+            app:layout_constraintTop_toTopOf="@+id/match_userphoto" />
 
         <TextView
             android:id="@+id/username"

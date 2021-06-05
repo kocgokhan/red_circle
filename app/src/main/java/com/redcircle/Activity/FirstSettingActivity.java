@@ -49,7 +49,6 @@ public class FirstSettingActivity extends AppCompatActivity {
         catch (NullPointerException e){}
         setContentView(R.layout.activity_first_setting);
 
-
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         user_id = preferences.getString("user_id", "Error");
         name = preferences.getString("name", "Error");

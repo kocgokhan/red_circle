@@ -17,9 +17,7 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.redcircle.Adapter.MyPreviewSongAdapter;
-import com.redcircle.Adapter.PreviewSongUserAdapter;
 import com.redcircle.Pojo.MyPreviewSong;
-import com.redcircle.Pojo.UserPreviewSong;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
 import com.redcircle.Util.MyApplication;
@@ -48,7 +46,7 @@ public class PreviewFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private String my_user_id;
+    private String my_user_id,user_user_id;
     private RecyclerView recyclerView;
     public PreviewFragment() {
         // Required empty public constructor
@@ -85,15 +83,21 @@ public class PreviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_preview, container, false);
-
-
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
-        my_user_id = preferences.getString("user_id", "");
+        my_user_id = preferences.getString("user_id", "Error");
 
-        recyclerView  = (RecyclerView) view.findViewById(R.id.preview_song_my);
-
-        get_preview_list(my_user_id);
-
+        Bundle extras = getActivity().getIntent().getExtras();
+        if(extras == null) {
+            user_user_id= null;
+        } else {
+            user_user_id= extras.getString("user_user_id");
+        }
+        recyclerView  = (RecyclerView) view.findViewById(R.id.recycler_album);
+        if(user_user_id!=null){
+            get_preview_list(user_user_id);
+        }else {
+            get_preview_list(my_user_id);
+        }
         return view;
     }
     private void get_preview_list(String id){
@@ -149,7 +153,6 @@ public class PreviewFragment extends Fragment {
             Toast.makeText(getContext(), "Hata", Toast.LENGTH_SHORT).show();
         }
 
-
     }
 
     public void drawCart(ArrayList<MyPreviewSong> list){
@@ -160,7 +163,6 @@ public class PreviewFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-
 
     }
 }

@@ -41,7 +41,7 @@
             app:srcCompat="@drawable/back" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/user_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"

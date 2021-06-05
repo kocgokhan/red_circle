@@ -17,6 +17,8 @@ import com.onesignal.OneSignal;
 
 import java.net.URISyntaxException;
 
+import static com.redcircle.Util.StaticFields.CHAT_SERVER_URL;
+
 
 /**
  * Created by GK
@@ -38,6 +40,19 @@ public class MyApplication extends Application {
         return _instance;
     }
 
+    private Socket socket;
+    {
+        try {
+            socket = IO.socket(CHAT_SERVER_URL);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
 
     @Override
     public void onCreate() {
@@ -55,6 +70,9 @@ public class MyApplication extends Application {
         // OneSignal Initialization
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
+
+
+
 
 
         _instance = this;

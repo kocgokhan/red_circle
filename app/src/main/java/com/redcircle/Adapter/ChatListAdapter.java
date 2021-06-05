@@ -2,38 +2,25 @@ package com.redcircle.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.redcircle.Activity.ChatActivity;
 import com.redcircle.Pojo.ChatList;
 import com.redcircle.R;
-import com.redcircle.Request.AqJSONObjectRequest;
 import com.redcircle.Util.MyApplication;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-
-import static com.redcircle.Util.StaticFields.BASE_URL;
 
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyViewHolder> {
 
@@ -76,12 +63,9 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            productImage = (ImageView) itemView.findViewById(R.id.photo_user);
+            productImage = (ImageView) itemView.findViewById(R.id.match_userphoto);
             set_user_name = (TextView) itemView.findViewById(R.id.name);
             username = (TextView) itemView.findViewById(R.id.username);
-            following_count = (TextView) itemView.findViewById(R.id.following_count);
-            follower_count = (TextView) itemView.findViewById(R.id.follower_count);
-            message_text = (TextView) itemView.findViewById(R.id.message_text);
             card = (ConstraintLayout) itemView.findViewById(R.id.cardSong);
 
             send_message = (ImageButton) itemView.findViewById(R.id.send_messages);
@@ -104,7 +88,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
            // this.follower_count.setText(selectedProduct.getCount_of_followers());
             //this.following_count.setText(selectedProduct.getCount_of_following());
 
-            Picasso.get().load(String.valueOf(Html.fromHtml(profile_photo))).into(this.productImage);
+            Picasso.get().load(String.valueOf(Html.fromHtml("https://spotify.krakersoft.com/upload_user_pic/"+profile_photo))).into(this.productImage);
         }
 
         public void message(Context context){

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:prefix="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/man_back"
+    tools:context=".Activity.MusicListActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--<ImageView
+            android:id="@+id/imageView_photo"
+            android:background="@drawable/img"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />-->
+
+        <ImageButton
+            android:id="@+id/back_views"
+            android:layout_width="46dp"
+            android:layout_height="49dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="-2dp"
+            android:background="@color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back" />
+
+        <TextView
+            android:id="@+id/user_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="13dp"
+            android:text="@string/mesaj_listesi"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/back_views"
+            app:layout_constraintStart_toEndOf="@+id/back_views"
+            app:layout_constraintTop_toTopOf="@+id/back_views"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView4"
+        android:layout_width="410dp"
+        android:layout_height="0dp"
+        prefix:layout_constraintBottom_toBottomOf="parent"
+        prefix:layout_constraintEnd_toEndOf="parent"
+        prefix:layout_constraintHorizontal_bias="0.0"
+        prefix:layout_constraintStart_toStartOf="parent"
+        prefix:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        prefix:layout_constraintVertical_bias="1.0">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:layout_conversion_absoluteHeight="0dp"
+            tools:layout_conversion_absoluteWidth="411dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/relativeLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                prefix:layout_constraintEnd_toEndOf="parent"
+                prefix:layout_constraintStart_toStartOf="parent"
+                prefix:layout_constraintTop_toBottomOf="@+id/relativeLayout3">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/album_track_recy"
+                    android:layout_width="392dp"
+                    android:layout_height="137dp"
+                    android:layout_marginStart="-1dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/transparent"
+                    android:scrollbars="horizontal"
+                    prefix:layout_constraintEnd_toEndOf="parent"
+                    prefix:layout_constraintHorizontal_bias="0.0"
+                    prefix:layout_constraintLeft_toLeftOf="@+id/textView19"
+                    prefix:layout_constraintRight_toRightOf="parent"
+                    prefix:layout_constraintStart_toStartOf="@+id/textView19"
+                    prefix:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="130dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Bağlan ve dinle"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    prefix:layout_constraintLeft_toLeftOf="parent"
+                    prefix:layout_constraintStart_toStartOf="parent"
+                    prefix:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/relativeLayout3"
+                android:layout_width="408dp"
+                android:layout_height="163dp"
+                prefix:layout_constraintEnd_toEndOf="parent"
+                prefix:layout_constraintStart_toStartOf="parent"
+                prefix:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cardView"
+                    android:layout_width="411dp"
+                    android:layout_height="171dp"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    prefix:layout_constraintBottom_toBottomOf="parent"
+                    prefix:layout_constraintEnd_toEndOf="parent"
+                    prefix:layout_constraintLeft_toLeftOf="parent"
+                    prefix:layout_constraintStart_toStartOf="parent"
+                    prefix:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="142dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="20dp"
+                        android:text="Sponsorlu İçerik"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        prefix:layout_constraintStart_toStartOf="parent"
+                        prefix:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/iv_artist"
+                        android:layout_width="392dp"
+                        android:layout_height="138dp"
+                        android:background="@color/transparent"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        prefix:layout_constraintBottom_toBottomOf="parent"
+                        prefix:layout_constraintEnd_toEndOf="parent"
+                        prefix:layout_constraintHorizontal_bias="0.0"
+                        prefix:layout_constraintStart_toStartOf="@+id/textView"
+                        prefix:layout_constraintTop_toBottomOf="@+id/textView"
+                        prefix:layout_constraintVertical_bias="0.0"
+                        tools:listitem="@layout/item_artist_sponsored" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="0dp"
+                android:layout_height="151dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="65dp"
+                prefix:layout_constraintEnd_toEndOf="parent"
+                prefix:layout_constraintHorizontal_bias="1.0"
+                prefix:layout_constraintStart_toStartOf="parent"
+                prefix:layout_constraintTop_toBottomOf="@+id/textView4">
+
+                <ImageView
+                    android:id="@+id/top_ten"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    prefix:layout_constraintBottom_toBottomOf="parent"
+                    prefix:layout_constraintStart_toStartOf="parent"
+                    prefix:layout_constraintTop_toTopOf="parent"
+                    prefix:layout_constraintVertical_bias="0.0"
+                    prefix:srcCompat="@mipmap/top1" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="130dp"
+                    android:layout_height="43dp"
+                    android:layout_marginTop="36dp"
+                    android:gravity="center"
+                    android:text="TOP 10"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    prefix:layout_constraintEnd_toEndOf="@+id/top_ten"
+                    prefix:layout_constraintHorizontal_bias="0.44"
+                    prefix:layout_constraintStart_toStartOf="@+id/top_ten"
+                    prefix:layout_constraintTop_toTopOf="@+id/top_ten" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Uygulama Çapında"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    prefix:layout_constraintEnd_toEndOf="@+id/textView3"
+                    prefix:layout_constraintStart_toStartOf="@+id/textView3"
+                    prefix:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+                <ImageView
+                    android:id="@+id/top_hundred"
+                    android:layout_width="154dp"
+                    android:layout_height="151dp"
+                    android:layout_marginStart="12dp"
+                    prefix:layout_constraintBottom_toBottomOf="@+id/top_ten"
+                    prefix:layout_constraintEnd_toEndOf="parent"
+                    prefix:layout_constraintStart_toEndOf="@+id/top_ten"
+                    prefix:layout_constraintTop_toTopOf="@+id/top_ten"
+                    prefix:layout_constraintVertical_bias="0.0"
+                    prefix:srcCompat="@mipmap/top2" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="130dp"
+                    android:layout_height="43dp"
+                    android:layout_marginTop="36dp"
+                    android:gravity="center"
+                    android:text="TOP 100"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    prefix:layout_constraintEnd_toEndOf="@+id/top_hundred"
+                    prefix:layout_constraintHorizontal_bias="0.52"
+                    prefix:layout_constraintStart_toStartOf="@+id/top_hundred"
+                    prefix:layout_constraintTop_toTopOf="@+id/top_hundred" />
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Uygulama Çapında"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    prefix:layout_constraintEnd_toEndOf="@+id/textView16"
+                    prefix:layout_constraintStart_toStartOf="@+id/textView16"
+                    prefix:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="159dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="20dp"
+                android:text="Uygulama Çapında"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                prefix:layout_constraintStart_toStartOf="parent"
+                prefix:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

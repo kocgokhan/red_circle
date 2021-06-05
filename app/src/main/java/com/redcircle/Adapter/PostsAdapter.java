@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
-import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -81,8 +80,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             super(itemView);
             play_song_btn = (ImageButton) itemView.findViewById(R.id.play_song_btn);
             productImage = (ImageView) itemView.findViewById(R.id.prev_play);
-            set_profile_image = (ImageView) itemView.findViewById(R.id.set_profile_image);
-            set_post_image = (ImageView) itemView.findViewById(R.id.set_post_image);
+            set_profile_image = (ImageView) itemView.findViewById(R.id.match_userphoto);
+            set_post_image = (ImageView) itemView.findViewById(R.id.back_image);
             like_post = (ImageView) itemView.findViewById(R.id.like_post);
             unlike_post = (ImageView) itemView.findViewById(R.id.unlike_post);
             set_user_name = (TextView) itemView.findViewById(R.id.set_user_name);
@@ -124,7 +123,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 
         public void setData(Posts selectedProduct, int position) {
 
-            String imgResource = "https://spotify.krakersoft.com/upload_post_pic/" +  mProductList.get(getAdapterPosition()).getPost_img_url();
+            String imgResource = "https://spotify.krakersoft.com/upload_post_pic/" +  mProductList.get(position).getPost_img_url();
             String song_image =   selectedProduct.getSong_image();
             String profile_photo = "https://spotify.krakersoft.com/upload_user_pic/"+selectedProduct.getPost_user_image();
 
@@ -185,6 +184,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             i.putExtra("user_image", mProductList.get(getAdapterPosition()).getPost_user_image());
             i.putExtra("user_username", mProductList.get(getAdapterPosition()).getPost_user_username());
             i.putExtra("user_user_id", mProductList.get(getAdapterPosition()).getPost_user_id());
+            i.putExtra("user_profile_lock", mProductList.get(getAdapterPosition()).getProfile_lock());
             context.startActivity(i);
             MyApplication.get().getRequestQueue().getCache().clear();
 

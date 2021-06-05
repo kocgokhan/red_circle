@@ -208,20 +208,15 @@ public class LoginActivity extends AppCompatActivity {
                         editor.apply();
 
                         if(users_data.getString("username").equals("null")){
-                            login=false;
+                            startActivity(new Intent(LoginActivity.this, FirstSettingActivity.class));
                         }else{
-                            login=true;
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
                     finish();
-                    if(login==true){
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    }else{
-                        startActivity(new Intent(LoginActivity.this, FirstSettingActivity.class));
-                    }
                     MyApplication.get().getRequestQueue().getCache().clear();
                 }
             };

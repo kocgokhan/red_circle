@@ -1,5 +1,4 @@
 package com.redcircle.Activity;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +24,7 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.redcircle.Adapter.PreviewSongUserAdapter;
+import com.redcircle.Pojo.LiveSongUser;
 import com.redcircle.Pojo.UserPreviewSong;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
@@ -43,23 +43,23 @@ import static com.redcircle.Util.StaticFields.BASE_URL;
 
 public class ConnectUserActivity extends AppCompatActivity {
     private Socket socket;
-    {
-        try {
-            socket = IO.socket("https://www.spotisocket.krakersoft.com:3000");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
     RecyclerView recyclerView;
-    private ImageButton connect_me,unconnect_me;
+    private ImageButton connect_me,unconnect_me,back_btn;
+    private ImageView imageView_photo,song_photo;
     private boolean prev = false;
     private String user_names,user_usernames,user_image,user_id,my_user_id;
+    private TextView myTextView,artist,user_name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);// hide status bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);// hide status bar
+
+        MyApplication app = (MyApplication) getApplicationContext();
+        socket = app.getSocket();
+        socket.on("current_song", current_song);
         socket.connect();
+
         View bView = getWindow().getDecorView();// hide hardware buttons
         bView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);// hide hardware buttons
         try
@@ -69,13 +69,13 @@ public class ConnectUserActivity extends AppCompatActivity {
         catch (NullPointerException e){}
         setContentView(R.layout.activity_connect_user);
 
-        ImageButton back_btn= (ImageButton) findViewById(R.id.back_views);
-        ImageView imageView_photo = (ImageView) findViewById(R.id.imageView_photo);
-        ImageView song_photo = (ImageView) findViewById(R.id.song_photo);
-        TextView user_name = (TextView) findViewById(R.id.user_name);
-        TextView artist = (TextView) findViewById(R.id.artist);
+        back_btn = (ImageButton) findViewById(R.id.back_views);
+        imageView_photo = (ImageView) findViewById(R.id.imageView_photo);
+        song_photo = (ImageView) findViewById(R.id.song_photo);
+        user_name = (TextView) findViewById(R.id.user_name);
+        artist = (TextView) findViewById(R.id.artist);
 
-        TextView myTextView = findViewById(R.id.playing_songs);
+        myTextView = findViewById(R.id.playing_songs);
 
 
         connect_me= (ImageButton) findViewById(R.id.connect_me);
@@ -127,36 +127,6 @@ public class ConnectUserActivity extends AppCompatActivity {
         });
         socket.emit("host_detail", user_id);
 
-        socket.on("current_song", new Emitter.Listener() {
-            @Override
-            public void call(final Object... args) {
-                runOnUiThread(new Runnable() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void run() {
-                        myTextView.setVisibility(View.VISIBLE);
-
-
-                        String income_data = (String) args[0];
-                        String[] separated = income_data.split(" - ");
-
-
-                        if(separated[4].equals(user_id)){
-
-                            myTextView.setText(separated[0]);
-                            artist.setText(separated[1]);
-
-                            Picasso.get().load(String.valueOf(Html.fromHtml(separated[2]))).into(song_photo);
-
-                        }
-
-
-
-                        //Log.wtf("current_song",separated[0]);
-                    }
-                });
-            }
-        });
         socket.on("disconnect", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
@@ -179,7 +149,31 @@ public class ConnectUserActivity extends AppCompatActivity {
         });
         get_preview_list(user_id);
     }
+    private Emitter.Listener current_song = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    myTextView.setVisibility(View.VISIBLE);
 
+
+                    String income_data = (String) args[0];
+                    String[] separated = income_data.split(" - ");
+
+
+                    if(separated[4].equals(user_id)){
+
+                        myTextView.setText(separated[0]);
+                        artist.setText(separated[1]);
+
+                        Picasso.get().load(String.valueOf(Html.fromHtml(separated[2]))).into(song_photo);
+
+                    }
+                }
+            });
+        }
+    };
     private void get_preview_list(String id){
         ArrayList<UserPreviewSong> userPreviewSongArrayList = new ArrayList<>();
         JSONObject params = new JSONObject();
@@ -289,5 +283,11 @@ public class ConnectUserActivity extends AppCompatActivity {
         }
 
 
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        socket.off("current_song", current_song);
     }
 }

@@ -1,50 +1,29 @@
 package com.redcircle.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.ceylonlabs.imageviewpopup.ImagePopup;
-import com.redcircle.Activity.ChatActivity;
-import com.redcircle.Activity.MainActivity;
+import com.redcircle.Activity.MatchDetailActivity;
 import com.redcircle.Activity.UserProfileActivity;
-import com.redcircle.Fragment.HomeFragment;
 import com.redcircle.Pojo.Match;
 import com.redcircle.R;
-import com.redcircle.Request.AqJSONObjectRequest;
 import com.redcircle.Util.MyApplication;
-import com.shashank.sony.fancytoastlib.FancyToast;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-
-import static android.content.ContentValues.TAG;
-import static com.redcircle.Util.StaticFields.BASE_URL;
 
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder> {
 
@@ -70,11 +49,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
         Match selectedProduct = mProductList.get(position);
         holder.setData(selectedProduct, position);
     }
-    public void updateReceiptsList(ArrayList<Match> newlist) {
-        mProductList.clear();
-        mProductList.addAll(newlist);
-        this.notifyDataSetChanged();
-    }
+
     @Override
     public int getItemCount() {
         try {
@@ -87,30 +62,20 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView follower_count, set_user_name, following_count,decline_text,accept_text,message_text,undecline_text,delete_text;
+        TextView set_username, set_user_name;
         ImageView productImage;
         ConstraintLayout card;
-        ImageButton undecline_btn,delete_btn,decline_btn,accept_btn,send_message;
+        ImageButton view_btn;
         String user_id;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            productImage = (ImageView) itemView.findViewById(R.id.photo_user);
+            productImage = (ImageView) itemView.findViewById(R.id.match_userphoto);
             set_user_name = (TextView) itemView.findViewById(R.id.name);
-            following_count = (TextView) itemView.findViewById(R.id.following_count);
-            follower_count = (TextView) itemView.findViewById(R.id.follower_count);
-            decline_text = (TextView) itemView.findViewById(R.id.decline_text);
-            undecline_text = (TextView) itemView.findViewById(R.id.undecline_text);
-            delete_text = (TextView) itemView.findViewById(R.id.delete_text);
-            accept_text = (TextView) itemView.findViewById(R.id.accept_text);
-            message_text = (TextView) itemView.findViewById(R.id.message_text);
+            set_username = (TextView) itemView.findViewById(R.id.username);
             card = (ConstraintLayout) itemView.findViewById(R.id.cardSong);
 
-            send_message = (ImageButton) itemView.findViewById(R.id.send_message);
-            decline_btn = (ImageButton) itemView.findViewById(R.id.decline_btn);
-            accept_btn = (ImageButton) itemView.findViewById(R.id.accept_btn);
-            undecline_btn = (ImageButton) itemView.findViewById(R.id.undecline_btn);
-            delete_btn = (ImageButton) itemView.findViewById(R.id.delete_btn);
+            view_btn = (ImageButton) itemView.findViewById(R.id.view_btn);
 
             productImage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -120,39 +85,10 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
             });
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
             user_id = preferences.getString("user_id", "Error");
-            send_message.setOnClickListener(new View.OnClickListener() {
+            view_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   message(view.getContext());
-                }
-            });
-
-            decline_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    decline(view.getContext());
-                }
-            });
-
-            accept_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    accept(view.getContext());
-                }
-            });
-
-            undecline_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    undecline(view.getContext());
-                }
-            });
-
-            delete_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    delete(view.getContext());
-                    removeAt(getAdapterPosition());
+                   matc_detail(view.getContext());
                 }
             });
 
@@ -164,70 +100,11 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
 
 
             this.set_user_name.setText(selectedProduct.getPost_user_name());
-            this.follower_count.setText(selectedProduct.getCount_of_followers());
-            this.following_count.setText(selectedProduct.getCount_of_following());
+            this.set_username.setText(selectedProduct.getUsername());
 
             Picasso.get().load(String.valueOf(Html.fromHtml(profile_photo))).into(this.productImage);
 
-            switch(mProductList.get(getAdapterPosition()).getStatus()){
-                case "1":
 
-                    send_message.setVisibility(View.VISIBLE);
-                    accept_btn.setVisibility(View.INVISIBLE);
-                    decline_btn.setVisibility(View.INVISIBLE);
-                    undecline_btn.setVisibility(View.INVISIBLE);
-                    delete_btn.setVisibility(View.VISIBLE);
-
-                    message_text.setVisibility(View.VISIBLE);
-                    decline_text.setVisibility(View.INVISIBLE);
-                    accept_text.setVisibility(View.INVISIBLE);
-                    undecline_text.setVisibility(View.INVISIBLE);
-                    delete_text.setVisibility(View.VISIBLE);
-                    break;
-                case "2":
-
-                    send_message.setVisibility(View.VISIBLE);
-                    accept_btn.setVisibility(View.INVISIBLE);
-                    decline_btn.setVisibility(View.INVISIBLE);
-                    undecline_btn.setVisibility(View.INVISIBLE);
-                    delete_btn.setVisibility(View.VISIBLE);
-
-                    message_text.setVisibility(View.VISIBLE);
-                    decline_text.setVisibility(View.INVISIBLE);
-                    accept_text.setVisibility(View.INVISIBLE);
-                    undecline_text.setVisibility(View.INVISIBLE);
-                    delete_text.setVisibility(View.VISIBLE);
-                    break;
-                case "3":
-
-                    send_message.setVisibility(View.INVISIBLE);
-                    accept_btn.setVisibility(View.INVISIBLE);
-                    decline_btn.setVisibility(View.INVISIBLE);
-                    undecline_btn.setVisibility(View.VISIBLE);
-                    decline_btn.setVisibility(View.VISIBLE);
-
-                    message_text.setVisibility(View.INVISIBLE);
-                    decline_text.setVisibility(View.INVISIBLE);
-                    accept_text.setVisibility(View.INVISIBLE);
-                    undecline_text.setVisibility(View.VISIBLE);
-                    delete_text.setVisibility(View.VISIBLE);
-                    break;
-
-                default:
-
-                    send_message.setVisibility(View.INVISIBLE);
-                    accept_btn.setVisibility(View.VISIBLE);
-                    decline_btn.setVisibility(View.VISIBLE);
-                    undecline_btn.setVisibility(View.INVISIBLE);
-                    delete_btn.setVisibility(View.INVISIBLE);
-
-                    message_text.setVisibility(View.INVISIBLE);
-                    accept_text.setVisibility(View.VISIBLE);
-                    decline_text.setVisibility(View.VISIBLE);
-                    undecline_text.setVisibility(View.INVISIBLE);
-                    delete_text.setVisibility(View.INVISIBLE);
-                    break;
-            }
 
 
 
@@ -244,7 +121,26 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
             MyApplication.get().getRequestQueue().getCache().clear();
 
         }
-        public void  accept(Context context){
+        public void matc_detail(Context context){
+
+          Intent i = new Intent(context.getApplicationContext(), MatchDetailActivity.class);
+            String strName = null;
+            i.putExtra("user_name", mProductList.get(getAdapterPosition()).getPost_user_name());
+            i.putExtra("user_image", mProductList.get(getAdapterPosition()).getPost_user_image());
+            i.putExtra("user_username", mProductList.get(getAdapterPosition()).getUsername());
+            i.putExtra("user_user_id", mProductList.get(getAdapterPosition()).getMatch_user_is());
+            i.putExtra("user_bio", mProductList.get(getAdapterPosition()).getPost_user_bio());
+            i.putExtra("song_image", mProductList.get(getAdapterPosition()).getSong_image());
+            i.putExtra("song_name", mProductList.get(getAdapterPosition()).getSong_name());
+            i.putExtra("song_artist", mProductList.get(getAdapterPosition()).getSong_artist());
+            i.putExtra("song_uri", mProductList.get(getAdapterPosition()).getSong_uri());
+            i.putExtra("match_status", mProductList.get(getAdapterPosition()).getStatus());
+            i.putExtra("match_id", mProductList.get(getAdapterPosition()).getMatch_id());
+            context.startActivity(i);
+            MyApplication.get().getRequestQueue().getCache().clear();
+
+        }
+       /* public void  accept(Context context){
 
             send_message.setVisibility(View.VISIBLE);
             accept_btn.setVisibility(View.INVISIBLE);
@@ -273,7 +169,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
                     public void onResponse(JSONObject response) {
                         //Log.wtf(TAG, "onResponse : " + response);
 
-                        refresgFrag(getAdapterPosition(),user_id);
+                        //refresgFrag(getAdapterPosition(),user_id);
                         MyApplication.get().getRequestQueue().getCache().clear();
                     }
                 };
@@ -328,7 +224,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
                     @Override
                     public void onResponse(JSONObject response) {
                         //Log.wtf(TAG, "onResponse : " + response);
-                        refresgFrag(getAdapterPosition(),user_id);
+                        //refresgFrag(getAdapterPosition(),user_id);
                         MyApplication.get().getRequestQueue().getCache().clear();
                     }
                 };
@@ -382,7 +278,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
                     @Override
                     public void onResponse(JSONObject response) {
                         //Log.wtf(TAG, "onResponse : " + response);
-                        refresgFrag(getAdapterPosition(),user_id);
+                        //refresgFrag(getAdapterPosition(),user_id);
                         MyApplication.get().getRequestQueue().getCache().clear();
                     }
                 };
@@ -524,7 +420,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
             mProductList.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, mProductList.size());
-        }
+        }*/
 
     }
 

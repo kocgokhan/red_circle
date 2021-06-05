@@ -11,7 +11,7 @@ public class Match {
 
     private static final String TAG = "PostsPojo ";
 
-    private String song_name, song_image,song_artist,song_uri,post_user_name,
+    private String song_name, song_image,song_artist,song_uri,post_user_name,post_user_bio,
             post_user_image,match_id,isfollow,count_of_following,count_of_followers,
             status,oneSignal_id,match_user_is,username;
 
@@ -24,12 +24,10 @@ public class Match {
             this.post_user_name = response.getString("display_name");
             this.username = response.getString("username");
             this.post_user_image = response.getString("user_image");
+            this.post_user_bio = response.getString("user_bio");
             this.match_id = response.getString("match_id");
-            this.isfollow = response.getString("isfollow");
-            this.count_of_following = response.getString("count_of_following");
-            this.count_of_followers = response.getString("count_of_followers");
+            //this.isfollow = response.getString("isfollow");
             this.status = response.getString("status");
-            this.oneSignal_id = response.getString("osi");
             this.match_user_is = response.getString("user_two");
             if (isLogin) {
                 this.song_name = response.getString("song_name");
@@ -39,12 +37,10 @@ public class Match {
                 this.post_user_name = response.getString("display_name");
                 this.username = response.getString("username");
                 this.post_user_image = response.getString("user_image");
+                this.post_user_bio = response.getString("user_bio");
                 this.match_id = response.getString("match_id");
-                this.isfollow = response.getString("isfollow");
-                this.count_of_following = response.getString("count_of_following");
-                this.count_of_followers = response.getString("count_of_followers");
+                //this.isfollow = response.getString("isfollow");
                 this.status = response.getString("status");
-                this.oneSignal_id = response.getString("osi");
                 this.match_user_is = response.getString("user_two");
             }
         } catch (JSONException e) {
@@ -55,6 +51,22 @@ public class Match {
 
     public Match() {
 
+    }
+
+    public String getPost_user_bio() {
+        return post_user_bio;
+    }
+
+    public void setPost_user_bio(String post_user_bio) {
+        this.post_user_bio = post_user_bio;
+    }
+
+    public String getCount_of_following() {
+        return count_of_following;
+    }
+
+    public String getCount_of_followers() {
+        return count_of_followers;
     }
 
     public String getUsername() {
@@ -141,17 +153,11 @@ public class Match {
         this.isfollow = isfollow;
     }
 
-    public String getCount_of_following() {
-        return count_of_following;
-    }
 
     public void setCount_of_following(String count_of_following) {
         this.count_of_following = count_of_following;
     }
 
-    public String getCount_of_followers() {
-        return count_of_followers;
-    }
 
     public void setCount_of_followers(String count_of_followers) {
         this.count_of_followers = count_of_followers;
@@ -179,14 +185,19 @@ public class Match {
         for (int i = 0; i < ary.size(); i++) {
             Match temp = new Match();
             temp.setMatch_id(ary.get(i).match_id);
-            temp.setCount_of_followers(ary.get(i).count_of_followers);
-            temp.setCount_of_following(ary.get(i).count_of_following);
+            //temp.setCount_of_followers(ary.get(i).count_of_followers);
+            //temp.setCount_of_following(ary.get(i).count_of_following);
             temp.setPost_user_image(ary.get(i).post_user_image);
             temp.setPost_user_name(ary.get(i).post_user_name);
             temp.setUsername(ary.get(i).username);
+            temp.setPost_user_bio(ary.get(i).post_user_bio);
             temp.setStatus(ary.get(i).status);
-            temp.setOneSignal_id(ary.get(i).oneSignal_id);
+            //temp.setOneSignal_id(ary.get(i).oneSignal_id);
             temp.setMatch_user_is(ary.get(i).match_user_is);
+            temp.setSong_image(ary.get(i).song_image);
+            temp.setSong_name(ary.get(i).song_name);
+            temp.setSong_artist(ary.get(i).song_artist);
+            temp.setSong_uri(ary.get(i).song_uri);
             productList.add(temp);
         }
         return productList;

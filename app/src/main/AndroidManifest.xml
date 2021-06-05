@@ -22,7 +22,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RedCircle"
         tools:ignore="HardcodedDebugMode">
-        <activity android:name=".Activity.FirstSettingActivity"></activity>
+        <activity android:name=".Activity.AlbumTrackActivity"></activity>
+        <activity android:name=".Activity.SponsorDetailActivity" />
+        <activity android:name=".Activity.SongPostActivity" />
+        <activity android:name=".Activity.LiveSongActivity" />
+        <activity android:name=".Activity.TopListActivity" />
+        <activity android:name=".Activity.MatchDetailActivity" />
+        <activity android:name=".Activity.MusicListActivity" />
+        <activity android:name=".Activity.ProfileActivity" />
+        <activity android:name=".Activity.NotificationActivity" />
+        <activity android:name=".Activity.MatchActivity" />
+        <activity android:name=".Activity.FirstSettingActivity" />
         <activity android:name=".Activity.ChatListActivity" />
         <activity
             android:name=".Activity.SongActivity"

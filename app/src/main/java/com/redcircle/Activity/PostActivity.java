@@ -190,11 +190,14 @@ public class PostActivity extends AppCompatActivity {
         }
     }
 
-    private void requestJson(String user_id, String name_song, String artist_song, String uri_song, String image_song, final Bitmap post_image , String post_texts) {
+    private void requestJson(String user_id, String name_song, String artist_song, String uri_song, String image_song, @Nullable Bitmap post_image , String post_texts) {
         JSONObject params = new JSONObject();
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        post_image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        String encodedImage = null;
+        if(post_image!=null){
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            post_image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        }
 
         final ProgressDialog loading = new ProgressDialog(PostActivity.this);
         loading.setMessage("Lütfen Bekleyin...");
@@ -209,7 +212,12 @@ public class PostActivity extends AppCompatActivity {
             params.put("song_image", image_song);
             params.put("song_artist", artist_song);
             params.put("song_uri", uri_song);
-            params.put("post_image", encodedImage);
+            if(encodedImage == null){
+                params.put("post_image", " ");
+            }else{
+                params.put("post_image", encodedImage);
+            }
+
             params.put("post_text", post_texts);
             Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
                 @Override

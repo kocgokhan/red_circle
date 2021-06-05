@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/man_back"
+    tools:context=".Activity.MatchDetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--<ImageView
+            android:id="@+id/imageView_photo"
+            android:background="@drawable/img"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />-->
+
+        <ImageButton
+            android:id="@+id/back_views"
+            android:layout_width="46dp"
+            android:layout_height="49dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="-2dp"
+            android:background="@color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back" />
+
+        <TextView
+            android:id="@+id/match_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="13dp"
+            android:text="Eşleşmelerim"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/back_views"
+            app:layout_constraintStart_toEndOf="@+id/back_views"
+            app:layout_constraintTop_toTopOf="@+id/back_views"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.santalu.aspectratioimageview.AspectRatioImageView
+        android:id="@+id/back_image"
+        android:layout_width="411dp"
+        android:layout_height="741dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/image_demo"
+        app:ari_ratio="1.8"
+        android:alpha="0.1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.0"
+        app:siRadius="2dp"
+        app:siSquare="true" />
+
+
+    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+        android:id="@+id/match_userphoto"
+        android:layout_width="154dp"
+        android:layout_height="142dp"
+        android:layout_margin="8dp"
+        android:layout_marginTop="98dp"
+        app:civ_border_color="#FF000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/back_image"
+        app:layout_constraintTop_toBottomOf="@+id/artist_song"
+        app:siBorderWidth="8dp"
+        app:siShape="@drawable/heart" />
+
+    <TextView
+        android:id="@+id/match_user_name"
+        android:layout_width="159dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="14dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/match_userphoto"
+        app:layout_constraintStart_toStartOf="@+id/match_userphoto"
+        app:layout_constraintTop_toBottomOf="@+id/match_userphoto" />
+
+    <TextView
+        android:id="@+id/match_userbio"
+        android:layout_width="272dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/match_user_name"
+        app:layout_constraintStart_toStartOf="@+id/match_userphoto"
+        app:layout_constraintTop_toBottomOf="@+id/match_user_name" />
+
+    <TextView
+        android:id="@+id/name_song"
+        android:layout_width="352dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <TextView
+        android:id="@+id/artist_song"
+        android:layout_width="352dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/name_song"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/name_song"
+        app:layout_constraintTop_toBottomOf="@+id/name_song" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="196dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.451"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/match_userbio">
+
+        <ImageButton
+            android:id="@+id/decline_btn"
+            android:layout_width="98dp"
+            android:layout_height="43dp"
+            android:background="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@mipmap/decline" />
+
+        <TextView
+            android:id="@+id/decline_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yok Say"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/decline_btn"
+            app:layout_constraintEnd_toEndOf="@+id/decline_btn"
+            app:layout_constraintStart_toStartOf="@+id/decline_btn"
+            app:layout_constraintTop_toTopOf="@+id/decline_btn" />
+
+        <ImageButton
+            android:id="@+id/accept_btn"
+            android:layout_width="98dp"
+            android:layout_height="43dp"
+            android:background="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/decline_btn"
+            app:layout_constraintStart_toEndOf="@+id/decline_btn"
+            app:layout_constraintTop_toTopOf="@+id/decline_btn"
+            app:srcCompat="@mipmap/accept" />
+
+        <TextView
+            android:id="@+id/accept_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kabul Et"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/accept_btn"
+            app:layout_constraintEnd_toEndOf="@+id/accept_btn"
+            app:layout_constraintStart_toStartOf="@+id/accept_btn"
+            app:layout_constraintTop_toTopOf="@+id/accept_btn" />
+
+        <ImageButton
+            android:id="@+id/undecline_btn"
+            android:layout_width="98dp"
+            android:layout_height="43dp"
+            android:background="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@mipmap/undecline" />
+
+        <TextView
+            android:id="@+id/undecline_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Geri Al"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/undecline_btn"
+            app:layout_constraintEnd_toEndOf="@+id/undecline_btn"
+            app:layout_constraintStart_toStartOf="@+id/undecline_btn"
+            app:layout_constraintTop_toTopOf="@+id/undecline_btn" />
+
+        <ImageButton
+            android:id="@+id/delete_btn"
+            android:layout_width="98dp"
+            android:layout_height="43dp"
+            android:background="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/decline_btn"
+            app:layout_constraintStart_toEndOf="@+id/decline_btn"
+            app:layout_constraintTop_toTopOf="@+id/decline_btn"
+            app:srcCompat="@mipmap/delete" />
+
+
+        <TextView
+            android:id="@+id/delete_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sil"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/accept_btn"
+            app:layout_constraintEnd_toEndOf="@+id/accept_btn"
+            app:layout_constraintStart_toStartOf="@+id/accept_btn"
+            app:layout_constraintTop_toTopOf="@+id/accept_btn"  />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
