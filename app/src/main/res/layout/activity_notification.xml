@@ -21,12 +21,6 @@ tools:context=".Activity.NotificationActivity">
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!--<ImageView
-            android:id="@+id/imageView_photo"
-            android:background="@drawable/img"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />-->
-
         <ImageButton
             android:id="@+id/back_views"
             android:layout_width="46dp"
@@ -56,7 +50,6 @@ tools:context=".Activity.NotificationActivity">
             app:layout_constraintTop_toTopOf="@+id/back_views"
             app:layout_constraintVertical_bias="0.0" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,5 +73,6 @@ tools:context=".Activity.NotificationActivity">
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.037" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

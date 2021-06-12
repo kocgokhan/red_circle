@@ -3,6 +3,7 @@ package com.redcircle.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -66,6 +67,10 @@ public class ProfileActivity extends AppCompatActivity {
         setting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Intent i = new Intent(ProfileActivity.this, SettingsActivity.class);
+                startActivity(i);
+                MyApplication.get().getRequestQueue().getCache().clear();
 
             }
         });

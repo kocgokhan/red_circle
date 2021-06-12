@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@color/transparent"
     android:fadeScrollbars="true"
     android:isScrollContainer="true"
     android:scrollbarAlwaysDrawHorizontalTrack="false"
@@ -11,13 +13,12 @@
     app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="0dp"
     app:cardElevation="0dp"
-    android:layout_margin="10dp"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="false">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="107dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
 
@@ -42,8 +43,8 @@
 
         <TextView
             android:id="@+id/notif_message"
-            android:layout_width="199dp"
-            android:layout_height="60dp"
+            android:layout_width="197dp"
+            android:layout_height="57dp"
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
@@ -52,17 +53,91 @@
             android:layout_toRightOf="@+id/prev_play"
             android:textColor="@color/white" />
 
-        <TextView
-            android:id="@+id/notif_date"
-            android:layout_width="92dp"
-            android:layout_height="34dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="31dp"
+        <ImageButton
+            android:id="@+id/follow_accept_btn"
+            android:layout_width="39dp"
+            android:layout_height="38dp"
+            android:layout_alignTop="@+id/notif_message"
+            android:layout_alignBottom="@+id/notif_message"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="11dp"
             android:layout_marginEnd="7dp"
-            android:layout_marginRight="7dp"
-            android:textColor="@color/white" />
+            android:layout_marginBottom="11dp"
+            android:layout_toStartOf="@+id/follow_cancel_btn"
+            android:layout_toEndOf="@+id/notif_message"
+            android:background="@color/transparent"
+            android:src="@mipmap/accept_btn"
+            tools:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/follow_cancel_btn"
+            android:layout_width="39dp"
+            android:layout_height="38dp"
+            android:layout_alignTop="@+id/notif_message"
+            android:layout_alignBottom="@+id/notif_message"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/transparent"
+            android:src="@mipmap/cancel_btn"
+            tools:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/like_song_image"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_alignTop="@+id/notif_message"
+            android:layout_alignBottom="@+id/notif_message"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="19dp"
+            android:layout_marginBottom="13dp"
+            android:src="@mipmap/top1"
+            tools:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/like_post_image"
+            android:layout_width="41dp"
+            android:layout_height="42dp"
+            android:layout_alignTop="@+id/notif_message"
+            android:layout_alignBottom="@+id/notif_message"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="13dp"
+            android:layout_toStartOf="@+id/like_song_image"
+            android:layout_toEndOf="@+id/notif_message"
+            android:src="@mipmap/top1"
+            tools:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/request_send"
+            android:layout_width="39dp"
+            android:layout_height="38dp"
+            android:layout_alignTop="@+id/notif_message"
+            android:layout_alignBottom="@+id/notif_message"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="21dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/transparent"
+            android:src="@mipmap/waiting_follow"
+            tools:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/follow_user"
+            android:layout_width="39dp"
+            android:layout_height="38dp"
+            android:layout_alignTop="@+id/notif_message"
+            android:layout_alignBottom="@+id/notif_message"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="21dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/transparent"
+            android:src="@mipmap/follow_user_btn"
+            tools:visibility="gone" />
 
 
     </RelativeLayout>

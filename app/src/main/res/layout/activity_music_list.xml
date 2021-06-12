@@ -110,6 +110,7 @@
                     android:layout_height="24dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
+                    android:gravity="right"
                     android:text="Bağlan ve dinle"
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -140,14 +141,16 @@
                     prefix:layout_constraintStart_toStartOf="parent"
                     prefix:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
+                    <com.hanks.htextview.rainbow.RainbowTextView
                         android:id="@+id/textView"
                         android:layout_width="142dp"
                         android:layout_height="24dp"
                         android:layout_marginStart="20dp"
+                        android:gravity="right"
                         android:text="Sponsorlu İçerik"
-                        android:textColor="@color/white"
                         android:textSize="18sp"
+                        app:colorSpace="150dp"
+                        app:colorSpeed="4dp"
                         prefix:layout_constraintStart_toStartOf="parent"
                         prefix:layout_constraintTop_toTopOf="parent" />
 
@@ -247,6 +250,7 @@
                     android:id="@+id/textView17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:text="Uygulama Çapında"
                     android:textColor="@color/white"
                     android:textSize="12sp"
@@ -263,6 +267,7 @@
                 android:layout_marginStart="20dp"
                 android:text="Uygulama Çapında"
                 android:textColor="@color/white"
+                android:gravity="right"
                 android:textSize="18sp"
                 prefix:layout_constraintStart_toStartOf="parent"
                 prefix:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />

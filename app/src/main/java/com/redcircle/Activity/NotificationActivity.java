@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Notification;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,10 +17,6 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.redcircle.Adapter.NotificationAdapter;
-import com.redcircle.Pojo.FollowNotification;
-import com.redcircle.Pojo.LikeNotification;
-import com.redcircle.Pojo.Match;
-import com.redcircle.Pojo.MatchNotification;
 import com.redcircle.Pojo.NotificationType;
 import com.redcircle.Pojo.Notifications;
 import com.redcircle.R;
@@ -95,22 +90,22 @@ public class NotificationActivity extends AppCompatActivity {
 
                         if( data.getJSONArray("follows").length()>0){
                             jsonArray = data.getJSONArray("follows");
-                             for (int i = 0; i < jsonArray.length(); i++) {
-                                 jsonObject = jsonArray.getJSONObject(i);
-                                 Notifications testFollow = new Notifications(NotificationType.FOLLOW,jsonObject.getString("sender_user_id"),jsonObject.getString("message"),
-                                         jsonObject.getString("amIFollow"),jsonObject.getString("follow_status"),jsonObject.getString("sender_images"),
-                                         jsonObject.getString("like_time"));
-                                 notificationsArrayList.add(testFollow);
-                             }
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                jsonObject = jsonArray.getJSONObject(i);
+                                Notifications testFollow = new Notifications(NotificationType.FOLLOW,jsonObject.getString("sender_user_id"),jsonObject.getString("message"),
+                                        jsonObject.getString("amIFollow"),jsonObject.getString("follow_status"),jsonObject.getString("sender_images"),
+                                        jsonObject.getString("like_time"),jsonObject.getString("profile_lock"),1);
+                                notificationsArrayList.add(testFollow);
+                            }
 
-                         }
+                        }
 
                         if(data.getJSONArray("likes").length()>0){
                             jsonArray = data.getJSONArray("likes");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 jsonObject = jsonArray.getJSONObject(i);
                                 Notifications testLike = new Notifications(NotificationType.LIKE,jsonObject.getString("sender_user_id"),jsonObject.getString("message"),jsonObject.getString("sender_images"),
-                                        jsonObject.getString("like_time"),jsonObject.getString("post_id"));
+                                        jsonObject.getString("like_time"),jsonObject.getString("post_id"),jsonObject.getString("song_images"),jsonObject.getString("post_images"));
                                 notificationsArrayList.add(testLike);
                             }
                         }
@@ -124,7 +119,7 @@ public class NotificationActivity extends AppCompatActivity {
                             }
                         }
                         drawCartFollow();
-                      // drawCart();
+                        // drawCart();
 
                         MyApplication.get().getRequestQueue().getCache().clear();
                     } catch (JSONException e) {
@@ -152,7 +147,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     }
 
-   public void drawCartFollow(){
+    public void drawCartFollow(){
 
         NotificationAdapter notificationAdapter = new NotificationAdapter(getApplicationContext(),notificationsArrayList);
         recyclerView.setAdapter(notificationAdapter);

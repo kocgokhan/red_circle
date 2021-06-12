@@ -65,6 +65,7 @@ repositories {
         dirs 'libs'
     }
 }
+def htextview_version = "0.1.6"
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -128,6 +129,8 @@ dependencies {
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
     implementation 'com.github.chathuralakmal:AndroidImagePopup:1.2.2'
     implementation 'com.github.Shashank02051997:FancyToast-Android:0.1.8'
+
+    implementation "com.hanks:htextview-rainbow:$htextview_version"
 
     implementation 'id.zelory:compressor:2.1.0'
     implementation project(':spotify-app-remote')

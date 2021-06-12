@@ -70,8 +70,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView productName, set_user_name, set_user_username,set_post_text,count_like,song_name;
-        ImageView productImage,song_image,set_profile_image,like_post,unlike_post,set_post_image;
+        TextView productName, set_user_name, set_user_username,set_post_text,count_like,song_name,song_artist;
+        ImageView productImage,song_image,set_profile_image,like_post,unlike_post,set_post_image,song_image_v;
         ConstraintLayout card;
         ImageButton play_song_btn;
 
@@ -80,6 +80,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             super(itemView);
             play_song_btn = (ImageButton) itemView.findViewById(R.id.play_song_btn);
             productImage = (ImageView) itemView.findViewById(R.id.prev_play);
+            song_image_v = (ImageView) itemView.findViewById(R.id.song_image_v);
             set_profile_image = (ImageView) itemView.findViewById(R.id.match_userphoto);
             set_post_image = (ImageView) itemView.findViewById(R.id.back_image);
             like_post = (ImageView) itemView.findViewById(R.id.like_post);
@@ -88,6 +89,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             set_post_text = (TextView) itemView.findViewById(R.id.set_post_text);
             set_user_username = (TextView) itemView.findViewById(R.id.set_user_username);
             song_name = (TextView) itemView.findViewById(R.id.song_name);
+            song_artist = (TextView) itemView.findViewById(R.id.song_artist);
             count_like = (TextView) itemView.findViewById(R.id.count_like);
             card = (ConstraintLayout) itemView.findViewById(R.id.cardSong);
 
@@ -104,12 +106,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                     Idontliked(v.getContext());
                 }
             });
-            play_song_btn.setOnClickListener(new View.OnClickListener() {
+            /*play_song_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     play_song(view.getContext());
                 }
-            });
+            });*/
 
             set_profile_image.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -127,7 +129,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             String song_image =   selectedProduct.getSong_image();
             String profile_photo = "https://spotify.krakersoft.com/upload_user_pic/"+selectedProduct.getPost_user_image();
 
-            this.song_name.setText(selectedProduct.getSong_name()+'-'+selectedProduct.getSong_artist());
+            this.song_name.setText(selectedProduct.getSong_name());
+            this.song_artist.setText(selectedProduct.getSong_artist());
             this.set_user_name.setText(selectedProduct.getPost_user_name());
             this.set_user_username.setText(selectedProduct.getPost_user_username());
             this.set_post_text.setText(selectedProduct.getPost_text());
@@ -139,10 +142,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             productImage.setScaleType(ImageView.ScaleType.FIT_XY);
 
 
-            song_name.setSingleLine(true);
-            song_name.setMarqueeRepeatLimit(-1);
-            song_name.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-            song_name.setSelected(true);
+
 
             if(selectedProduct.getIsLike().equals("1")){
 
@@ -156,6 +156,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             }
 
             Picasso.get().load(profile_photo).into(this.set_profile_image);
+            Picasso.get().load(song_image).into(this.song_image_v);
             Picasso.get().load(song_image).into(this.productImage);
             Picasso.get().load(imgResource).into(this.set_post_image);
 

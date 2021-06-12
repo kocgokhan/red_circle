@@ -35,9 +35,9 @@ import static com.redcircle.Util.StaticFields.BASE_URL;
 
 public class UserProfileActivity extends AppCompatActivity {
     private String user_names,user_usernames,user_image,user_id,my_user_id;
-    private TextView user_name,user_username,followers_count,folllowing_count,like_count,followtext,unfollowtext,lock_text;
+    private TextView user_name,user_username,followers_count,folllowing_count,like_count,followtext,unfollowtext,lock_text,user_bio;
     private ImageButton follow,unfollow,back_view;
-    private ImageView lock_image;
+    private ImageView lock_image,image;
     private String TAG="UserInformationAct";
     private boolean user_inf=false;
     private FragmentLayoutAdapter adapter;
@@ -118,16 +118,14 @@ public class UserProfileActivity extends AppCompatActivity {
             unfollowtext = (TextView) findViewById(R.id.unfollowtext);
             followers_count = (TextView) findViewById(R.id.followers_count);
             folllowing_count = (TextView) findViewById(R.id.folllowing_count);
+            user_bio = (TextView) findViewById(R.id.user_bio);
             like_count = (TextView) findViewById(R.id.like_count);
             follow = (ImageButton) findViewById(R.id.follow);
             unfollow = (ImageButton) findViewById(R.id.unfollow);
 
-            user_name.setText(user_names);
-            user_username.setText(user_usernames);
 
-            ImageView image = (ImageView) findViewById(R.id.content_image_iv);
+             image = (ImageView) findViewById(R.id.content_image_iv);
 
-            Picasso.get().load("https://spotify.krakersoft.com/upload_user_pic/"+user_image).into(image);
 
 
         }else{
@@ -182,6 +180,10 @@ public class UserProfileActivity extends AppCompatActivity {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             jsonObject = jsonArray.getJSONObject(i);
 
+                            String name = jsonObject.getString("display_name");
+                            String username = jsonObject.getString("username");
+                            String img = jsonObject.getString("images");
+                            String bio = jsonObject.getString("bio");
                             String profile_lock = jsonObject.getString("profile_lock");
                             String count_of_followers = jsonObject.getString("count_of_followers");
                             String count_of_following = jsonObject.getString("count_of_following");
@@ -194,9 +196,15 @@ public class UserProfileActivity extends AppCompatActivity {
                                 unfollow.setVisibility(View.VISIBLE);
                                 unfollowtext.setVisibility(View.VISIBLE);
                             }
+
+                            user_name.setText(name);
+                            user_username.setText(username);
+                            user_bio.setText(bio);
                             followers_count.setText(count_of_followers);
                             folllowing_count.setText(count_of_following);
                             like_count.setText(count_of_like);
+                            Picasso.get().load("https://spotify.krakersoft.com/upload_user_pic/"+img).into(image);
+
 
                             if(profile_lock.equals("1") && isfollow ==0 ){
                                 tabLayout.setVisibility(View.INVISIBLE);

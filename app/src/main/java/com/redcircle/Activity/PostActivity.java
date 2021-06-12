@@ -15,10 +15,13 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -54,17 +57,16 @@ import java.util.List;
 import static com.redcircle.Util.StaticFields.BASE_URL;
 
 public class PostActivity extends AppCompatActivity {
-
-    private ImageButton gallery_btn;
-    ImageView IVPreviewImages,search_content,song_image,posted_image,post_bt;
+    private Button post_bt;
+    private ImageView IVPreviewImages,song_image,song_content,gallery_btn;
     private String songs_name,songs_artist,songs_image,songs_uri,user_id,posted_text;
-    TextView song_name,song_artist;
-    EditText post_descr;
+    private TextView song_name,song_artist,cancel_post;
+    private EditText post_descr;
     private  boolean send = false;
     private String TAG="PostAct";
     private final int GALLERY = 1;
     public static final int REQUEST_IMAGE = 100;
-    private ImageButton back_view;
+    private ImageButton back_view,search_content;
     RequestQueue rQueue;
     Bitmap bitmap;
     private ArrayList<User> userArrayList = new ArrayList<>();
@@ -75,8 +77,8 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);// hide status bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);// hide status bar
-        //View bView = getWindow().getDecorView();// hide hardware buttons
-        //bView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);// hide hardware buttons
+        View bView = getWindow().getDecorView();// hide hardware buttons
+        bView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         try
         {
             this.getSupportActionBar().hide();// hide status bar
@@ -84,22 +86,10 @@ public class PostActivity extends AppCompatActivity {
         catch (NullPointerException e){}
         setContentView(R.layout.activity_post);
 
-        back_view = (ImageButton) findViewById(R.id.back_views);
-
-        back_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
-
         IVPreviewImages = findViewById(R.id.IVPreviewImage);
-
-
         requestMultiplePermissions();
 
-        gallery_btn = (ImageButton) findViewById(R.id.camera_btn);
+        gallery_btn = (ImageView) findViewById(R.id.camera_btn);
         gallery_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,10 +103,16 @@ public class PostActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_IMAGE);
             }
         });
-
-        TextView search_text = (TextView) findViewById(R.id.search_text);
-        ImageView search_image = (ImageView) findViewById(R.id.search_image);
-        search_content = (ImageView) findViewById(R.id.search_content);
+        cancel_post = (TextView) findViewById(R.id.cancel_post);
+        cancel_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                MyApplication.get().getRequestQueue().getCache().clear();
+            }
+        });
+        search_content = (ImageButton) findViewById(R.id.search_content);
         search_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +127,7 @@ public class PostActivity extends AppCompatActivity {
         song_name=(TextView) findViewById(R.id.song_name);
         song_artist=(TextView)findViewById(R.id.song_artist);
         song_image=(ImageView) findViewById(R.id.song_image);
+        song_content=(ImageView) findViewById(R.id.song_content);
 
         try {
             Bundle bundle =  getIntent().getExtras();
@@ -140,12 +137,11 @@ public class PostActivity extends AppCompatActivity {
                 songs_uri = bundle.getString("uri", "Error");
                 songs_image = bundle.getString("images", "Error");
 
-                search_text.setVisibility(View.INVISIBLE);
-                search_image.setVisibility(View.INVISIBLE);
 
                 song_image.setVisibility(View.VISIBLE);
                 song_name.setVisibility(View.VISIBLE);
                 song_artist.setVisibility(View.VISIBLE);
+                song_content.setVisibility(View.VISIBLE);
 
                 song_name.setText(songs_name);
                 song_artist.setText(songs_artist);
@@ -154,9 +150,17 @@ public class PostActivity extends AppCompatActivity {
         }catch (Exception e){
         }
 
-
         post_descr = (EditText) findViewById(R.id.post_descr);
-        post_bt = (ImageView ) findViewById(R.id.post_send);
+        post_descr.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                    Log.i(TAG,"Enter pressed");
+                }
+                return false;
+            }
+        });
+        post_bt = (Button) findViewById(R.id.post_send);
         post_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,10 +168,6 @@ public class PostActivity extends AppCompatActivity {
                 requestJson(user_id,songs_name,songs_artist,songs_uri,songs_image,bitmap,posted_text);
             }
         });
-
-
-
-
     }
 
     @Override
@@ -180,7 +180,11 @@ public class PostActivity extends AppCompatActivity {
                     // You can update this bitmap to your server
 
                         bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), contentURI);
+
+                        gallery_btn.setVisibility(View.INVISIBLE);
                         IVPreviewImages.setImageBitmap(bitmap);
+
+
 
 
                 } catch (IOException e) {
@@ -195,7 +199,7 @@ public class PostActivity extends AppCompatActivity {
         String encodedImage = null;
         if(post_image!=null){
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            post_image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            post_image.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
             encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
         }
 

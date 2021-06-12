@@ -25,213 +25,166 @@
             android:layout_width="50dp"
             android:layout_height="50dp" />-->
 
-        <ImageButton
-            android:id="@+id/back_views"
-            android:layout_width="64dp"
-            android:layout_height="54dp"
+        <TextView
+            android:id="@+id/cancel_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="-2dp"
-            android:background="@color/transparent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/back" />
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="332dp"
+            android:text="Vazgeç"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="163dp"
-            android:layout_height="31dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
+        <Button
+            android:id="@+id/post_send"
+            android:layout_width="69dp"
+            android:layout_height="37dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="85dp"
-            android:layout_marginLeft="85dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="83dp"
-            android:layout_marginRight="83dp"
-            android:gravity="center"
-            android:text="Gönderini Paylaş"
-            android:textColor="@color/white" />
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="6dp"
+            android:text="Paylaş"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/search_content"
-        android:layout_width="301dp"
-        android:layout_height="85dp"
-        android:layout_marginTop="68dp"
-        android:src="@mipmap/search_area"
+    <com.santalu.aspectratioimageview.AspectRatioImageView
+        android:id="@+id/IVPreviewImage"
+        android:layout_width="334dp"
+        android:layout_height="120dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="60dp"
+        android:scaleType="centerCrop"
+        app:ari_ratio="0.7"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linlay"
+        app:siRadius="2dp"
+        app:siSquare="true" />
+
+    <ImageView
+        android:id="@+id/song_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/imageView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@mipmap/content_area"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/song_image"
-        android:layout_width="62dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="16dp"
         android:src="@mipmap/card_back"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@+id/search_content"
-        app:layout_constraintTop_toTopOf="@+id/search_content" />
+        app:layout_constraintBottom_toBottomOf="@+id/song_content"
+        app:layout_constraintStart_toStartOf="@+id/song_content"
+        app:layout_constraintTop_toTopOf="@+id/song_content"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/song_name"
         android:layout_width="180dp"
         android:layout_height="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="4dp"
         android:text="TextView"
         android:textColor="@color/white"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/song_image"
-        app:layout_constraintTop_toTopOf="@+id/search_content" />
+        app:layout_constraintStart_toStartOf="@+id/song_artist"
+        app:layout_constraintTop_toBottomOf="@+id/song_artist"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/song_artist"
         android:layout_width="178dp"
         android:layout_height="19dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="28dp"
         android:text="TextView"
         android:textColor="@color/white"
-        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/song_image"
-        app:layout_constraintTop_toBottomOf="@+id/song_name" />
-
-    <TextView
-        android:id="@+id/search_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="20dp"
-        android:text="Sanatçı, album ya da şarkı ara"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="@+id/search_content"
-        app:layout_constraintTop_toTopOf="@+id/search_content" />
+        app:layout_constraintTop_toTopOf="@+id/song_image"
+        android:visibility="invisible" />
 
     <ImageView
-        android:id="@+id/search_image"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:src="@mipmap/search"
-        app:layout_constraintEnd_toEndOf="@+id/search_content"
-        app:layout_constraintTop_toTopOf="@+id/search_content" />
+        android:id="@+id/camera_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linlay"
+        app:srcCompat="@mipmap/add_image" />
 
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="411dp"
-        android:layout_height="569dp"
-        android:layout_marginTop="12dp"
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_content">
+        app:srcCompat="@mipmap/content_area" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="320dp"
+        android:layout_height="34dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="@+id/imageView7"
+        app:layout_constraintVertical_bias="0.526"
+        app:srcCompat="@mipmap/typing_area" />
 
-            <com.santalu.aspectratioimageview.AspectRatioImageView
-                android:id="@+id/IVPreviewImage"
-                android:layout_width="334dp"
-                android:layout_height="120dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginStart="39dp"
-                android:layout_marginLeft="39dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="38dp"
-                android:layout_marginRight="38dp"
-                android:scaleType="centerCrop"
-                app:ari_ratio="0.7"
-                app:siRadius="2dp"
-                app:siSquare="true" />
+    <EditText
+        android:id="@+id/post_descr"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:background="@color/transparent"
+        android:clickable="true"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:gravity="start|top"
+        android:hint="Ne düşünüyorsun ?"
+        android:inputType="textMultiLine"
+        android:textColor="@color/white"
+        android:textColorHint="#929393"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+        app:layout_constraintEnd_toEndOf="@+id/imageView10"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="@+id/imageView10"
+        app:layout_constraintTop_toTopOf="@+id/imageView10"
+        app:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/IVPreviewImage"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="38dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="84dp"
-                android:src="@mipmap/post_text_back" />
+    <ImageButton
+        android:id="@+id/search_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+        app:layout_constraintStart_toEndOf="@+id/imageView10"
+        app:layout_constraintTop_toTopOf="@+id/imageView10"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@mipmap/add_song" />
 
-            <EditText
-                android:id="@+id/post_descr"
-                android:layout_width="291dp"
-                android:layout_height="57dp"
-                android:layout_alignStart="@+id/imageView6"
-                android:layout_alignLeft="@+id/imageView6"
-                android:layout_alignTop="@+id/imageView6"
-                android:layout_marginStart="18dp"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/transparent"
-                android:clickable="true"
-                android:ems="10"
-                android:focusableInTouchMode="true"
-                android:gravity="start|top"
-                android:imeOptions="actionDone"
-                android:inputType="textMultiLine"
-                android:textColor="#FFFFFF" />
-
-            <ImageButton
-                android:id="@+id/camera_btn"
-                android:layout_width="37dp"
-                android:layout_height="41dp"
-                android:layout_alignTop="@+id/imageView6"
-                android:layout_alignEnd="@+id/imageView6"
-                android:layout_alignRight="@+id/imageView6"
-                android:layout_marginTop="34dp"
-                android:layout_marginEnd="22dp"
-                android:layout_marginRight="22dp"
-                android:background="@color/transparent"
-                android:src="@mipmap/camera_btn" />
-
-            <ImageButton
-                android:id="@+id/post_send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="56dp"
-                android:layout_marginLeft="56dp"
-                android:layout_marginEnd="33dp"
-                android:layout_marginRight="33dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/transparent"
-                app:srcCompat="@mipmap/post_send" />
-
-        </RelativeLayout>
-    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
