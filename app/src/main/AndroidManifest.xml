@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RedCircle"
         tools:ignore="HardcodedDebugMode">
-        <activity android:name=".Activity.SettingsActivity"></activity>
+        <activity android:name=".Activity.PostCommentActivity"></activity>
+        <activity android:name=".Activity.SettingsActivity" />
         <activity android:name=".Activity.AlbumTrackActivity" />
         <activity android:name=".Activity.SponsorDetailActivity" />
         <activity android:name=".Activity.SongPostActivity" />

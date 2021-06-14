@@ -74,7 +74,7 @@ public class TopListAdapter extends RecyclerView.Adapter<TopListAdapter.MyViewHo
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            productImage = (ImageView) itemView.findViewById(R.id.prev_play);
+            productImage = (ImageView) itemView.findViewById(R.id.song_image_post);
 
             prev_songname = (TextView) itemView.findViewById(R.id.prev_songname);
             prev_songartist = (TextView) itemView.findViewById(R.id.prev_songartist);

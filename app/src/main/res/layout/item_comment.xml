@@ -2,9 +2,10 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/notif_date"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@color/transparent"
     android:fadeScrollbars="true"
     android:isScrollContainer="true"
     android:scrollbarAlwaysDrawHorizontalTrack="false"
@@ -17,53 +18,50 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/song_image_post"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="78dp"
-            android:layout_marginLeft="78dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="224dp"
-            android:adjustViewBounds="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginBottom="8dp"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@mipmap/play" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/prev_songname"
-            android:layout_width="169dp"
+            android:id="@+id/comment"
+            android:layout_width="202dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="19dp"
-            android:layout_marginLeft="19dp"
-            android:layout_marginTop="23dp"
-            android:layout_toEndOf="@+id/song_image_post"
+            android:layout_below="@+id/name_commenter"
+            android:layout_alignStart="@+id/name_commenter"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="4dp"
             android:layout_toRightOf="@+id/song_image_post"
             android:textColor="@color/white" />
 
         <TextView
-            android:id="@+id/prev_songartist"
-            android:layout_width="169dp"
+            android:id="@+id/name_commenter"
+            android:layout_width="187dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/prev_songname"
-            android:layout_marginStart="19dp"
-            android:layout_marginLeft="19dp"
-            android:layout_marginTop="1dp"
-            android:layout_toEndOf="@+id/song_image_post"
-            android:layout_toRightOf="@+id/song_image_post"
-            android:textColor="@color/white" />
+            android:layout_alignTop="@+id/song_image_post"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="62dp"
+            android:layout_marginTop="-1dp"
+            android:text="TextView" />
 
 
     </RelativeLayout>

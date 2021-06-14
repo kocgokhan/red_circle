@@ -2,7 +2,6 @@ package com.redcircle.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,18 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.redcircle.Activity.ChatActivity;
 import com.redcircle.Activity.PostActivity;
 import com.redcircle.Pojo.Songs;
 import com.redcircle.R;
-import com.redcircle.Util.MyApplication;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -65,7 +58,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
             super(itemView);
             productName = (TextView) itemView.findViewById(R.id.productName);
             productArtist = (TextView) itemView.findViewById(R.id.productArtist);
-            productImage = (ImageView) itemView.findViewById(R.id.prev_play);
+            productImage = (ImageView) itemView.findViewById(R.id.song_image_post);
             card = (ConstraintLayout) itemView.findViewById(R.id.cardSong);
 
             card.setOnClickListener(this);

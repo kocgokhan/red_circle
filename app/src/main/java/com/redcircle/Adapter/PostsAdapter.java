@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +21,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ceylonlabs.imageviewpopup.ImagePopup;
+import com.redcircle.Activity.PostCommentActivity;
 import com.redcircle.Activity.UserProfileActivity;
 import com.redcircle.Pojo.Posts;
 import com.redcircle.R;
@@ -70,8 +70,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView productName, set_user_name, set_user_username,set_post_text,count_like,song_name,song_artist;
-        ImageView productImage,song_image,set_profile_image,like_post,unlike_post,set_post_image,song_image_v;
+        TextView productName, set_user_name, set_user_username,set_post_text,count_like,count_comment,song_name,song_artist;
+        ImageView productImage,song_image,set_profile_image,like_post,unlike_post,set_post_image,song_image_v,comment_btn;
         ConstraintLayout card;
         ImageButton play_song_btn;
 
@@ -79,18 +79,20 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         public MyViewHolder(View itemView) {
             super(itemView);
             play_song_btn = (ImageButton) itemView.findViewById(R.id.play_song_btn);
-            productImage = (ImageView) itemView.findViewById(R.id.prev_play);
+            productImage = (ImageView) itemView.findViewById(R.id.song_image_post);
             song_image_v = (ImageView) itemView.findViewById(R.id.song_image_v);
             set_profile_image = (ImageView) itemView.findViewById(R.id.match_userphoto);
             set_post_image = (ImageView) itemView.findViewById(R.id.back_image);
             like_post = (ImageView) itemView.findViewById(R.id.like_post);
             unlike_post = (ImageView) itemView.findViewById(R.id.unlike_post);
+            comment_btn = (ImageView) itemView.findViewById(R.id.comment_btn);
             set_user_name = (TextView) itemView.findViewById(R.id.set_user_name);
             set_post_text = (TextView) itemView.findViewById(R.id.set_post_text);
             set_user_username = (TextView) itemView.findViewById(R.id.set_user_username);
             song_name = (TextView) itemView.findViewById(R.id.song_name);
             song_artist = (TextView) itemView.findViewById(R.id.song_artist);
             count_like = (TextView) itemView.findViewById(R.id.count_like);
+            count_comment = (TextView) itemView.findViewById(R.id.count_comment);
             card = (ConstraintLayout) itemView.findViewById(R.id.cardSong);
 
 
@@ -104,6 +106,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                 @Override
                 public void onClick(View v) {
                     Idontliked(v.getContext());
+                }
+            });
+            comment_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goComment(v.getContext());
                 }
             });
             /*play_song_btn.setOnClickListener(new View.OnClickListener() {
@@ -135,6 +143,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             this.set_user_username.setText(selectedProduct.getPost_user_username());
             this.set_post_text.setText(selectedProduct.getPost_text());
             this.count_like.setText(selectedProduct.getCount_like());
+            this.count_comment.setText(selectedProduct.getCount_comment());
 
             productImage.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
             productImage.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -186,6 +195,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             i.putExtra("user_username", mProductList.get(getAdapterPosition()).getPost_user_username());
             i.putExtra("user_user_id", mProductList.get(getAdapterPosition()).getPost_user_id());
             i.putExtra("user_profile_lock", mProductList.get(getAdapterPosition()).getProfile_lock());
+            context.startActivity(i);
+            MyApplication.get().getRequestQueue().getCache().clear();
+
+        }
+        public void goComment(Context context){
+
+            Intent i = new Intent(context.getApplicationContext(), PostCommentActivity.class);
+            String strName = null;
+            i.putExtra("user_user_id", mProductList.get(getAdapterPosition()).getPost_user_id());
+            i.putExtra("post_id", mProductList.get(getAdapterPosition()).getPost_id());
             context.startActivity(i);
             MyApplication.get().getRequestQueue().getCache().clear();
 

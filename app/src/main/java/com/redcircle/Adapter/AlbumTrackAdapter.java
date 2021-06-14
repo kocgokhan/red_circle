@@ -74,7 +74,7 @@ public class AlbumTrackAdapter extends RecyclerView.Adapter<AlbumTrackAdapter.My
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            productImage = (ImageView) itemView.findViewById(R.id.prev_play);
+            productImage = (ImageView) itemView.findViewById(R.id.song_image_post);
             prev_songname = (TextView) itemView.findViewById(R.id.prev_songname);
             live_song_btn = (ImageButton) itemView.findViewById(R.id.live_song_btn);
             song_post_btn = (ImageButton) itemView.findViewById(R.id.album_track_btn);

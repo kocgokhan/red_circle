@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.github.siyamed.shapeimageview.RoundedImageView
-            android:id="@+id/prev_play"
+            android:id="@+id/song_image_post"
             android:layout_width="373dp"
             android:layout_height="0dp"
             android:alpha="0.1"
@@ -37,8 +37,8 @@
             android:layout_marginTop="8dp"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp"
-            app:layout_constraintStart_toStartOf="@+id/prev_play"
-            app:layout_constraintTop_toTopOf="@+id/prev_play" />
+            app:layout_constraintStart_toStartOf="@+id/song_image_post"
+            app:layout_constraintTop_toTopOf="@+id/song_image_post" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/song_image_v"
@@ -110,9 +110,9 @@
             android:scaleType="centerCrop"
             android:src="@mipmap/image_demo"
             app:ari_ratio="0.4"
-            app:layout_constraintEnd_toEndOf="@+id/prev_play"
+            app:layout_constraintEnd_toEndOf="@+id/song_image_post"
             app:layout_constraintHorizontal_bias="0.15"
-            app:layout_constraintStart_toStartOf="@+id/prev_play"
+            app:layout_constraintStart_toStartOf="@+id/song_image_post"
             app:layout_constraintTop_toBottomOf="@+id/match_userphoto"
             app:siRadius="2dp"
             app:siSquare="true" />
@@ -128,9 +128,9 @@
             android:gravity="clip_vertical"
             android:text="TextView"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/prev_play"
+            app:layout_constraintEnd_toEndOf="@+id/song_image_post"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/prev_play"
+            app:layout_constraintStart_toStartOf="@+id/song_image_post"
             app:layout_constraintTop_toBottomOf="@+id/back_image" />
 
         <ImageView
@@ -139,7 +139,7 @@
             android:layout_height="25dp"
             android:src="@mipmap/like"
             app:layout_constraintEnd_toEndOf="@+id/set_post_text"
-            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+            app:layout_constraintTop_toTopOf="@+id/comment_btn" />
 
         <TextView
             android:id="@+id/count_like"
@@ -162,10 +162,10 @@
             android:gravity="center"
             android:text="12K"
             android:textColor="@color/grey"
-            app:layout_constraintEnd_toEndOf="@+id/imageView3"
+            app:layout_constraintEnd_toEndOf="@+id/comment_btn"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintStart_toStartOf="@+id/comment_btn"
+            app:layout_constraintTop_toBottomOf="@+id/comment_btn" />
 
         <ImageView
             android:id="@+id/unlike_post"
@@ -174,7 +174,7 @@
             android:src="@drawable/liked_btn"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/set_post_text"
-            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+            app:layout_constraintTop_toTopOf="@+id/comment_btn" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -186,7 +186,7 @@
             app:srcCompat="@mipmap/line" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/comment_btn"
             android:layout_width="24dp"
             android:layout_height="25dp"
             android:layout_marginEnd="8dp"

@@ -24,7 +24,7 @@
 
 
         <ImageView
-            android:id="@+id/prev_play"
+            android:id="@+id/song_image_post"
             android:layout_width="22dp"
             android:layout_height="28dp"
             android:layout_marginStart="24dp"
@@ -43,8 +43,8 @@
             android:layout_marginTop="4dp"
             android:textColor="@color/white"
             android:textSize="14sp"
-            app:layout_constraintLeft_toRightOf="@+id/prev_play"
-            app:layout_constraintStart_toEndOf="@+id/prev_play"
+            app:layout_constraintLeft_toRightOf="@+id/song_image_post"
+            app:layout_constraintStart_toEndOf="@+id/song_image_post"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -55,7 +55,7 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/prev_songname"
-            app:layout_constraintLeft_toRightOf="@+id/prev_play"
+            app:layout_constraintLeft_toRightOf="@+id/song_image_post"
             app:layout_constraintStart_toEndOf="@+id/prev_songname"
             app:layout_constraintTop_toTopOf="@+id/prev_songname"
             app:layout_constraintVertical_bias="0.444" />

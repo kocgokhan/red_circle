@@ -13,7 +13,7 @@ public class Posts {
 
     private String song_name, song_image,song_artist,song_uri,post_text,
             post_img_url,post_id,post_user_id,post_user_name,
-            post_user_image,post_user_username,count_like,isLike,profile_lock;
+            post_user_image,post_user_username,count_like,isLike,profile_lock,count_comment;
 
     public Posts(JSONObject response, boolean isLogin) {
         try {
@@ -29,6 +29,7 @@ public class Posts {
             this.post_user_id = response.getString("user_id");
             this.post_id = response.getString("post_id");
             this.count_like = response.getString("count_like");
+            this.count_comment = response.getString("count_comment");
             this.isLike = response.getString("isLike");
             this.profile_lock = response.getString("profile_lock");
             if (isLogin) {
@@ -44,6 +45,7 @@ public class Posts {
                 this.post_user_id = response.getString("user_id");
                 this.post_id = response.getString("post_id");
                 this.count_like = response.getString("count_like");
+                this.count_comment = response.getString("count_comment");
                 this.isLike = response.getString("isLike");
                 this.profile_lock = response.getString("profile_lock");
             }
@@ -55,6 +57,14 @@ public class Posts {
 
     public Posts() {
 
+    }
+
+    public String getCount_comment() {
+        return count_comment;
+    }
+
+    public void setCount_comment(String count_comment) {
+        this.count_comment = count_comment;
     }
 
     public String getProfile_lock() {
@@ -191,6 +201,7 @@ public class Posts {
             temp.setPost_user_name(ary.get(i).post_user_name);
             temp.setPost_user_username(ary.get(i).post_user_username);
             temp.setCount_like(ary.get(i).count_like);
+            temp.setCount_comment(ary.get(i).count_comment);
             temp.setIsLike(ary.get(i).isLike);
             temp.setProfile_lock(ary.get(i).profile_lock);
             productList.add(temp);

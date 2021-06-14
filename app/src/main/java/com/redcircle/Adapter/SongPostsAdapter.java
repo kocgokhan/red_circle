@@ -23,7 +23,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.redcircle.Activity.UserProfileActivity;
-import com.redcircle.Pojo.Posts;
 import com.redcircle.Pojo.SongPost;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
@@ -80,7 +79,7 @@ public class SongPostsAdapter extends RecyclerView.Adapter<SongPostsAdapter.MyVi
         public MyViewHolder(View itemView) {
             super(itemView);
             play_song_btn = (ImageButton) itemView.findViewById(R.id.play_song_btn);
-            productImage = (ImageView) itemView.findViewById(R.id.prev_play);
+            productImage = (ImageView) itemView.findViewById(R.id.song_image_post);
             set_profile_image = (ImageView) itemView.findViewById(R.id.match_userphoto);
             set_post_image = (ImageView) itemView.findViewById(R.id.back_image);
             like_post = (ImageView) itemView.findViewById(R.id.like_post);

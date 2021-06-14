@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout4"
+                    android:id="@+id/constraintLayout6"
                     android:layout_width="412dp"
                     android:layout_height="211dp"
                     android:layout_marginTop="8dp"
@@ -240,10 +240,10 @@
                     android:text="Gökhan Koç"
                     android:textColor="@color/white"
                     android:textSize="12dp"
-                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout4"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout6"
                     app:layout_constraintHorizontal_bias="0.159"
-                    app:layout_constraintStart_toStartOf="@+id/constraintLayout4"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout6"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
 
                 <TextView
                     android:id="@+id/user_bio"
@@ -259,7 +259,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/activity_easy_tab_text"
+                    android:id="@+id/const_recy"
                     android:layout_width="412dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="10dp"

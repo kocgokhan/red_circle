@@ -81,9 +81,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            notif_message = (TextView) itemView.findViewById(R.id.notif_message);
+            notif_message = (TextView) itemView.findViewById(R.id.comment);
             notif_date = (TextView) itemView.findViewById(R.id.notif_date);
-            sender_image = (ImageView) itemView.findViewById(R.id.prev_play);
+            sender_image = (ImageView) itemView.findViewById(R.id.song_image_post);
             like_post_image = (ImageView) itemView.findViewById(R.id.like_post_image);
             like_song_image = (ImageView) itemView.findViewById(R.id.like_song_image);
             follow_accept_btn = (ImageButton) itemView.findViewById(R.id.follow_accept_btn);

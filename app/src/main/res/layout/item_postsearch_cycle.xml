@@ -25,11 +25,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/prev_play"
+                app:layout_constraintStart_toEndOf="@+id/song_image_post"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/prev_play"
+                android:id="@+id/song_image_post"
                 android:layout_width="91dp"
                 android:layout_height="79dp"
                 android:layout_marginStart="8dp"
@@ -47,7 +47,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/prev_play"
+                app:layout_constraintStart_toEndOf="@+id/song_image_post"
                 app:layout_constraintTop_toBottomOf="@+id/productName" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

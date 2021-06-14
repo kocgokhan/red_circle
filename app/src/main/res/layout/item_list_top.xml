@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/prev_play"
+        android:id="@+id/song_image_post"
         android:layout_width="34dp"
         android:layout_height="33dp"
         android:layout_alignParentStart="true"
@@ -26,19 +26,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="12dp"
-        android:layout_toEndOf="@+id/prev_play"
-        android:layout_toRightOf="@+id/prev_play"
+        android:layout_toEndOf="@+id/song_image_post"
+        android:layout_toRightOf="@+id/song_image_post"
         android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@+id/prev_play"
-        app:layout_constraintTop_toTopOf="@+id/prev_play" />
+        app:layout_constraintStart_toEndOf="@+id/song_image_post"
+        app:layout_constraintTop_toTopOf="@+id/song_image_post" />
 
     <TextView
         android:id="@+id/prev_songartist"
         android:layout_width="185dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/prev_songname"
-        android:layout_toEndOf="@+id/prev_play"
-        android:layout_toRightOf="@+id/prev_play"
+        android:layout_toEndOf="@+id/song_image_post"
+        android:layout_toRightOf="@+id/song_image_post"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/prev_songname"
         app:layout_constraintTop_toBottomOf="@+id/prev_songname" />

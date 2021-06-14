@@ -1,15 +1,12 @@
 package com.redcircle.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,12 +18,10 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ceylonlabs.imageviewpopup.ImagePopup;
-import com.redcircle.Activity.ConnectUserActivity;
 import com.redcircle.Pojo.UserPreviewSong;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
 import com.redcircle.Util.MyApplication;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,7 +71,7 @@ public class PreviewSongUserAdapter extends RecyclerView.Adapter<PreviewSongUser
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            productImage = (ImageView) itemView.findViewById(R.id.prev_play);
+            productImage = (ImageView) itemView.findViewById(R.id.song_image_post);
             prev_songname = (TextView) itemView.findViewById(R.id.prev_songname);
             prev_songartist = (TextView) itemView.findViewById(R.id.prev_songartist);
 

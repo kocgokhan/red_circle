@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
-        android:layout_toEndOf="@+id/prev_play"
-        android:layout_toRightOf="@+id/prev_play"
+        android:layout_toEndOf="@+id/song_image_post"
+        android:layout_toRightOf="@+id/song_image_post"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="0dp" />
@@ -24,8 +24,8 @@
         android:layout_width="185dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/prev_songname"
-        android:layout_toEndOf="@+id/prev_play"
-        android:layout_toRightOf="@+id/prev_play"
+        android:layout_toEndOf="@+id/song_image_post"
+        android:layout_toRightOf="@+id/song_image_post"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/prev_songname"
         app:layout_constraintTop_toBottomOf="@+id/prev_songname" />
