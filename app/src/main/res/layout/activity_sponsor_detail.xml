@@ -86,18 +86,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/content_image_iv" />
 
-        <ImageButton
-            android:id="@+id/play_single_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/content_image_iv"
-            app:layout_constraintEnd_toEndOf="@+id/content_image_iv"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="@+id/content_image_iv"
-            app:layout_constraintTop_toTopOf="@+id/content_image_iv"
-            app:srcCompat="@mipmap/play" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_album"
             android:layout_width="374dp"

@@ -115,6 +115,19 @@
                         app:layout_constraintTop_toTopOf="parent"/>
 
 
+                    <ImageButton
+                        android:id="@+id/cancel_follow"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/transparent"
+                        android:src="@mipmap/cancel_follow"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/follow_chart"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/unfollowtext"
                         android:layout_width="wrap_content"
@@ -137,6 +150,18 @@
                         app:layout_constraintEnd_toEndOf="@+id/follow"
                         app:layout_constraintStart_toStartOf="@+id/unfollow"
                         app:layout_constraintTop_toTopOf="@+id/follow" />
+
+                    <TextView
+                        android:id="@+id/cancel_followtext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="İptal Et"
+                        android:textColor="@color/white"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/cancel_follow"
+                        app:layout_constraintEnd_toEndOf="@+id/cancel_follow"
+                        app:layout_constraintStart_toStartOf="@+id/cancel_follow"
+                        app:layout_constraintTop_toTopOf="@+id/cancel_follow" />
 
 
                     <TextView

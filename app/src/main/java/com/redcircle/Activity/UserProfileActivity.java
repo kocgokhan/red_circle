@@ -34,10 +34,11 @@ import org.json.JSONObject;
 import static com.redcircle.Util.StaticFields.BASE_URL;
 
 public class UserProfileActivity extends AppCompatActivity {
-    private String user_names,user_usernames,user_image,user_id,my_user_id;
-    private TextView user_name,user_username,followers_count,folllowing_count,like_count,followtext,unfollowtext,lock_text,user_bio;
-    private ImageButton follow,unfollow,back_view;
+    private String user_names,user_usernames,user_image,user_id,my_user_id,profile_lock;
+    private TextView user_name,user_username,followers_count,folllowing_count,like_count,followtext,unfollowtext,cancel_followtext,lock_text,user_bio;
+    private ImageButton follow,unfollow,back_view,cancel_follow;
     private ImageView lock_image,image;
+    private int isfollow;
     private String TAG="UserInformationAct";
     private boolean user_inf=false;
     private FragmentLayoutAdapter adapter;
@@ -116,12 +117,14 @@ public class UserProfileActivity extends AppCompatActivity {
             user_username = (TextView) findViewById(R.id.user_username);
             followtext = (TextView) findViewById(R.id.followtext);
             unfollowtext = (TextView) findViewById(R.id.unfollowtext);
+            cancel_followtext = (TextView) findViewById(R.id.cancel_followtext);
             followers_count = (TextView) findViewById(R.id.followers_count);
             folllowing_count = (TextView) findViewById(R.id.folllowing_count);
             user_bio = (TextView) findViewById(R.id.user_bio);
             like_count = (TextView) findViewById(R.id.like_count);
             follow = (ImageButton) findViewById(R.id.follow);
             unfollow = (ImageButton) findViewById(R.id.unfollow);
+            cancel_follow = (ImageButton) findViewById(R.id.cancel_follow);
 
 
              image = (ImageView) findViewById(R.id.content_image_iv);
@@ -150,6 +153,12 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
         unfollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                send_unfollow(my_user_id,user_id);
+            }
+        });
+        cancel_follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 send_unfollow(my_user_id,user_id);
@@ -184,14 +193,17 @@ public class UserProfileActivity extends AppCompatActivity {
                             String username = jsonObject.getString("username");
                             String img = jsonObject.getString("images");
                             String bio = jsonObject.getString("bio");
-                            String profile_lock = jsonObject.getString("profile_lock");
+                            profile_lock = jsonObject.getString("profile_lock");
                             String count_of_followers = jsonObject.getString("count_of_followers");
                             String count_of_following = jsonObject.getString("count_of_following");
                             String count_of_like = jsonObject.getString("count_of_like");
-                            int isfollow = jsonObject.getInt("isfollow");
+                            isfollow = jsonObject.getInt("isfollow");
                             if(isfollow == 0 ){
                                 follow.setVisibility(View.VISIBLE);
                                 followtext.setVisibility(View.VISIBLE);
+                            }else if(isfollow == 2 ){
+                                cancel_follow.setVisibility(View.VISIBLE);
+                                cancel_followtext.setVisibility(View.VISIBLE);
                             }else{
                                 unfollow.setVisibility(View.VISIBLE);
                                 unfollowtext.setVisibility(View.VISIBLE);
@@ -206,7 +218,7 @@ public class UserProfileActivity extends AppCompatActivity {
                             Picasso.get().load("https://spotify.krakersoft.com/upload_user_pic/"+img).into(image);
 
 
-                            if(profile_lock.equals("1") && isfollow ==0 ){
+                            if(profile_lock.equals("1") && isfollow ==0 || isfollow==2 ){
                                 tabLayout.setVisibility(View.INVISIBLE);
                                 viewPager.setVisibility(View.INVISIBLE);
                                 lock_image.setVisibility(View.VISIBLE);
@@ -252,10 +264,24 @@ public class UserProfileActivity extends AppCompatActivity {
 
     public void send_follow(String id_one, String id_two){
 
-        follow.setVisibility(View.INVISIBLE);
-        unfollow.setVisibility(View.VISIBLE);
-        followtext.setVisibility(View.INVISIBLE);
-        unfollowtext.setVisibility(View.VISIBLE);
+
+        if(profile_lock.equals("1")){
+
+            follow.setVisibility(View.INVISIBLE);
+            unfollow.setVisibility(View.INVISIBLE);
+            followtext.setVisibility(View.INVISIBLE);
+            unfollowtext.setVisibility(View.INVISIBLE);
+            cancel_followtext.setVisibility(View.VISIBLE);
+            cancel_follow.setVisibility(View.VISIBLE);
+        }else{
+
+            follow.setVisibility(View.VISIBLE);
+            unfollow.setVisibility(View.INVISIBLE);
+            followtext.setVisibility(View.VISIBLE);
+            unfollowtext.setVisibility(View.INVISIBLE);
+            cancel_followtext.setVisibility(View.INVISIBLE);
+            cancel_follow.setVisibility(View.INVISIBLE);
+        }
 
         JSONObject params = new JSONObject();
 

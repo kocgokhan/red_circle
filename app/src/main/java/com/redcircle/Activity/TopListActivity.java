@@ -51,7 +51,7 @@ public class TopListActivity extends AppCompatActivity {
         catch (NullPointerException e){}
         setContentView(R.layout.activity_top_list);
 
-        top_list_recyclerView = (RecyclerView) findViewById(R.id.album_track_recy);
+        top_list_recyclerView = (RecyclerView) findViewById(R.id.iv_artist);
 
         back_views = (ImageButton) findViewById(R.id.back_views);
         back_views.setOnClickListener(new View.OnClickListener() {

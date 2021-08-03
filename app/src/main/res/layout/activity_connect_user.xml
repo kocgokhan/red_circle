@@ -57,8 +57,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="#ffffff"
-            android:textSize="17sp"
-            tools:text="asdasdasd" />
+            android:textSize="17sp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView_photo"
@@ -147,8 +146,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/preview_songitem"
-            android:layout_width="408dp"
-            android:layout_height="522dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -167,6 +166,7 @@
         android:layout_marginEnd="57dp"
         android:layout_marginRight="57dp"
         android:background="@color/transparent"
+        android:visibility="invisible"
         app:srcCompat="@mipmap/conect" />
     <ImageButton
         android:id="@+id/unconnect_me"

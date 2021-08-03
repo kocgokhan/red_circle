@@ -1,12 +1,14 @@
 package com.redcircle.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +20,8 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ceylonlabs.imageviewpopup.ImagePopup;
+import com.redcircle.Activity.LiveSongActivity;
+import com.redcircle.Activity.SongPostActivity;
 import com.redcircle.Pojo.UserPreviewSong;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
@@ -65,15 +69,18 @@ public class PreviewSongUserAdapter extends RecyclerView.Adapter<PreviewSongUser
 
         TextView prev_songname,prev_songartist;
         ImageView productImage;
-
-        // Linear Layout Manager
+        ImageButton song_post_btn,live_song_btn;
         LinearLayoutManager HorizontalLayout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             productImage = (ImageView) itemView.findViewById(R.id.song_image_post);
+
             prev_songname = (TextView) itemView.findViewById(R.id.prev_songname);
             prev_songartist = (TextView) itemView.findViewById(R.id.prev_songartist);
+
+            live_song_btn = (ImageButton) itemView.findViewById(R.id.live_song_btn);
+            song_post_btn = (ImageButton) itemView.findViewById(R.id.album_track_btn);
 
             productImage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,20 +88,38 @@ public class PreviewSongUserAdapter extends RecyclerView.Adapter<PreviewSongUser
                     play_song(view.getContext());
                 }
             });
+            song_post_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    song_post(view.getContext());
+                }
+            });
+            live_song_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    live_song(view.getContext());
+                }
+            });
         }
 
         public void setData(UserPreviewSong selectedProduct, int position) {
-
-            //String profile_photo = selectedProduct.getUser_image();
-
             this.prev_songname.setText(selectedProduct.getSong_name());
             this.prev_songartist.setText(selectedProduct.getSong_artist());
-
-
             this.productImage.setImageResource(R.mipmap.play);
-
-            //Picasso.get().load(String.valueOf(Html.fromHtml(profile_photo))).into(this.productImage);
-
+        }
+        public void song_post(Context context){
+            Intent i = new Intent(context, SongPostActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.putExtra("song_uri", mProductList.get(getAdapterPosition()).getSong_uri());
+            context.startActivity(i);
+            MyApplication.get().getRequestQueue().getCache().clear();
+        }
+        public void live_song(Context context){
+            Intent i = new Intent(context, LiveSongActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.putExtra("song_uri", mProductList.get(getAdapterPosition()).getSong_uri());
+            context.startActivity(i);
+            MyApplication.get().getRequestQueue().getCache().clear();
         }
         public void play_song(Context context){
 

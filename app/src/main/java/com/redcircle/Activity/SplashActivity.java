@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.widget.VideoView;
 
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
@@ -24,7 +25,7 @@ import java.net.URISyntaxException;
 
 public class SplashActivity extends AppCompatActivity {
     private RelativeLayout mPv1;
-
+    private VideoView videoView;
 
     @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     @Override
@@ -46,6 +47,10 @@ public class SplashActivity extends AppCompatActivity {
 
 
         mPv1 = (RelativeLayout) findViewById(R.id.backs);
+        videoView = (VideoView) findViewById(R.id.videoView);
+
+        videoView.setVideoPath("android.resource://com.redcircle/raw/" + R.raw.redcircle);
+        videoView.start();
 
 
        mPv1.postDelayed(new Runnable() {
@@ -55,7 +60,7 @@ public class SplashActivity extends AppCompatActivity {
                 SplashActivity.this.startActivity(intent);
                 finish();
             }
-        }, 5000);
+        }, 7000);
 
 
 

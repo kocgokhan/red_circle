@@ -58,11 +58,429 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="408dp"
-        android:layout_height="614dp"
-        android:layout_marginEnd="3dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"/>
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout6"
+                    android:layout_width="371dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/user_img"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="8dp"
+                        app:civ_border_color="#FF000000"
+                        app:civ_border_width="2dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.066"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.181" />
+
+                    <ImageButton
+                        android:id="@+id/edit_profile_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintStart_toStartOf="@+id/username_user"
+                        app:layout_constraintTop_toBottomOf="@+id/username_user"
+                        app:srcCompat="@mipmap/sendmessage" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Düzenle"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/edit_profile_btn"
+                        app:layout_constraintEnd_toEndOf="@+id/edit_profile_btn"
+                        app:layout_constraintStart_toStartOf="@+id/edit_profile_btn"
+                        app:layout_constraintTop_toTopOf="@+id/edit_profile_btn" />
+
+                    <TextView
+                        android:id="@+id/name_user"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/user_img"
+                        app:layout_constraintTop_toTopOf="@+id/user_img" />
+
+                    <TextView
+                        android:id="@+id/username_user"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/name_user"
+                        app:layout_constraintTop_toBottomOf="@+id/name_user" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="361dp"
+                    android:layout_height="456dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
+
+                    <ImageView
+                        android:id="@+id/notif_back"
+                        android:layout_width="320dp"
+                        android:layout_height="41dp"
+                        android:layout_marginTop="48dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.487"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@mipmap/setting_back" />
+
+                    <ImageView
+                        android:id="@+id/notif_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="29dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/notif_back"
+                        app:layout_constraintStart_toStartOf="@+id/notif_back"
+                        app:layout_constraintTop_toTopOf="@+id/notif_back"
+                        app:layout_constraintVertical_bias="0.562"
+                        app:srcCompat="@drawable/bell_icon" />
+
+                    <TextView
+                        android:id="@+id/notif_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Bildirim Ayarları"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/notif_icon"
+                        app:layout_constraintStart_toEndOf="@+id/notif_icon"
+                        app:layout_constraintTop_toTopOf="@+id/notif_icon" />
+
+                    <ImageView
+                        android:id="@+id/match_back"
+                        android:layout_width="320dp"
+                        android:layout_height="41dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintEnd_toEndOf="@+id/notif_back"
+                        app:layout_constraintHorizontal_bias="0.487"
+                        app:layout_constraintStart_toStartOf="@+id/notif_back"
+                        app:layout_constraintTop_toBottomOf="@+id/notif_back"
+                        app:srcCompat="@mipmap/setting_back" />
+
+                    <ImageView
+                        android:id="@+id/permission_back"
+                        android:layout_width="320dp"
+                        android:layout_height="41dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintEnd_toEndOf="@+id/match_back"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/match_back"
+                        app:layout_constraintTop_toBottomOf="@+id/match_back"
+                        app:srcCompat="@mipmap/setting_back" />
+
+                    <ImageView
+                        android:id="@+id/block_back"
+                        android:layout_width="320dp"
+                        android:layout_height="41dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintEnd_toEndOf="@+id/permission_back"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/permission_back"
+                        app:layout_constraintTop_toBottomOf="@+id/permission_back"
+                        app:srcCompat="@mipmap/setting_back" />
+
+                    <ImageView
+                        android:id="@+id/privacy_back"
+                        android:layout_width="320dp"
+                        android:layout_height="41dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintEnd_toEndOf="@+id/block_back"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/block_back"
+                        app:layout_constraintTop_toBottomOf="@+id/block_back"
+                        app:srcCompat="@mipmap/setting_back" />
+
+                    <ImageView
+                        android:id="@+id/logout_back"
+                        android:layout_width="320dp"
+                        android:layout_height="41dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintEnd_toEndOf="@+id/privacy_back"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/privacy_back"
+                        app:layout_constraintTop_toBottomOf="@+id/privacy_back"
+                        app:srcCompat="@mipmap/setting_back" />
+
+                    <ImageView
+                        android:id="@+id/delete_back"
+                        android:layout_width="320dp"
+                        android:layout_height="41dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintEnd_toEndOf="@+id/logout_back"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/logout_back"
+                        app:layout_constraintTop_toBottomOf="@+id/logout_back"
+                        app:srcCompat="@mipmap/setting_back" />
+
+                    <ImageView
+                        android:id="@+id/match_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="29dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/match_back"
+                        app:layout_constraintStart_toStartOf="@+id/match_back"
+                        app:layout_constraintTop_toTopOf="@+id/match_back"
+                        app:srcCompat="@drawable/home_icon" />
+
+                    <TextView
+                        android:id="@+id/match_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Eşleşme Ayarları"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/match_icon"
+                        app:layout_constraintStart_toEndOf="@+id/match_icon"
+                        app:layout_constraintTop_toTopOf="@+id/match_icon" />
+
+                    <ImageView
+                        android:id="@+id/permission_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="29dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/permission_back"
+                        app:layout_constraintStart_toStartOf="@+id/permission_back"
+                        app:layout_constraintTop_toTopOf="@+id/permission_back"
+                        app:srcCompat="@drawable/shield" />
+
+                    <TextView
+                        android:id="@+id/permission_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="İzinler"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/permission_icon"
+                        app:layout_constraintStart_toEndOf="@+id/permission_icon"
+                        app:layout_constraintTop_toTopOf="@+id/permission_icon" />
+
+                    <ImageView
+                        android:id="@+id/block_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="29dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/block_back"
+                        app:layout_constraintStart_toStartOf="@+id/block_back"
+                        app:layout_constraintTop_toTopOf="@+id/block_back"
+                        app:srcCompat="@drawable/blocked" />
+
+                    <TextView
+                        android:id="@+id/block_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Engel Listesi"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/block_icon"
+                        app:layout_constraintStart_toEndOf="@+id/block_icon"
+                        app:layout_constraintTop_toTopOf="@+id/block_icon" />
+
+                    <ImageView
+                        android:id="@+id/privacy_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="29dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/privacy_back"
+                        app:layout_constraintStart_toStartOf="@+id/privacy_back"
+                        app:layout_constraintTop_toTopOf="@+id/privacy_back"
+                        app:layout_constraintVertical_bias="0.437"
+                        app:srcCompat="@drawable/insurance" />
+
+                    <TextView
+                        android:id="@+id/privacy_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Yasal Uyarılar"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/privacy_icon"
+                        app:layout_constraintStart_toEndOf="@+id/privacy_icon"
+                        app:layout_constraintTop_toTopOf="@+id/privacy_icon" />
+
+                    <ImageView
+                        android:id="@+id/logout_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="29dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="6dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/logout_back"
+                        app:layout_constraintStart_toStartOf="@+id/logout_back"
+                        app:layout_constraintTop_toTopOf="@+id/logout_back"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:srcCompat="@drawable/logout" />
+
+                    <TextView
+                        android:id="@+id/logout_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Çıkış Yap"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/logout_icon"
+                        app:layout_constraintStart_toEndOf="@+id/logout_icon"
+                        app:layout_constraintTop_toTopOf="@+id/logout_icon" />
+
+                    <ImageView
+                        android:id="@+id/delete_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="29dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="6dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/delete_back"
+                        app:layout_constraintStart_toStartOf="@+id/delete_back"
+                        app:layout_constraintTop_toTopOf="@+id/delete_back"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:srcCompat="@drawable/garbage" />
+
+                    <TextView
+                        android:id="@+id/delete_account_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Hesabı Sil"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/delete_icon"
+                        app:layout_constraintStart_toEndOf="@+id/delete_icon"
+                        app:layout_constraintTop_toTopOf="@+id/delete_icon" />
+
+                    <ImageButton
+                        android:id="@+id/go_notif"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="@+id/notif_back"
+                        app:layout_constraintEnd_toEndOf="@+id/notif_back"
+                        app:layout_constraintTop_toTopOf="@+id/notif_back"
+                        app:layout_constraintVertical_bias="0.466"
+                        app:srcCompat="@drawable/go_btn" />
+
+                    <ImageButton
+                        android:id="@+id/go_match"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="@+id/match_back"
+                        app:layout_constraintEnd_toEndOf="@+id/match_back"
+                        app:layout_constraintTop_toTopOf="@+id/match_back"
+                        app:layout_constraintVertical_bias="0.466"
+                        app:srcCompat="@drawable/go_btn" />
+
+                    <ImageButton
+                        android:id="@+id/go_block"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="@+id/block_back"
+                        app:layout_constraintEnd_toEndOf="@+id/block_back"
+                        app:layout_constraintTop_toTopOf="@+id/block_back"
+                        app:layout_constraintVertical_bias="0.4"
+                        app:srcCompat="@drawable/go_btn" />
+
+                    <ImageButton
+                        android:id="@+id/go_privacy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="@+id/privacy_back"
+                        app:layout_constraintEnd_toEndOf="@+id/privacy_back"
+                        app:layout_constraintTop_toTopOf="@+id/privacy_back"
+                        app:layout_constraintVertical_bias="0.333"
+                        app:srcCompat="@drawable/go_btn" />
+
+                    <ImageButton
+                        android:id="@+id/go_logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="@+id/logout_back"
+                        app:layout_constraintEnd_toEndOf="@+id/logout_back"
+                        app:layout_constraintTop_toTopOf="@+id/logout_back"
+                        app:layout_constraintVertical_bias="0.333"
+                        app:srcCompat="@drawable/go_btn" />
+
+                    <ImageButton
+                        android:id="@+id/go_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="@+id/delete_back"
+                        app:layout_constraintEnd_toEndOf="@+id/delete_back"
+                        app:layout_constraintTop_toTopOf="@+id/delete_back"
+                        app:layout_constraintVertical_bias="0.4"
+                        app:srcCompat="@drawable/go_btn" />
+
+                    <ImageButton
+                        android:id="@+id/go_permis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="@+id/permission_back"
+                        app:layout_constraintEnd_toEndOf="@+id/permission_back"
+                        app:layout_constraintTop_toTopOf="@+id/permission_back"
+                        app:layout_constraintVertical_bias="0.466"
+                        app:srcCompat="@drawable/go_btn" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

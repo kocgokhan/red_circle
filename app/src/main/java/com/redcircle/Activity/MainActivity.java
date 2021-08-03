@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(profile_intent);
                     break;
                 case R.id.navigation_music_list:
-                    Intent music_intent = new Intent(MainActivity.this, MusicListActivity.class);
+                    Intent music_intent = new Intent(MainActivity.this, DiscoverUserActivity.class);
                     startActivity(music_intent);
                     break;
             }
@@ -124,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
         socket.on(Socket.EVENT_CONNECT,onConnect);
         socket.on(Socket.EVENT_DISCONNECT,onDisconnect);
         socket.on("get_token", getToken);
-        socket.on("match_song", match_song);
         socket.on("event", event);
         socket.connect();
 
@@ -222,18 +221,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     };
-    private Emitter.Listener match_song = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    FancyToast.makeText(MainActivity.this, "Eşleşme var", FancyToast.LENGTH_LONG, FancyToast.CONFUSING, R.drawable.spls, false).show();
-                    Log.wtf(TAG, String.valueOf(args[0]));
-                }
-            });
-        }
-    };
+
     private Emitter.Listener event = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
@@ -450,7 +438,6 @@ public class MainActivity extends AppCompatActivity {
         socket.off(Socket.EVENT_CONNECT, onConnect);
         socket.off(Socket.EVENT_DISCONNECT, onDisconnect);
         socket.off("get_token", getToken);
-        socket.off("match_song", match_song);
         socket.off("event", event);
     }
 

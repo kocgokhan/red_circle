@@ -2,48 +2,110 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardview"
+    android:id="@+id/cardview_vj"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="10dp">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="204dp"
+        android:background="@color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.github.siyamed.shapeimageview.RoundedImageView
-            android:id="@+id/content_image_iv"
-            android:layout_width="108dp"
-            android:layout_height="104dp"
-            android:src="@mipmap/profile_photo"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="314dp"
+            android:layout_height="193dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.313"
-            app:siBorderColor="@color/white"
-            app:siBorderWidth="1dp"
-            app:siRadius="6dp"
-            app:siSquare="true" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/iv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="TextView"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/content_image_iv"
-            app:layout_constraintEnd_toEndOf="@+id/content_image_iv"
-            app:layout_constraintHorizontal_bias="0.52"
-            app:layout_constraintStart_toStartOf="@+id/content_image_iv" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/vj_userimage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_border_color="@color/grey"
+                app:riv_border_width="1dip"
+                app:riv_corner_radius="6dip"
+                app:riv_mutate_background="false"
+                app:riv_oval="false" />
 
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/back_image3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/black_back"
+                app:layout_constraintBottom_toBottomOf="@+id/vj_userimage"
+                app:layout_constraintEnd_toEndOf="@+id/vj_userimage"
+                app:layout_constraintEnd_toStartOf="@+id/vj_userimage"
+                app:layout_constraintStart_toStartOf="@+id/vj_userimage"
+                app:layout_constraintTop_toTopOf="@+id/vj_userimage"
+                app:riv_border_color="@color/transparent"
+                app:riv_border_width="1dip"
+                app:riv_corner_radius="6dip"
+                app:riv_mutate_background="true"
+                app:riv_oval="false" />
+
+            <TextView
+                android:id="@+id/vj_username"
+                android:layout_width="229dp"
+                android:layout_height="27dp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/vj_name"
+                app:layout_constraintTop_toBottomOf="@+id/vj_name" />
+
+            <TextView
+                android:id="@+id/live_song_name"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/live_song_image"
+                app:layout_constraintTop_toTopOf="@+id/live_song_image" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/live_song_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintStart_toStartOf="@+id/vj_username"
+                app:layout_constraintTop_toBottomOf="@+id/vj_username" />
+
+            <TextView
+                android:id="@+id/vj_name"
+                android:layout_width="229dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="80dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/vj_userimage"
+                app:layout_constraintTop_toTopOf="@+id/vj_userimage" />
+
+            <TextView
+                android:id="@+id/live_song_artist"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/live_song_name"
+                app:layout_constraintTop_toBottomOf="@+id/live_song_name" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

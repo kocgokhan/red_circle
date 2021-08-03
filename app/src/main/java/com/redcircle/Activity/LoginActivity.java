@@ -248,6 +248,7 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE) {
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
             switch (response.getType()) {
+
                 // Response was successful and contains auth token
                 case TOKEN:
                     SharedPreferences.Editor editor = MyApplication.get().getPreferencesEditor();

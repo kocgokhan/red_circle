@@ -70,7 +70,7 @@ public class MusicListActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         user_id = preferences.getString("user_id", "Error");
 
-        recyclerView = (RecyclerView) findViewById(R.id.album_track_recy);
+        recyclerView = (RecyclerView) findViewById(R.id.iv_artist);
         iv_artist = (RecyclerView) findViewById(R.id.iv_artist);
 
         top_ten = (ImageView) findViewById(R.id.top_ten);

@@ -22,14 +22,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RedCircle"
         tools:ignore="HardcodedDebugMode">
-        <activity android:name=".Activity.PostCommentActivity"></activity>
+        <activity android:name=".Activity.DiscoverUserActivity"></activity>
+        <activity android:name=".Activity.PostCommentActivity" />
         <activity android:name=".Activity.SettingsActivity" />
         <activity android:name=".Activity.AlbumTrackActivity" />
         <activity android:name=".Activity.SponsorDetailActivity" />
         <activity android:name=".Activity.SongPostActivity" />
         <activity android:name=".Activity.LiveSongActivity" />
         <activity android:name=".Activity.TopListActivity" />
-        <activity android:name=".Activity.MatchDetailActivity" />
         <activity android:name=".Activity.MusicListActivity" />
         <activity android:name=".Activity.ProfileActivity" />
         <activity android:name=".Activity.NotificationActivity" />

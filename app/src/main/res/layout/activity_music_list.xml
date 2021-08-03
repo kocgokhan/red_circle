@@ -60,7 +60,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
-        android:id="@+id/scrollView4"
+        android:id="@+id/scrollView"
         android:layout_width="410dp"
         android:layout_height="0dp"
         prefix:layout_constraintBottom_toBottomOf="parent"
@@ -90,7 +90,7 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/album_track_recy"
+                    android:id="@+id/iv_artist"
                     android:layout_width="392dp"
                     android:layout_height="137dp"
                     android:layout_marginStart="-1dp"

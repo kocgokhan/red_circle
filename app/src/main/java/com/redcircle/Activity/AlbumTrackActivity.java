@@ -57,7 +57,7 @@ public class AlbumTrackActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        album_track_recy = (RecyclerView) findViewById(R.id.album_track_recy);
+        album_track_recy = (RecyclerView) findViewById(R.id.iv_artist);
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
             album_id= null;

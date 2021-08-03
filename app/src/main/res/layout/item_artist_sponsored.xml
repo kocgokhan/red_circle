@@ -2,71 +2,60 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardview_vj"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:background="@color/transparent">
+    android:layout_margin="10dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="258dp"
-        android:layout_height="129dp"
-        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.santalu.aspectratioimageview.AspectRatioImageView
+        <com.github.siyamed.shapeimageview.RoundedImageView
             android:id="@+id/content_image_iv"
-            android:layout_width="258dp"
-            android:layout_height="111dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/image_demo"
-            app:ari_ratio="0.5"
+            android:layout_width="108dp"
+            android:layout_height="104dp"
+            android:src="@mipmap/profile_photo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.313"
             app:siBorderColor="@color/white"
             app:siBorderWidth="1dp"
             app:siRadius="6dp"
             app:siSquare="true" />
 
-        <com.santalu.aspectratioimageview.AspectRatioImageView
-            android:id="@+id/back_song_name"
-            android:layout_width="wrap_content"
-            android:layout_height="61dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/post_text_back"
-            app:ari_ratio="0.3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:siRadius="2dp"
-            app:siSquare="true" />
-
         <TextView
             android:id="@+id/iv_name"
-            android:layout_width="204dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
             android:text="TextView"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/back_song_name"
-            app:layout_constraintTop_toTopOf="@+id/back_song_name" />
+            app:layout_constraintEnd_toEndOf="@+id/content_image_iv"
+            app:layout_constraintHorizontal_bias="0.32"
+            app:layout_constraintStart_toStartOf="@+id/content_image_iv"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/iv_username"
-            android:layout_width="204dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="TextView"
             android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/iv_name"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/iv_name"
-            app:layout_constraintTop_toBottomOf="@+id/iv_name" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_name"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

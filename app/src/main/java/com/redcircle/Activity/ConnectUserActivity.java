@@ -49,6 +49,8 @@ public class ConnectUserActivity extends AppCompatActivity {
     private boolean prev = false;
     private String user_names,user_usernames,user_image,user_id,my_user_id;
     private TextView myTextView,artist,user_name;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

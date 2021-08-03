@@ -20,8 +20,10 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.Socket;
 import com.redcircle.Adapter.MatchAdapter;
+import com.redcircle.Pojo.ConnectListVj;
 import com.redcircle.Pojo.Match;
 import com.redcircle.R;
 import com.redcircle.Request.AqJSONObjectRequest;
@@ -38,19 +40,28 @@ import static com.redcircle.Util.StaticFields.BASE_URL;
 
 public class MatchActivity extends AppCompatActivity {
 
-    private String user_id;
+    private String user_id,song_uri;
     private boolean match = false;
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView recyclerView;
     private ImageView no_post_image;
     private TextView no_post_text;
     private ImageButton back_views;
+    private Socket socket;
+    private ArrayList<Match> matchArrayList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);// hide status bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);// hide status bar
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        user_id = preferences.getString("user_id", "Error");
 
+        MyApplication app = (MyApplication) getApplicationContext();
+        socket = app.getSocket();
+        socket.on("songForMatch", songForMatch);
+        socket.on("have_match", have_match);
+        socket.connect();
 
         View bView = getWindow().getDecorView();// hide hardware buttons
         bView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);// hide hardware buttons
@@ -60,80 +71,74 @@ public class MatchActivity extends AppCompatActivity {
         }
         catch (NullPointerException e){}
         setContentView(R.layout.activity_match);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        user_id = preferences.getString("user_id", "Error");
 
         back_views = (ImageButton) findViewById(R.id.back_views);
         back_views.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MatchActivity.this, MainActivity.class);
-                startActivity(i);
+                onBackPressed();
+                socket.off("matcher");
+                socket.off("songForMatch", songForMatch);
+                socket.off("have_match", have_match);
                 MyApplication.get().getRequestQueue().getCache().clear();
             }
         });
-
         recyclerView =(RecyclerView) findViewById(R.id.match_recycle);
-        getmatchlist(user_id);
-
     }
 
-    private void getmatchlist(String id){
-        ArrayList<Match> mathArrayList = new ArrayList<>();
-        JSONObject params = new JSONObject();
-        match=true;
-        try {
-
-            params.put("user_id", id);
-            Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
+    private Emitter.Listener songForMatch = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            runOnUiThread(new Runnable() {
                 @Override
-                public void onResponse(JSONObject response) {
-                    Log.wtf(TAG, "onResponse : " + response);
-                    mathArrayList.clear();
-                    JSONArray jsonArray = null;
+                public void run() {
+                    Log.wtf(TAG,String.valueOf(args[0]));
+                    socket.emit("matcher",String.valueOf(args[0]),String.valueOf(args[1]));
+                }
+            });
+        }
+    };
+    private Emitter.Listener have_match = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    matchArrayList.clear();
+                    String json = (String) args[0]; // your Object is variable argument so access it via index like array
+                    //Log.wtf(TAG,json);
                     try {
-                        jsonArray = response.getJSONArray("data");
+                        JSONObject jsonResponse;
+                        jsonResponse = new JSONObject(json);
+                        JSONArray jsonArray = null;
+                        jsonArray = jsonResponse.getJSONArray("data");
                         JSONObject jsonObject;
+
+
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             jsonObject = jsonArray.getJSONObject(i);
                             Match test = new Match(jsonObject, false);
-                            mathArrayList.add(test);
+
+                            if(user_id!= test.getMatch_user_is()){
+                                matchArrayList.add(test);
+                            }
+
                         }
+                        if (matchArrayList.size()==0) {
 
-
-                        if (mathArrayList.get(0)==null){
-
-
-                        }else{ drawCart(mathArrayList);}
-
+                        } else {
+                            drawCart(matchArrayList);
+                        }
                         MyApplication.get().getRequestQueue().getCache().clear();
                     } catch (JSONException e) {
+                        // TODO Auto-generated catch block
                         e.printStackTrace();
-
                     }
-
                 }
-            };
-
-            Response.ErrorListener errorListener = new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.wtf(TAG, "onErrorResponse : " + error);
-                    Toast.makeText(getApplicationContext(), "Hata", Toast.LENGTH_SHORT).show();
-                }
-            };
-
-            AqJSONObjectRequest aqJSONObjectRequest = new AqJSONObjectRequest(TAG, BASE_URL + "user_match", params, listener, errorListener);
-            MyApplication.get().getRequestQueue().add(aqJSONObjectRequest);
-        } catch (JSONException e) {
-            Log.wtf(TAG, "request params catch e.getMessage() : " + e.getMessage());
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Hata", Toast.LENGTH_SHORT).show();
+            });
         }
-
-
-    }
+    };
 
     public void drawCart(ArrayList<Match>list){
         if (getApplicationContext()!=null) {

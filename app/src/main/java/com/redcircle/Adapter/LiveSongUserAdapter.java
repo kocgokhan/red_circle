@@ -16,10 +16,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ceylonlabs.imageviewpopup.ImagePopup;
-import com.redcircle.Activity.MatchDetailActivity;
 import com.redcircle.Activity.UserProfileActivity;
 import com.redcircle.Pojo.LiveSongUser;
-import com.redcircle.Pojo.Match;
 import com.redcircle.R;
 import com.redcircle.Util.MyApplication;
 import com.squareup.picasso.Picasso;

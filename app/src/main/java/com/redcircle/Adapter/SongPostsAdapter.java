@@ -22,6 +22,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ceylonlabs.imageviewpopup.ImagePopup;
+import com.redcircle.Activity.PostCommentActivity;
 import com.redcircle.Activity.UserProfileActivity;
 import com.redcircle.Pojo.SongPost;
 import com.redcircle.R;
@@ -70,25 +71,29 @@ public class SongPostsAdapter extends RecyclerView.Adapter<SongPostsAdapter.MyVi
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView productName, set_user_name, set_user_username,set_post_text,count_like,song_name;
-        ImageView productImage,song_image,set_profile_image,like_post,unlike_post,set_post_image;
+        TextView productName, set_user_name, set_user_username,set_post_text,count_like,count_comment,song_name,song_artist;
+        ImageView productImage,song_image,set_profile_image,like_post,unlike_post,set_post_image,song_image_v,comment_btn;
         ConstraintLayout card;
         ImageButton play_song_btn;
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            play_song_btn = (ImageButton) itemView.findViewById(R.id.play_song_btn);
+            //play_song_btn = (ImageButton) itemView.findViewById(R.id.play_song_btn);
             productImage = (ImageView) itemView.findViewById(R.id.song_image_post);
+            song_image_v = (ImageView) itemView.findViewById(R.id.song_image_v);
             set_profile_image = (ImageView) itemView.findViewById(R.id.match_userphoto);
             set_post_image = (ImageView) itemView.findViewById(R.id.back_image);
             like_post = (ImageView) itemView.findViewById(R.id.like_post);
             unlike_post = (ImageView) itemView.findViewById(R.id.unlike_post);
+            comment_btn = (ImageView) itemView.findViewById(R.id.comment_btn);
             set_user_name = (TextView) itemView.findViewById(R.id.set_user_name);
             set_post_text = (TextView) itemView.findViewById(R.id.set_post_text);
             set_user_username = (TextView) itemView.findViewById(R.id.set_user_username);
             song_name = (TextView) itemView.findViewById(R.id.song_name);
+            song_artist = (TextView) itemView.findViewById(R.id.song_artist);
             count_like = (TextView) itemView.findViewById(R.id.count_like);
+            count_comment = (TextView) itemView.findViewById(R.id.count_comment);
             card = (ConstraintLayout) itemView.findViewById(R.id.cardSong);
 
 
@@ -104,12 +109,18 @@ public class SongPostsAdapter extends RecyclerView.Adapter<SongPostsAdapter.MyVi
                     Idontliked(v.getContext());
                 }
             });
-            play_song_btn.setOnClickListener(new View.OnClickListener() {
+            comment_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goComment(v.getContext());
+                }
+            });
+            /*play_song_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     play_song(view.getContext());
                 }
-            });
+            });*/
 
             set_profile_image.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -123,15 +134,17 @@ public class SongPostsAdapter extends RecyclerView.Adapter<SongPostsAdapter.MyVi
 
         public void setData(SongPost selectedProduct, int position) {
 
-            String imgResource = "https://spotify.krakersoft.com/upload_post_pic/" +  mProductList.get(getAdapterPosition()).getPost_img_url();
+            String imgResource = "https://spotify.krakersoft.com/upload_post_pic/" +  mProductList.get(position).getPost_img_url();
             String song_image =   selectedProduct.getSong_image();
             String profile_photo = "https://spotify.krakersoft.com/upload_user_pic/"+selectedProduct.getPost_user_image();
 
-            this.song_name.setText(selectedProduct.getSong_name()+'-'+selectedProduct.getSong_artist());
+            this.song_name.setText(selectedProduct.getSong_name());
+            this.song_artist.setText(selectedProduct.getSong_artist());
             this.set_user_name.setText(selectedProduct.getPost_user_name());
             this.set_user_username.setText(selectedProduct.getPost_user_username());
             this.set_post_text.setText(selectedProduct.getPost_text());
             this.count_like.setText(selectedProduct.getCount_like());
+            this.count_comment.setText(selectedProduct.getCount_comment());
 
             productImage.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
             productImage.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -139,10 +152,7 @@ public class SongPostsAdapter extends RecyclerView.Adapter<SongPostsAdapter.MyVi
             productImage.setScaleType(ImageView.ScaleType.FIT_XY);
 
 
-            song_name.setSingleLine(true);
-            song_name.setMarqueeRepeatLimit(-1);
-            song_name.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-            song_name.setSelected(true);
+
 
             if(selectedProduct.getIsLike().equals("1")){
 
@@ -156,6 +166,7 @@ public class SongPostsAdapter extends RecyclerView.Adapter<SongPostsAdapter.MyVi
             }
 
             Picasso.get().load(profile_photo).into(this.set_profile_image);
+            Picasso.get().load(song_image).into(this.song_image_v);
             Picasso.get().load(song_image).into(this.productImage);
             Picasso.get().load(imgResource).into(this.set_post_image);
 
@@ -184,6 +195,17 @@ public class SongPostsAdapter extends RecyclerView.Adapter<SongPostsAdapter.MyVi
             i.putExtra("user_image", mProductList.get(getAdapterPosition()).getPost_user_image());
             i.putExtra("user_username", mProductList.get(getAdapterPosition()).getPost_user_username());
             i.putExtra("user_user_id", mProductList.get(getAdapterPosition()).getPost_user_id());
+            i.putExtra("user_profile_lock", mProductList.get(getAdapterPosition()).getProfile_lock());
+            context.startActivity(i);
+            MyApplication.get().getRequestQueue().getCache().clear();
+
+        }
+        public void goComment(Context context){
+
+            Intent i = new Intent(context.getApplicationContext(), PostCommentActivity.class);
+            String strName = null;
+            i.putExtra("user_user_id", mProductList.get(getAdapterPosition()).getPost_user_id());
+            i.putExtra("post_id", mProductList.get(getAdapterPosition()).getPost_id());
             context.startActivity(i);
             MyApplication.get().getRequestQueue().getCache().clear();
 
@@ -330,4 +352,4 @@ public class SongPostsAdapter extends RecyclerView.Adapter<SongPostsAdapter.MyVi
     }
 
 
-    }
+}
